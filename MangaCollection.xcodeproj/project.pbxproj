@@ -1,0 +1,445 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		585C8BC22C10E374005FA187 /* MangaCollectionApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585C8BC12C10E374005FA187 /* MangaCollectionApp.swift */; };
+		585C8BC42C10E374005FA187 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585C8BC32C10E374005FA187 /* ContentView.swift */; };
+		585C8BC62C10E377005FA187 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 585C8BC52C10E377005FA187 /* Assets.xcassets */; };
+		585C8BC92C10E377005FA187 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 585C8BC82C10E377005FA187 /* Preview Assets.xcassets */; };
+		585C8BD52C10E4F7005FA187 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585C8BD42C10E4F7005FA187 /* APIRequest.swift */; };
+		585C8BD72C10EC29005FA187 /* MangaInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585C8BD62C10EC29005FA187 /* MangaInteractor.swift */; };
+		585C8BDA2C10ED34005FA187 /* MangaDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585C8BD92C10ED34005FA187 /* MangaDTO.swift */; };
+		585C8BE22C10F231005FA187 /* Manga.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585C8BE12C10F231005FA187 /* Manga.swift */; };
+		585C8BE52C10F78A005FA187 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585C8BE42C10F78A005FA187 /* NetworkService.swift */; };
+		585C8BE82C10FA57005FA187 /* MangaListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585C8BE72C10FA57005FA187 /* MangaListRequest.swift */; };
+		585C8BEB2C11007F005FA187 /* JSONEncodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585C8BEA2C11007F005FA187 /* JSONEncodable.swift */; };
+		585C8BED2C110714005FA187 /* MangaDTO+Manga.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585C8BEC2C110714005FA187 /* MangaDTO+Manga.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		585C8BBE2C10E374005FA187 /* MangaCollection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MangaCollection.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		585C8BC12C10E374005FA187 /* MangaCollectionApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaCollectionApp.swift; sourceTree = "<group>"; };
+		585C8BC32C10E374005FA187 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		585C8BC52C10E377005FA187 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		585C8BC82C10E377005FA187 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		585C8BD42C10E4F7005FA187 /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
+		585C8BD62C10EC29005FA187 /* MangaInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaInteractor.swift; sourceTree = "<group>"; };
+		585C8BD92C10ED34005FA187 /* MangaDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaDTO.swift; sourceTree = "<group>"; };
+		585C8BE12C10F231005FA187 /* Manga.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manga.swift; sourceTree = "<group>"; };
+		585C8BE42C10F78A005FA187 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		585C8BE72C10FA57005FA187 /* MangaListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaListRequest.swift; sourceTree = "<group>"; };
+		585C8BEA2C11007F005FA187 /* JSONEncodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONEncodable.swift; sourceTree = "<group>"; };
+		585C8BEC2C110714005FA187 /* MangaDTO+Manga.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MangaDTO+Manga.swift"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		585C8BBB2C10E374005FA187 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		585C8BB52C10E374005FA187 = {
+			isa = PBXGroup;
+			children = (
+				585C8BC02C10E374005FA187 /* MangaCollection */,
+				585C8BBF2C10E374005FA187 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		585C8BBF2C10E374005FA187 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				585C8BBE2C10E374005FA187 /* MangaCollection.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		585C8BC02C10E374005FA187 /* MangaCollection */ = {
+			isa = PBXGroup;
+			children = (
+				585C8BE92C110070005FA187 /* Extension */,
+				585C8BD82C10EC8D005FA187 /* Model */,
+				585C8BD02C10E3B4005FA187 /* View */,
+				585C8BCF2C10E3AC005FA187 /* Interactor */,
+				585C8BD32C10E4A5005FA187 /* Network */,
+				585C8BC12C10E374005FA187 /* MangaCollectionApp.swift */,
+				585C8BC32C10E374005FA187 /* ContentView.swift */,
+				585C8BC52C10E377005FA187 /* Assets.xcassets */,
+				585C8BC72C10E377005FA187 /* Preview Content */,
+			);
+			path = MangaCollection;
+			sourceTree = "<group>";
+		};
+		585C8BC72C10E377005FA187 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				585C8BC82C10E377005FA187 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		585C8BCF2C10E3AC005FA187 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				585C8BD22C10E3E6005FA187 /* Manga */,
+				585C8BD12C10E3DC005FA187 /* User */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		585C8BD02C10E3B4005FA187 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		585C8BD12C10E3DC005FA187 /* User */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		585C8BD22C10E3E6005FA187 /* Manga */ = {
+			isa = PBXGroup;
+			children = (
+				585C8BE62C10FA44005FA187 /* Requests */,
+				585C8BD62C10EC29005FA187 /* MangaInteractor.swift */,
+			);
+			path = Manga;
+			sourceTree = "<group>";
+		};
+		585C8BD32C10E4A5005FA187 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				585C8BD42C10E4F7005FA187 /* APIRequest.swift */,
+				585C8BE42C10F78A005FA187 /* NetworkService.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		585C8BD82C10EC8D005FA187 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				585C8BE12C10F231005FA187 /* Manga.swift */,
+				585C8BD92C10ED34005FA187 /* MangaDTO.swift */,
+				585C8BEC2C110714005FA187 /* MangaDTO+Manga.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		585C8BE62C10FA44005FA187 /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				585C8BE72C10FA57005FA187 /* MangaListRequest.swift */,
+			);
+			path = Requests;
+			sourceTree = "<group>";
+		};
+		585C8BE92C110070005FA187 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				585C8BEA2C11007F005FA187 /* JSONEncodable.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		585C8BBD2C10E374005FA187 /* MangaCollection */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 585C8BCC2C10E377005FA187 /* Build configuration list for PBXNativeTarget "MangaCollection" */;
+			buildPhases = (
+				585C8BBA2C10E374005FA187 /* Sources */,
+				585C8BBB2C10E374005FA187 /* Frameworks */,
+				585C8BBC2C10E374005FA187 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MangaCollection;
+			productName = MangaCollection;
+			productReference = 585C8BBE2C10E374005FA187 /* MangaCollection.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		585C8BB62C10E374005FA187 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1540;
+				LastUpgradeCheck = 1540;
+				TargetAttributes = {
+					585C8BBD2C10E374005FA187 = {
+						CreatedOnToolsVersion = 15.4;
+					};
+				};
+			};
+			buildConfigurationList = 585C8BB92C10E374005FA187 /* Build configuration list for PBXProject "MangaCollection" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 585C8BB52C10E374005FA187;
+			productRefGroup = 585C8BBF2C10E374005FA187 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				585C8BBD2C10E374005FA187 /* MangaCollection */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		585C8BBC2C10E374005FA187 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				585C8BC92C10E377005FA187 /* Preview Assets.xcassets in Resources */,
+				585C8BC62C10E377005FA187 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		585C8BBA2C10E374005FA187 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				585C8BE22C10F231005FA187 /* Manga.swift in Sources */,
+				585C8BDA2C10ED34005FA187 /* MangaDTO.swift in Sources */,
+				585C8BE82C10FA57005FA187 /* MangaListRequest.swift in Sources */,
+				585C8BC42C10E374005FA187 /* ContentView.swift in Sources */,
+				585C8BD72C10EC29005FA187 /* MangaInteractor.swift in Sources */,
+				585C8BD52C10E4F7005FA187 /* APIRequest.swift in Sources */,
+				585C8BC22C10E374005FA187 /* MangaCollectionApp.swift in Sources */,
+				585C8BED2C110714005FA187 /* MangaDTO+Manga.swift in Sources */,
+				585C8BE52C10F78A005FA187 /* NetworkService.swift in Sources */,
+				585C8BEB2C11007F005FA187 /* JSONEncodable.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		585C8BCA2C10E377005FA187 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		585C8BCB2C10E377005FA187 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		585C8BCD2C10E377005FA187 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"MangaCollection/Preview Content\"";
+				DEVELOPMENT_TEAM = 7Q42WTV78L;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = hawaa.com.MangaCollection;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		585C8BCE2C10E377005FA187 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"MangaCollection/Preview Content\"";
+				DEVELOPMENT_TEAM = 7Q42WTV78L;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = hawaa.com.MangaCollection;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		585C8BB92C10E374005FA187 /* Build configuration list for PBXProject "MangaCollection" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				585C8BCA2C10E377005FA187 /* Debug */,
+				585C8BCB2C10E377005FA187 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		585C8BCC2C10E377005FA187 /* Build configuration list for PBXNativeTarget "MangaCollection" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				585C8BCD2C10E377005FA187 /* Debug */,
+				585C8BCE2C10E377005FA187 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 585C8BB62C10E374005FA187 /* Project object */;
+}
