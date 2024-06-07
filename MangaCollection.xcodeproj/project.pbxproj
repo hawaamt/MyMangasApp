@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		582618592C12211400B041A2 /* MangaBestRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582618582C12211400B041A2 /* MangaBestRequest.swift */; };
+		5826185B2C12220800B041A2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5826185A2C12220800B041A2 /* HomeView.swift */; };
+		5826185F2C12222100B041A2 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5826185E2C12222100B041A2 /* HomeViewModel.swift */; };
+		582618612C1222BD00B041A2 /* ViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582618602C1222BD00B041A2 /* ViewState.swift */; };
+		582618642C12258400B041A2 /* MangaInteractorPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582618632C12258400B041A2 /* MangaInteractorPreview.swift */; };
+		582618672C12267D00B041A2 /* Manga+Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582618662C12267D00B041A2 /* Manga+Mocks.swift */; };
+		583435F62C12358C00BEB2F2 /* Text+alignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583435F52C12358C00BEB2F2 /* Text+alignment.swift */; };
+		583435F82C12374A00BEB2F2 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 583435F72C12374A00BEB2F2 /* Localizable.xcstrings */; };
+		583435FA2C123A9C00BEB2F2 /* HomeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583435F92C123A9C00BEB2F2 /* HomeFactory.swift */; };
+		583436012C123E9B00BEB2F2 /* String+Scaped.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583436002C123E9B00BEB2F2 /* String+Scaped.swift */; };
+		583436042C12447C00BEB2F2 /* SkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583436032C12447C00BEB2F2 /* SkeletonView.swift */; };
+		583436062C1245C900BEB2F2 /* HomeMangaCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583436052C1245C900BEB2F2 /* HomeMangaCard.swift */; };
 		585C8BC22C10E374005FA187 /* MangaCollectionApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585C8BC12C10E374005FA187 /* MangaCollectionApp.swift */; };
 		585C8BC42C10E374005FA187 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585C8BC32C10E374005FA187 /* ContentView.swift */; };
 		585C8BC62C10E377005FA187 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 585C8BC52C10E377005FA187 /* Assets.xcassets */; };
@@ -22,6 +34,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		582618582C12211400B041A2 /* MangaBestRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaBestRequest.swift; sourceTree = "<group>"; };
+		5826185A2C12220800B041A2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		5826185E2C12222100B041A2 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		582618602C1222BD00B041A2 /* ViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewState.swift; sourceTree = "<group>"; };
+		582618632C12258400B041A2 /* MangaInteractorPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaInteractorPreview.swift; sourceTree = "<group>"; };
+		582618662C12267D00B041A2 /* Manga+Mocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Manga+Mocks.swift"; sourceTree = "<group>"; };
+		583435F52C12358C00BEB2F2 /* Text+alignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text+alignment.swift"; sourceTree = "<group>"; };
+		583435F72C12374A00BEB2F2 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		583435F92C123A9C00BEB2F2 /* HomeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFactory.swift; sourceTree = "<group>"; };
+		583436002C123E9B00BEB2F2 /* String+Scaped.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Scaped.swift"; sourceTree = "<group>"; };
+		583436032C12447C00BEB2F2 /* SkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonView.swift; sourceTree = "<group>"; };
+		583436052C1245C900BEB2F2 /* HomeMangaCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMangaCard.swift; sourceTree = "<group>"; };
 		585C8BBE2C10E374005FA187 /* MangaCollection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MangaCollection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		585C8BC12C10E374005FA187 /* MangaCollectionApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaCollectionApp.swift; sourceTree = "<group>"; };
 		585C8BC32C10E374005FA187 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -48,6 +72,49 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5826185C2C12220F00B041A2 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				583435F92C123A9C00BEB2F2 /* HomeFactory.swift */,
+				5826185A2C12220800B041A2 /* HomeView.swift */,
+				5826185E2C12222100B041A2 /* HomeViewModel.swift */,
+				583436072C1245E600BEB2F2 /* ContentView */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		582618622C12256C00B041A2 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				582618632C12258400B041A2 /* MangaInteractorPreview.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		582618652C12267400B041A2 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				582618662C12267D00B041A2 /* Manga+Mocks.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		583436022C12446E00BEB2F2 /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				583436032C12447C00BEB2F2 /* SkeletonView.swift */,
+			);
+			path = CustomViews;
+			sourceTree = "<group>";
+		};
+		583436072C1245E600BEB2F2 /* ContentView */ = {
+			isa = PBXGroup;
+			children = (
+				583436052C1245C900BEB2F2 /* HomeMangaCard.swift */,
+			);
+			path = ContentView;
+			sourceTree = "<group>";
+		};
 		585C8BB52C10E374005FA187 = {
 			isa = PBXGroup;
 			children = (
@@ -73,8 +140,8 @@
 				585C8BCF2C10E3AC005FA187 /* Interactor */,
 				585C8BD32C10E4A5005FA187 /* Network */,
 				585C8BC12C10E374005FA187 /* MangaCollectionApp.swift */,
-				585C8BC32C10E374005FA187 /* ContentView.swift */,
 				585C8BC52C10E377005FA187 /* Assets.xcassets */,
+				583435F72C12374A00BEB2F2 /* Localizable.xcstrings */,
 				585C8BC72C10E377005FA187 /* Preview Content */,
 			);
 			path = MangaCollection;
@@ -83,6 +150,8 @@
 		585C8BC72C10E377005FA187 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
+				582618652C12267400B041A2 /* Mocks */,
+				582618622C12256C00B041A2 /* Interactor */,
 				585C8BC82C10E377005FA187 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
@@ -100,6 +169,10 @@
 		585C8BD02C10E3B4005FA187 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				582618602C1222BD00B041A2 /* ViewState.swift */,
+				585C8BC32C10E374005FA187 /* ContentView.swift */,
+				5826185C2C12220F00B041A2 /* Home */,
+				583436022C12446E00BEB2F2 /* CustomViews */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -143,6 +216,7 @@
 			isa = PBXGroup;
 			children = (
 				585C8BE72C10FA57005FA187 /* MangaListRequest.swift */,
+				582618582C12211400B041A2 /* MangaBestRequest.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -151,6 +225,8 @@
 			isa = PBXGroup;
 			children = (
 				585C8BEA2C11007F005FA187 /* JSONEncodable.swift */,
+				583435F52C12358C00BEB2F2 /* Text+alignment.swift */,
+				583436002C123E9B00BEB2F2 /* String+Scaped.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -192,11 +268,12 @@
 			};
 			buildConfigurationList = 585C8BB92C10E374005FA187 /* Build configuration list for PBXProject "MangaCollection" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
+			developmentRegion = es;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
+				es,
 			);
 			mainGroup = 585C8BB52C10E374005FA187;
 			productRefGroup = 585C8BBF2C10E374005FA187 /* Products */;
@@ -215,6 +292,7 @@
 			files = (
 				585C8BC92C10E377005FA187 /* Preview Assets.xcassets in Resources */,
 				585C8BC62C10E377005FA187 /* Assets.xcassets in Resources */,
+				583435F82C12374A00BEB2F2 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,16 +303,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				582618642C12258400B041A2 /* MangaInteractorPreview.swift in Sources */,
+				583436042C12447C00BEB2F2 /* SkeletonView.swift in Sources */,
 				585C8BE22C10F231005FA187 /* Manga.swift in Sources */,
 				585C8BDA2C10ED34005FA187 /* MangaDTO.swift in Sources */,
 				585C8BE82C10FA57005FA187 /* MangaListRequest.swift in Sources */,
 				585C8BC42C10E374005FA187 /* ContentView.swift in Sources */,
 				585C8BD72C10EC29005FA187 /* MangaInteractor.swift in Sources */,
 				585C8BD52C10E4F7005FA187 /* APIRequest.swift in Sources */,
+				583436012C123E9B00BEB2F2 /* String+Scaped.swift in Sources */,
+				582618612C1222BD00B041A2 /* ViewState.swift in Sources */,
 				585C8BC22C10E374005FA187 /* MangaCollectionApp.swift in Sources */,
 				585C8BED2C110714005FA187 /* MangaDTO+Manga.swift in Sources */,
+				582618672C12267D00B041A2 /* Manga+Mocks.swift in Sources */,
+				583435F62C12358C00BEB2F2 /* Text+alignment.swift in Sources */,
+				5826185F2C12222100B041A2 /* HomeViewModel.swift in Sources */,
 				585C8BE52C10F78A005FA187 /* NetworkService.swift in Sources */,
+				583436062C1245C900BEB2F2 /* HomeMangaCard.swift in Sources */,
+				5826185B2C12220800B041A2 /* HomeView.swift in Sources */,
 				585C8BEB2C11007F005FA187 /* JSONEncodable.swift in Sources */,
+				582618592C12211400B041A2 /* MangaBestRequest.swift in Sources */,
+				583435FA2C123A9C00BEB2F2 /* HomeFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

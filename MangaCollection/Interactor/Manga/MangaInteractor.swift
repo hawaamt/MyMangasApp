@@ -9,6 +9,7 @@ import Foundation
 
 protocol MangaInteractor {
     func getMangaList(with pagination: MangaPagination) async throws -> MangaPaginated
+    func getMangaBest() async throws -> [Manga]
 }
 
 struct MangaInteractorImp: MangaInteractor {
@@ -20,10 +21,15 @@ struct MangaInteractorImp: MangaInteractor {
     }
     
     func getMangaList(with pagination: MangaPagination) async throws -> MangaPaginated {
-        print(pagination)
         let request = MangaListRequest(pagination: pagination)
         let response = try await networkService.perform(from: request)
         return response.manga
+    }
+    
+    func getMangaBest() async throws -> [Manga] {
+        let request = MangaBestRequest()
+        let response = try await networkService.perform(from: request)
+        return response.manga.items ?? []
     }
 }
 

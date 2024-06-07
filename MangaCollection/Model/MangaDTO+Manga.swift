@@ -30,7 +30,7 @@ extension MangaItemDTO {
               title: title,
               volumes: volumes,
               chapters: chapters,
-              url: url,
+              url: url?.unescaped,
               background: background,
               score: score,
               startDate: startDate,
@@ -41,7 +41,7 @@ extension MangaItemDTO {
               themes: themes.map { $0.themeData },
               status: status,
               sypnosis: sypnosis,
-              mainPicture: mainPicture,
+              mainPicture: mainPicture?.unescaped,
               titleJapanese: titleJapanese,
               titleEnglish: titleEnglish)
     }
