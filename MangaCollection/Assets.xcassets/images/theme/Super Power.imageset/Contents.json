@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "Super Power.jpeg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

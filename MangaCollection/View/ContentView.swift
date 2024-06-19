@@ -15,7 +15,6 @@ struct ContentView: View {
                 .tabItem {
                     Label("tab_home", systemImage: "house")
                 }
-            
             VStack {
                 Text("tab_myCollection")
             }

@@ -8,52 +8,45 @@
 import SwiftUI
 
 struct HomeMangaCard: View {
-    private let cardWidth: CGFloat = 130
-    private let imageCardHeight: CGFloat = 175
+    private let cardWidth: CGFloat = 160
+    private let imageCardHeight: CGFloat = 200
     
     let manga: Manga
     var action: () -> Void
        
     var body: some View {
-        Button {
-            action()
-        } label: {
-            VStack {
-                AsyncImage(url: URL(string: manga.mainPicture ?? "")) { phase in
-                    switch phase {
-                        case .empty:
-                            ZStack {
-                                Color(.bgGray)
-                                ProgressView()
-                            }
-                        case .success(let image):
-                            VStack {
-                                image.resizable()
-                                    .frame(width: cardWidth, height: imageCardHeight)
-                                    .aspectRatio(contentMode: .fit)
-                            }
-                        case .failure:
-                            ZStack {
-                                Color(.bgGray)
-                                Image(systemName: "photo")
-                                    .font(.system(size: 30))
-                            }
-                        @unknown default:
-                            EmptyView()
-                    }
+        VStack {
+            AsyncImage(url: URL(string: manga.mainPicture ?? "")) { phase in
+                switch phase {
+                    case .empty:
+                        ZStack {
+                            Color(.bgGray)
+                            ProgressView()
+                        }
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .scaledToFill()
+                    case .failure:
+                        ZStack {
+                            Color(.bgGray)
+                            Image(systemName: "photo")
+                                .font(.system(size: 30))
+                        }
+                    @unknown default:
+                        EmptyView()
                 }
-                .frame(width: cardWidth, height: imageCardHeight)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-                    
-                Text(manga.title)
-                    .leadingAlign()
-                    .font(.footnote)
-                    .fontWeight(.medium)
             }
-            .frame(alignment: .leading)
-            .frame(width: cardWidth)
+            .frame(width: cardWidth, height: imageCardHeight)
+            .clipShape(.buttonBorder)
+            .shadow(radius: 2)
+                
+            Text(manga.title)
+                .font(.footnote)
+                .fontWeight(.medium)
         }
-        .accentColor(Color(.text))
+        .frame(alignment: .leading)
+        .frame(width: cardWidth)
     }
 }
 

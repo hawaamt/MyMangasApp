@@ -6,23 +6,32 @@
 //
 
 import SwiftUI
+import Shimmer
 
 struct SkeletonView<Content>: View where Content: View {
     @Binding var isLoading: Bool
     let content: () -> Content
+    private let columns = [GridItem(.adaptive(minimum: 100))]
 
     var body: some View {
         if isLoading {
-            VStack(alignment: .center) {
-                ProgressView()
+            LazyVGrid(columns: columns) {
+                rectangle
+                rectangle
+                rectangle
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color(.bgGray))
-            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .shimmering(active: isLoading)
+            .frame(maxWidth: .infinity)
             .padding()
         } else {
             content()
         }
+    }
+    
+    private var rectangle: some View {
+        RoundedRectangle(cornerRadius: 10)
+            .fill(Color(.bgGray))
+            .frame(height: 150)
     }
 }
 

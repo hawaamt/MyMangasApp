@@ -1,5 +1,5 @@
 //
-//  MangaDTO+Manga.swift
+//  MangaDTO+MangaModels.swift
 //  MangaCollection
 //
 //  Created by Eva Gonzalez Ferreira on 5/6/24.
@@ -33,13 +33,13 @@ extension MangaItemDTO {
               url: url?.unescaped,
               background: background,
               score: score,
-              startDate: startDate,
-              endDate: endDate,
+              startDate: startDate?.date,
+              endDate: endDate?.date,
               genres: genres.map { $0.genreData },
               authors: authors.map { $0.author },
               demographics: demographics.map { $0.demographicData },
               themes: themes.map { $0.themeData },
-              status: status,
+              status: MangaStatus(rawValue: status ?? ""),
               sypnosis: sypnosis,
               mainPicture: mainPicture?.unescaped,
               titleJapanese: titleJapanese,
@@ -52,7 +52,7 @@ extension AuthorDTO {
     var author: Author {
         Author(id: id,
                firstName: firstName,
-               role: role,
+               role: AuthorRole(rawValue: role),
                lastName: lastName)
     }
 }
