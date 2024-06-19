@@ -13,10 +13,6 @@ struct MangaListRequest: APIRequest {
     
     let pagination: MangaPagination
     
-    init(pagination: MangaPagination) {
-        self.pagination = pagination
-    }
-    
     var method: HTTPMethodType {
         .get
     }

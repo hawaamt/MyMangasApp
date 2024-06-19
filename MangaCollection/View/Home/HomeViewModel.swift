@@ -22,9 +22,9 @@ class HomeViewModel {
     var isLoadingGenres: Bool = false
     var isLoadingThemes: Bool = false
 
-    private let interactor: MangaInteractor
+    private let interactor: MangaInteractorGeneric
     
-    init(interactor: MangaInteractor = MangaInteractorImp()) {
+    init(interactor: MangaInteractorGeneric = MangaInteractor()) {
         self.interactor = interactor
         Task {
             await self.loadData()

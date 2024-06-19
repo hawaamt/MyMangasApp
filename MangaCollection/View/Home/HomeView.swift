@@ -60,7 +60,8 @@ extension HomeView {
     
     var top10: some View {
         VStack {
-            SkeletonView(isLoading: $viewModel.isLoadingMangas) {
+            SkeletonView(type: .grid,
+                         isLoading: $viewModel.isLoadingMangas) {
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
                         ForEach(viewModel.bestMangas) { manga in
@@ -78,11 +79,14 @@ extension HomeView {
     
     var authores: some View {
         VStack {
-            SkeletonView(isLoading: $viewModel.isLoadingAuthors) {
+            SkeletonView(type: .grid,
+                         isLoading: $viewModel.isLoadingAuthors) {
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
                         ForEach(viewModel.authors) { author in
-                            NavigationLink(value: author) {
+                            NavigationLink {
+                                MangasFilteredByFactory(mangasBy: .author(author)).makeView()
+                            } label: {
                                 AuthorMangaCard(author: author)
                             }
                             .buttonStyle(.plain)
@@ -96,12 +100,18 @@ extension HomeView {
     
     var demographic: some View {
         VStack {
-            SkeletonView(isLoading: $viewModel.isLoadingDemographics) {
+            SkeletonView(type: .grid,
+                         isLoading: $viewModel.isLoadingDemographics) {
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
                         ForEach(viewModel.demographics) { demographic in
-                            CustomCard(image: demographic.image,
-                                       title: demographic.demographic)
+                            NavigationLink {
+                                MangasFilteredByFactory(mangasBy: .demographic(demographic)).makeView()
+                            } label: {
+                                CustomCard(image: demographic.image,
+                                           title: demographic.demographic)
+                            }
+                            .buttonStyle(.plain)
                         }
                     }
                     .padding(.top, 2)
@@ -113,12 +123,18 @@ extension HomeView {
     
     var genres: some View {
         VStack {
-            SkeletonView(isLoading: $viewModel.isLoadingGenres) {
+            SkeletonView(type: .grid,
+                         isLoading: $viewModel.isLoadingGenres) {
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
                         ForEach(viewModel.genres) { genre in
-                            CustomCard(image: genre.image,
-                                       title: genre.genre)
+                            NavigationLink {
+                                MangasFilteredByFactory(mangasBy: .genre(genre)).makeView()
+                            } label: {
+                                CustomCard(image: genre.image,
+                                           title: genre.genre)
+                            }
+                            .buttonStyle(.plain)
                         }
                     }
                     .padding(.top, 2)
@@ -130,12 +146,18 @@ extension HomeView {
     
     var themes: some View {
         VStack {
-            SkeletonView(isLoading: $viewModel.isLoadingThemes) {
+            SkeletonView(type: .grid,
+                         isLoading: $viewModel.isLoadingThemes) {
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
                         ForEach(viewModel.themes) { theme in
-                            CustomCard(image: theme.image,
-                                       title: theme.theme)
+                            NavigationLink {
+                                MangasFilteredByFactory(mangasBy: .theme(theme)).makeView()
+                            } label: {
+                                CustomCard(image: theme.image,
+                                           title: theme.theme)
+                            }
+                            .buttonStyle(.plain)
                         }
                     }
                     .padding(.top, 2)
@@ -158,6 +180,6 @@ extension HomeView {
 }
 
 #Preview {
-    let viewModel = HomeViewModel(interactor: MangaInteractorMock())
+    let viewModel = HomeViewModel(interactor: MangaInteractorGenericMock())
     return HomeView(viewModel: viewModel)
 }

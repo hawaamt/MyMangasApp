@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "es",
   "strings" : {
+    "DETAILS" : {
+
+    },
     "details_cast" : {
       "localizations" : {
         "en" : {

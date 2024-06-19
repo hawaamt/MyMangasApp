@@ -134,3 +134,11 @@ struct Theme: Codable, Identifiable, Hashable {
         Image(theme)
     }
 }
+
+// MARK: - Manga by
+enum MangaBy: Hashable {
+    case genre(Genre)
+    case theme(Theme)
+    case demographic(Demographic)
+    case author(Author)
+}

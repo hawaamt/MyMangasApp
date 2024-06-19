@@ -17,36 +17,9 @@ struct MangaDetails: View {
             ScrollView(showsIndicators: false) {
                 header
                 HStack {
-                    VStack {
-                        HStack {
-                            Image(systemName: "star.fill")
-                                .foregroundColor(Color(.gold))
-                                .frame(width: 20)
-                            Text(score)
-                                .leadingAlign()
-                                .font(.subheadline)
-                                .fontWeight(.medium)
-                        }
-                        HStack {
-                            Image(systemName: "list.bullet")
-                                .foregroundColor(.gray)
-                                .frame(width: 20)
-                            Text(volumes)
-                                .leadingAlign()
-                                .font(.subheadline)
-                                .fontWeight(.medium)
-                        }
-                        HStack {
-                            Image(systemName: "calendar")
-                                .foregroundColor(.gray)
-                                .frame(width: 20)
-                            Text(year)
-                                .leadingAlign()
-                                .font(.subheadline)
-                                .fontWeight(.medium)
-                        }
-                    }
-
+                    MangaInfoView(scoreInfo: manga.scoreInfo,
+                                  volumesInfo: manga.volumesInfo,
+                                  year: manga.year)
                     status
                 }
                 .padding()
@@ -104,7 +77,7 @@ extension MangaDetails {
                         .font(.title3)
                         .fontWeight(.bold)
                         .leadingAlign()
-                    Text(autors)
+                    Text(manga.autors)
                         .foregroundStyle(.white)
                         .font(.subheadline)
                         .fontWeight(.bold)
@@ -164,35 +137,6 @@ extension MangaDetails {
                     EmptyView()
             }
         }
-    }
-}
-
-// MARK: - Data
-extension MangaDetails {
-    
-    var autors: String {
-        manga.authors.map {
-            "\(($0.firstName ?? "")) \($0.lastName ?? "")".trailingSpacesTrimmed
-        }.joined(separator: " | ")
-    }
-    
-    var score: String {
-        guard let score = manga.score else {
-            return "- / 10"
-        }
-        return "\(score) / 10"
-    }
-    
-    var volumes: String {
-        guard let volumes = manga.volumes else {
-            return "-"
-        }
-        return "\(volumes) chapters"
-    }
-    
-    var year: String {
-        guard let startDate = manga.startDate else { return "-" }
-        return startDate.year
     }
 }
 

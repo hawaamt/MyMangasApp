@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MangaInteractorMock: MangaInteractor {
+struct MangaInteractorGenericMock: MangaInteractorGeneric {
 
     func getMangaList(with pagination: MangaPagination) async throws -> MangaPaginated {
         try await Task.sleep(nanoseconds: 3_000_000_000)

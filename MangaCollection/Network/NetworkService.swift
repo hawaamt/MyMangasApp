@@ -18,7 +18,6 @@ struct NetworkService {
     
     func perform<Request: APIRequest>(from request: Request) async throws -> Request.Response {
         print("URL: \(request.urlRequest.url?.absoluteString ?? "")")
-        print("Request:")
         print(String(data: request.urlRequest.httpBody ?? Data(), encoding: .utf8) ?? "")
         
         let (data, response) = try await URLSession.shared.data(for: request.urlRequest)

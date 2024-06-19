@@ -10,7 +10,7 @@ import Foundation
 struct HomeFactory {
     
     static func makeView() -> HomeView {
-        let viewModel = HomeViewModel(interactor: MangaInteractorImp())
+        let viewModel = HomeViewModel(interactor: MangaInteractor())
         return HomeView(viewModel: viewModel)
     }
 }

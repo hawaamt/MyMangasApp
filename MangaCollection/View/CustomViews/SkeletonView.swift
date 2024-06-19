@@ -8,21 +8,44 @@
 import SwiftUI
 import Shimmer
 
+enum SkeletonType {
+    case grid
+    case list
+}
+
 struct SkeletonView<Content>: View where Content: View {
+    let type: SkeletonType
     @Binding var isLoading: Bool
     let content: () -> Content
     private let columns = [GridItem(.adaptive(minimum: 100))]
-
+    private let rows = [GridItem(.flexible())]
     var body: some View {
         if isLoading {
-            LazyVGrid(columns: columns) {
-                rectangle
-                rectangle
-                rectangle
+            switch type {
+            case .grid:
+                LazyVGrid(columns: columns) {
+                    rectangle
+                    rectangle
+                    rectangle
+                }
+                .shimmering(active: isLoading)
+                .frame(maxWidth: .infinity)
+                .padding()
+            case .list:
+                VStack {
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color(.bgGray))
+                        
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color(.bgGray))
+                        
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color(.bgGray))
+                }
+                .shimmering(active: isLoading)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .padding()
             }
-            .shimmering(active: isLoading)
-            .frame(maxWidth: .infinity)
-            .padding()
         } else {
             content()
         }
@@ -36,7 +59,8 @@ struct SkeletonView<Content>: View where Content: View {
 }
 
 #Preview {
-    SkeletonView(isLoading: .constant(true),
+    SkeletonView(type: .list,
+                 isLoading: .constant(true),
                  content: {
         EmptyView()
     })
