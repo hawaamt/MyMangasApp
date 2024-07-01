@@ -103,6 +103,16 @@ struct Author: Codable, Identifiable, Hashable {
         guard let lastName else { return false }
         return !lastName.isEmpty
     }
+    
+    var name: String {
+        if hasFirstName {
+            return firstName!
+        }
+        if hasLastName {
+            return lastName!
+        }
+        return "-"
+    }
 }
 
 // MARK: - Demographic
@@ -141,4 +151,18 @@ enum MangaBy: Hashable {
     case theme(Theme)
     case demographic(Demographic)
     case author(Author)
+    
+    var title: String {
+        switch self {
+        case .genre(let genre):
+            
+            return "\(String(localized: "manga_by_genre")) \(genre.genre)"
+        case .theme(let theme):
+            return "\(String(localized: "manga_by_theme")) \(theme.theme)"
+        case .demographic(let demographic):
+            return "\(String(localized: "manga_by_demographic")) \(demographic.demographic)"
+        case .author(let author):
+            return "\(String(localized: "manga_by_author")) \(author.name)"
+        }
+    }
 }

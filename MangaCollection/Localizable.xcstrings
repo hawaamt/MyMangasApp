@@ -1,9 +1,6 @@
 {
   "sourceLanguage" : "es",
   "strings" : {
-    "DETAILS" : {
-
-    },
     "details_cast" : {
       "localizations" : {
         "en" : {
@@ -32,6 +29,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sinopsis"
+          }
+        }
+      }
+    },
+    "Ha ocurrido un error" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "An error has occurred"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ha ocurrido un error"
           }
         }
       }
@@ -133,6 +146,88 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Temáticas"
+          }
+        }
+      }
+    },
+    "manga_by_author" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Author: "
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Autor:"
+          }
+        }
+      }
+    },
+    "manga_by_demographic" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Demografía:"
+          }
+        }
+      }
+    },
+    "manga_by_genre" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Género: "
+          }
+        }
+      }
+    },
+    "manga_by_theme" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tema:"
+          }
+        }
+      }
+    },
+    "No hay datos que mostrar" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Data is empty"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No hay datos que mostrar"
+          }
+        }
+      }
+    },
+    "Reintentar" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Retry"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reintentar"
           }
         }
       }

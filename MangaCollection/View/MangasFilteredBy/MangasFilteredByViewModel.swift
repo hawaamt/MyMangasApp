@@ -7,13 +7,23 @@
 
 import Foundation
 
+enum ScreenState {
+    case idle
+    case loading
+    case loaded
+    case empty
+    case error
+}
+
 @Observable
 class MangasFilteredByViewModel {
     
+    var mangaBy: MangaBy
     var mangas: [Manga] = []
-    var isLoading: Bool = false
+    var state: ScreenState = .idle
     
-    private let mangaBy: MangaBy
+    var listIsFull: Bool = false
+    
     private let interactor: MangaInteractorFilteredBy
     
     private var pagination: MangaPagination
@@ -27,16 +37,17 @@ class MangasFilteredByViewModel {
     
     @MainActor
     func loadData() async {
-        // TODO: manage if page is the last
         do {
-            isLoading = true
+            state = .loading
             let mangasPaginated = try await interactor.getMangaBy(mangaBy, with: pagination)
-            mangas = mangasPaginated.items ?? []
+            mangas.append(contentsOf: mangasPaginated.items ?? [])
             pagination = mangasPaginated.pagination
-            isLoading = false
+            state = mangas.isEmpty ? .empty : .loaded
+            if mangas.count <= pagination.page * pagination.per && !listIsFull {
+                listIsFull = true
+            }
         } catch {
-            print(error)
-            isLoading = false
+            state = .error
         }
     }
 }

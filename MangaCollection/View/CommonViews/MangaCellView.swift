@@ -10,7 +10,8 @@ import SwiftUI
 struct MangaCellView: View {
     
     private let imageSize: CGFloat = 120
-    
+    @State var animateGradient = true
+
     let manga: Manga
     
     var body: some View {
@@ -53,7 +54,6 @@ struct MangaCellView: View {
                 Spacer()
             }
             
-            
             VStack(alignment: .leading) {
                 VStack {
                     Text(manga.title)
@@ -77,12 +77,28 @@ struct MangaCellView: View {
             }
         }
         .padding()
-        .background(Color.accentColor.opacity(0.05))
+        .frame(maxHeight: 200)
+        .background(Color(.cardBackground))
         .clipShape(.buttonBorder)
+    }
+    
+    @ViewBuilder static var placeholder: some View {
+        VStack {
+            MangaCellView(manga: Manga.manga1)
+            MangaCellView(manga: Manga.manga2)
+            MangaCellView(manga: Manga.manga3)
+        }
+        .redacted(reason: .placeholder)
+        .shimmer()
     }
 }
 
-#Preview {
+#Preview("List") {
     MangaCellView(manga: .manga1)
-        .frame(height: 200)
+}
+
+#Preview("Placeholder") {
+    VStack {
+        MangaCellView.placeholder
+    }
 }
