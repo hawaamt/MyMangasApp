@@ -49,7 +49,19 @@ struct HomeView: View {
                 }
             }
             .navigationDestination(for: Manga.self) {
-                MangaDetails(manga: $0)
+                MangaDetailsView(viewModel: MangaDetailsViewModel(manga: $0))
+            }
+            .navigationDestination(for: Author.self) {
+                MangasFilteredByFactory(mangasBy: .author($0)).makeView()
+            }
+            .navigationDestination(for: Demographic.self) {
+                MangasFilteredByFactory(mangasBy: .demographic($0)).makeView()
+            }
+            .navigationDestination(for: Genre.self) {
+                MangasFilteredByFactory(mangasBy: .genre($0)).makeView()
+            }
+            .navigationDestination(for: Theme.self) {
+                MangasFilteredByFactory(mangasBy: .theme($0)).makeView()
             }
             .navigationTitle("home_navigationTitle")
         }
@@ -84,9 +96,7 @@ extension HomeView {
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
                         ForEach(viewModel.authors) { author in
-                            NavigationLink {
-                                MangasFilteredByFactory(mangasBy: .author(author)).makeView()
-                            } label: {
+                            NavigationLink(value: author) {
                                 AuthorMangaCard(author: author)
                             }
                             .buttonStyle(.plain)
@@ -105,9 +115,7 @@ extension HomeView {
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
                         ForEach(viewModel.demographics) { demographic in
-                            NavigationLink {
-                                MangasFilteredByFactory(mangasBy: .demographic(demographic)).makeView()
-                            } label: {
+                            NavigationLink(value: demographic) {
                                 CustomCard(image: demographic.image,
                                            title: demographic.demographic)
                             }
@@ -128,9 +136,7 @@ extension HomeView {
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
                         ForEach(viewModel.genres) { genre in
-                            NavigationLink {
-                                MangasFilteredByFactory(mangasBy: .genre(genre)).makeView()
-                            } label: {
+                            NavigationLink(value: genre) {
                                 CustomCard(image: genre.image,
                                            title: genre.genre)
                             }
@@ -151,9 +157,7 @@ extension HomeView {
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
                         ForEach(viewModel.themes) { theme in
-                            NavigationLink {
-                                MangasFilteredByFactory(mangasBy: .theme(theme)).makeView()
-                            } label: {
+                            NavigationLink(value: theme) {
                                 CustomCard(image: theme.image,
                                            title: theme.theme)
                             }

@@ -7,19 +7,19 @@
 
 import SwiftUI
 
-struct MangaDetails: View {
+struct MangaDetailsView: View {
     @Environment(\.dismiss) private var dismiss
     
-    let manga: Manga
+    @State var viewModel: MangaDetailsViewModel
         
     var body: some View {
         VStack {
             ScrollView(showsIndicators: false) {
                 header
                 HStack {
-                    MangaInfoView(scoreInfo: manga.scoreInfo,
-                                  volumesInfo: manga.volumesInfo,
-                                  year: manga.year)
+                    MangaInfoView(scoreInfo: viewModel.manga.scoreInfo,
+                                  volumesInfo: viewModel.manga.volumesInfo,
+                                  year: viewModel.manga.year)
                     status
                 }
                 .padding()
@@ -30,7 +30,7 @@ struct MangaDetails: View {
                         .font(.title3)
                         .fontWeight(.bold)
                     
-                    Text(manga.sypnosis ?? "")
+                    Text(viewModel.manga.sypnosis ?? "")
                         .leadingAlign()
                         .font(.body)
                 }
@@ -44,27 +44,27 @@ struct MangaDetails: View {
                 }
                 .padding()
             }
-        }
-        .ignoresSafeArea()
-        .navigationBarBackButtonHidden()
-        .toolbarBackground(.hidden, for: .navigationBar)
-        .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "chevron.left")
+                .edgesIgnoringSafeArea(.top)
+                .navigationBarBackButtonHidden()
+                .toolbarBackground(.hidden, for: .navigationBar)
+                .toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button {
+                            dismiss()
+                        } label: {
+                            Image(systemName: "chevron.left")
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .buttonBorderShape(.circle)
+                        .tint(.accentColor)
+                    }
                 }
-                .buttonStyle(.borderedProminent)
-                .buttonBorderShape(.circle)
-                .tint(.accentColor)
-            }
         }
     }
 }
 
 // MARK: - Content
-extension MangaDetails {
+extension MangaDetailsView {
     
     var header: some View {
         ZStack {
@@ -72,12 +72,12 @@ extension MangaDetails {
             VStack {
                 Spacer()
                 VStack {
-                    Text(manga.title)
+                    Text(viewModel.manga.title)
                         .foregroundStyle(.white)
                         .font(.title3)
                         .fontWeight(.bold)
                         .leadingAlign()
-                    Text(manga.autors)
+                    Text(viewModel.manga.autors)
                         .foregroundStyle(.white)
                         .font(.subheadline)
                         .fontWeight(.bold)
@@ -94,7 +94,7 @@ extension MangaDetails {
     
     @ViewBuilder
     var status: some View {
-        if let status = manga.status {
+        if let status = viewModel.manga.status {
             Spacer()
             VStack {
                 Text(status.value)
@@ -113,9 +113,9 @@ extension MangaDetails {
 }
 
 // MARK: - Components
-extension MangaDetails {
+extension MangaDetailsView {
     var imageBg: some View {
-        AsyncImage(url: URL(string: manga.mainPicture ?? "")) { phase in
+        AsyncImage(url: URL(string: viewModel.manga.mainPicture ?? "")) { phase in
             switch phase {
                 case .empty:
                     ZStack {
@@ -141,9 +141,9 @@ extension MangaDetails {
 }
 
 #Preview("Manga 1") {
-    MangaDetails(manga: Manga.manga1)
+    MangaDetailsView(viewModel: MangaDetailsViewModel(manga: Manga.manga1))
 }
 
 #Preview("Manga 2") {
-    MangaDetails(manga: Manga.manga2)
+    MangaDetailsView(viewModel: MangaDetailsViewModel(manga: Manga.manga2))
 }

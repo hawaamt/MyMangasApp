@@ -33,6 +33,9 @@ class MangasFilteredByViewModel {
         self.mangaBy = mangaBy
         self.interactor = interactor
         self.pagination = MangaPagination(page: 1, per: 100)
+        Task {
+            await loadData()
+        }
     }
     
     @MainActor

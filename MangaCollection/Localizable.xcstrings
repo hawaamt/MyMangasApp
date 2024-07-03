@@ -2,6 +2,7 @@
   "sourceLanguage" : "es",
   "strings" : {
     "details_cast" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -18,6 +19,7 @@
       }
     },
     "details_synopsis" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

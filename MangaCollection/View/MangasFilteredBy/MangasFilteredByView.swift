@@ -13,63 +13,63 @@ struct MangasFilteredByView: View {
     @State var viewModel: MangasFilteredByViewModel
 
     var body: some View {
-        
-        HStack {
-            switch viewModel.state {
-            case .idle, .loading:
-                VStack {
-                    MangaCellView.placeholder
-                }
-                .padding()
-            case .loaded:
-                List {
-                    ForEach(viewModel.mangas) { manga in
-                        NavigationLink {
-                            MangaDetails(manga: manga)
-                        } label: {
-                            MangaCellView(manga: manga)
-                        }
-                        .listRowBackground(Color(.background))
-                        .listRowSeparator(.hidden)
+        VStack {
+            HStack {
+                switch viewModel.state {
+                case .idle, .loading:
+                    VStack {
+                        MangaCellView.placeholder
                     }
-                    if !viewModel.listIsFull {
-                        ProgressView()
-                            .progressViewStyle(.circular)
-                            .onAppear {
-                                Task {
-                                    await viewModel.loadData()
-                                }
+                    .padding()
+                case .loaded:
+                    List {
+                        ForEach(viewModel.mangas) { manga in
+                            NavigationLink(value: manga) {
+                                MangaCellView(manga: manga)
                             }
+                            .buttonStyle(.plain)
+                            .listRowBackground(Color(.background))
+                            .listRowSeparator(.hidden)
+                        }
+                        if !viewModel.listIsFull {
+                            ProgressView()
+                                .progressViewStyle(.circular)
+                                .onAppear {
+                                    Task {
+                                        await viewModel.loadData()
+                                    }
+                                }
+                        }
                     }
-                }
-                .listRowInsets(EdgeInsets())
-                .listStyle(.plain)
-            case .empty:
-                Text("No hay datos que mostrar")
-            case .error:
-                Text("Ha ocurrido un error")
-                Button("Reintentar") {
-                    Task {
-                        await viewModel.loadData()
+                    .listRowInsets(EdgeInsets())
+                    .listStyle(.plain)
+                case .empty:
+                    Text("No hay datos que mostrar")
+                case .error:
+                    Text("Ha ocurrido un error")
+                    Button("Reintentar") {
+                        Task {
+                            await viewModel.loadData()
+                        }
                     }
                 }
             }
-        }
-        .task {
-            await viewModel.loadData()
-        }
-        .navigationTitle(viewModel.mangaBy.title)
-        .navigationBarBackButtonHidden()
-        .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "chevron.left")
+            .navigationDestination(for: Manga.self) {
+                MangaDetailsView(viewModel: MangaDetailsViewModel(manga: $0))
+            }
+            .navigationTitle(viewModel.mangaBy.title)
+            .navigationBarBackButtonHidden()
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "chevron.left")
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .buttonBorderShape(.circle)
+                    .tint(.accentColor)
                 }
-                .buttonStyle(.borderedProminent)
-                .buttonBorderShape(.circle)
-                .tint(.accentColor)
             }
         }
     }
