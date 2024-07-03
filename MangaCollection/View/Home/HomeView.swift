@@ -186,4 +186,5 @@ extension HomeView {
 #Preview {
     let viewModel = HomeViewModel(interactor: MangaInteractorGenericMock())
     return HomeView(viewModel: viewModel)
+        .modelContainer(.preview)
 }

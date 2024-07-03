@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MangasFilteredByView: View {
+    @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
     
     @State var viewModel: MangasFilteredByViewModel
@@ -26,6 +27,7 @@ struct MangasFilteredByView: View {
                         ForEach(viewModel.mangas) { manga in
                             NavigationLink(value: manga) {
                                 MangaCellView(manga: manga)
+                                    .modelContext(context)
                             }
                             .buttonStyle(.plain)
                             .listRowBackground(Color(.background))
@@ -81,6 +83,7 @@ struct MangasFilteredByView: View {
                                               interactor: MangaInteractorFilteredByMock(stateToTest: .empty))
     return NavigationStack {
         MangasFilteredByView(viewModel: viewModel)
+            .modelContainer(.preview)
     }
 }
 
@@ -89,6 +92,7 @@ struct MangasFilteredByView: View {
                                               interactor: MangaInteractorFilteredByMock(stateToTest: .loaded))
     return NavigationStack {
         MangasFilteredByView(viewModel: viewModel)
+            .modelContainer(.preview)
     }
 }
 
@@ -97,5 +101,6 @@ struct MangasFilteredByView: View {
                                               interactor: MangaInteractorFilteredByMock(stateToTest: .error))
     return NavigationStack {
         MangasFilteredByView(viewModel: viewModel)
+            .modelContainer(.preview)
     }
 }

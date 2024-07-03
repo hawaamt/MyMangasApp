@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MangaDetailsView: View {
+    @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
     
     @State var viewModel: MangaDetailsViewModel
@@ -23,6 +24,22 @@ struct MangaDetailsView: View {
                     status
                 }
                 .padding()
+                
+                HStack {
+                    if viewModel.isMangaInMyCollection {
+                        Button("details_remove_collection") {
+                            viewModel.removeFromMyCollection(in: context)
+                        }
+                        .buttonStyle(.borderedProminent)
+                    } else {
+                        Button("details_add_collection") {
+                            viewModel.addToMyCollection(in: context)
+                        }
+                        .buttonStyle(.borderedProminent)
+                    }
+                    Spacer()
+                }
+                .padding(.horizontal)
                 
                 VStack {
                     Text("details_synopsis")
@@ -44,21 +61,24 @@ struct MangaDetailsView: View {
                 }
                 .padding()
             }
-                .edgesIgnoringSafeArea(.top)
-                .navigationBarBackButtonHidden()
-                .toolbarBackground(.hidden, for: .navigationBar)
-                .toolbar {
-                    ToolbarItem(placement: .topBarLeading) {
-                        Button {
-                            dismiss()
-                        } label: {
-                            Image(systemName: "chevron.left")
-                        }
-                        .buttonStyle(.borderedProminent)
-                        .buttonBorderShape(.circle)
-                        .tint(.accentColor)
+            .onAppear {
+                viewModel.checkManagaIsInMyCollection(in: context)
+            }
+            .edgesIgnoringSafeArea(.top)
+            .navigationBarBackButtonHidden()
+            .toolbarBackground(.hidden, for: .navigationBar)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "chevron.left")
                     }
+                    .buttonStyle(.borderedProminent)
+                    .buttonBorderShape(.circle)
+                    .tint(.accentColor)
                 }
+            }
         }
     }
 }
@@ -142,8 +162,10 @@ extension MangaDetailsView {
 
 #Preview("Manga 1") {
     MangaDetailsView(viewModel: MangaDetailsViewModel(manga: Manga.manga1))
+        .modelContainer(.preview)
 }
 
 #Preview("Manga 2") {
     MangaDetailsView(viewModel: MangaDetailsViewModel(manga: Manga.manga2))
+        .modelContainer(.preview)
 }

@@ -11,13 +11,12 @@ struct ContentView: View {
         
     var body: some View {
         TabView {
-            HomeFactory.makeView()
+            HomeFactory
+                .makeView()
                 .tabItem {
                     Label("tab_home", systemImage: "house")
                 }
-            VStack {
-                Text("tab_myCollection")
-            }
+            MyCollectionView()
             .tabItem {
                 Label("tab_myCollection", systemImage: "books.vertical")
             }
@@ -34,4 +33,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .modelContainer(.preview)
 }

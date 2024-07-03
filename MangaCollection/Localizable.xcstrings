@@ -1,8 +1,23 @@
 {
   "sourceLanguage" : "es",
   "strings" : {
+    "details_add_collection" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add to my collection"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Añadir a mi coleción"
+          }
+        }
+      }
+    },
     "details_cast" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -18,8 +33,23 @@
         }
       }
     },
+    "details_remove_collection" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove from my collection"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eliminar de mi colección"
+          }
+        }
+      }
+    },
     "details_synopsis" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -172,6 +202,12 @@
     "manga_by_demographic" : {
       "extractionState" : "manual",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Demographic:"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -183,6 +219,12 @@
     "manga_by_genre" : {
       "extractionState" : "manual",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Genre:"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -194,6 +236,12 @@
     "manga_by_theme" : {
       "extractionState" : "manual",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Theme:"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -201,6 +249,9 @@
           }
         }
       }
+    },
+    "Mio" : {
+
     },
     "No hay datos que mostrar" : {
       "localizations" : {

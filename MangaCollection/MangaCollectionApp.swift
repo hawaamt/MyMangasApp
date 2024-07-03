@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct MangaCollectionApp: App {
@@ -13,5 +14,6 @@ struct MangaCollectionApp: App {
         WindowGroup {
             ContentView()
         }
+        .modelContainer(for: CollectionItem.self)
     }
 }

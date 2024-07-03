@@ -60,7 +60,7 @@ enum MangaStatus: String, Codable {
     
     var color: Color {
         switch self {
-            case .inProgress: Color.accentColor
+        case .inProgress: Color(.finished)
             case .finished: Color(.success)
         }
     }
