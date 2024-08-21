@@ -26,7 +26,8 @@ struct MangaCellView: View {
         ZStack {
             HStack {
                 VStack {
-                    AsyncImageView(url: manga.mainPicture)
+                    AsyncImageView(url: manga.mainPicture,
+                                   height: imageSize)
                         .frame(width: imageSize, height: imageSize)
                         .clipShape(.buttonBorder)
                     

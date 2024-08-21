@@ -15,50 +15,8 @@ struct MangaDetailsView: View {
         
     var body: some View {
         ScrollView(showsIndicators: false) {
-            VStack(spacing: 0) {
-                header
-                
-                HStack {
-                    MangaInfoView(scoreInfo: viewModel.manga.scoreInfo,
-                                  volumesInfo: viewModel.manga.volumesInfo,
-                                  year: viewModel.manga.year)
-                    status
-                }
-                .padding()
-                                
-                if let myManga = viewModel.myMangaCollection {
-                    myCollection(for: myManga)
-                } else {
-                    HStack {
-                        Button("details_add_collection") {
-                            viewModel.addToMyCollection(in: context)
-                        }
-                        .buttonStyle(.borderedProminent)
-                        .padding(.horizontal)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                }
-                
-                VStack {
-                    Text("details_synopsis")
-                        .leadingAlign()
-                        .font(.title3)
-                        .fontWeight(.bold)
-                    
-                    Text(viewModel.manga.sypnosis ?? "")
-                        .leadingAlign()
-                        .font(.body)
-                }
-                .padding()
-                
-                VStack {
-                    Text("details_cast")
-                        .leadingAlign()
-                        .font(.title3)
-                        .fontWeight(.bold)
-                }
-                .padding()
-            }
+            header
+            content
         }
         .onAppear {
             viewModel.checkManagaIsInMyCollection(in: context)
@@ -85,6 +43,51 @@ struct MangaDetailsView: View {
                                  volumesOwned: viewModel.myMangaCollection?.volumesOwned.map({ "\($0)" }) ?? [],
                                  isEditingMyCollection: $viewModel.isEditingMyCollection,
                                  onSave: viewModel.saveEditing)
+        }
+    }
+    
+    var content: some View {
+        VStack(spacing: 0) {
+            HStack {
+                MangaInfoView(scoreInfo: viewModel.manga.scoreInfo,
+                              volumesInfo: viewModel.manga.volumesInfo,
+                              year: viewModel.manga.year)
+                status
+            }
+            .padding()
+                            
+            if let myManga = viewModel.myMangaCollection {
+                myCollection(for: myManga)
+            } else {
+                HStack {
+                    Button("details_add_collection") {
+                        viewModel.addToMyCollection(in: context)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .padding(.horizontal)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            
+            VStack {
+                Text("details_synopsis")
+                    .leadingAlign()
+                    .font(.title3)
+                    .fontWeight(.bold)
+                
+                Text(viewModel.manga.sypnosis ?? "")
+                    .leadingAlign()
+                    .font(.body)
+            }
+            .padding()
+            
+            VStack {
+                Text("details_cast")
+                    .leadingAlign()
+                    .font(.title3)
+                    .fontWeight(.bold)
+            }
+            .padding()
         }
     }
 }
@@ -140,28 +143,16 @@ extension MangaDetailsView {
 // MARK: - Components
 extension MangaDetailsView {
     var imageBg: some View {
-        AsyncImage(url: URL(string: viewModel.manga.mainPicture ?? "")) { phase in
-            switch phase {
-                case .empty:
-                    ZStack {
-                        Color(.bgGray)
-                        ProgressView()
-                    }
-                    .frame(height: 350)
-                case .success(let image):
-                    VStack {
-                        image
-                            .clipCenter(height: 350)
-                    }
-                case .failure:
-                    VStack {
-                        Image(.mangaDefaultBackground)
-                            .clipCenter(height: 350)
-                    }
-                @unknown default:
-                    EmptyView()
-            }
+        GeometryReader { reader in
+            
+            let offset = reader.frame(in: .global).minY
+            let height = 350 + (offset > 0 ? offset : 0)
+            let offsetY = offset > 0 ? -offset : 0
+            AsyncImageView(url: viewModel.manga.mainPicture,
+                           height: height,
+                           offsetY: offsetY)
         }
+        .frame(minHeight: 350)
     }
     
     func myCollection(for manga: CollectionItem) -> some View {

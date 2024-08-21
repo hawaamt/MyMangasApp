@@ -25,8 +25,9 @@ struct HomeMangaCard: View {
     var body: some View {
         VStack {
             ZStack {
-                AsyncImageView(url: manga.mainPicture)
-                    .frame(width: cardWidth, height: imageCardHeight)
+                AsyncImageView(url: manga.mainPicture,
+                               height: imageCardHeight)
+                    .frame(width: cardWidth)
                 
                 VStack(alignment: .leading) {
                     

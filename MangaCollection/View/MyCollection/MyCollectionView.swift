@@ -26,8 +26,9 @@ struct MyCollectionView: View {
                         NavigationLink(value: item) {
                             VStack {
                                 ZStack {
-                                    AsyncImageView(url: item.manga.mainPicture)
-                                        .frame(width: 100, height: 100)
+                                    AsyncImageView(url: item.manga.mainPicture,
+                                                   height: 100)
+                                        .frame(width: 100)
                                         .clipShape(.buttonBorder)
                                     if !item.completeCollection {
                                         VStack {
