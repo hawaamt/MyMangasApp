@@ -44,6 +44,9 @@ struct MangaDetailsView: View {
                                  isEditingMyCollection: $viewModel.isEditingMyCollection,
                                  onSave: viewModel.saveEditing)
         }
+        .navigationDestination(for: Author.self) {
+            MangasFilteredByFactory(mangasBy: .author($0)).makeView()
+        }
     }
     
     var content: some View {
@@ -86,8 +89,20 @@ struct MangaDetailsView: View {
                     .leadingAlign()
                     .font(.title3)
                     .fontWeight(.bold)
+                    .padding()
+                
+                ScrollView(.horizontal, showsIndicators: false) {
+                    LazyHStack {
+                        ForEach(viewModel.manga.authors) { author in
+                            NavigationLink(value: author) {
+                                AuthorMangaCard(author: author)
+                            }
+                            .buttonStyle(.plain)
+                        }
+                    }
+                    .padding(.leading)
+                }
             }
-            .padding()
         }
     }
 }
@@ -193,11 +208,15 @@ extension MangaDetailsView {
 }
 
 #Preview("Manga 1") {
-    MangaDetailsView(viewModel: MangaDetailsViewModel(manga: Manga.manga1))
-        .modelContainer(.preview)
+    NavigationStack {
+        MangaDetailsView(viewModel: MangaDetailsViewModel(manga: Manga.manga1))
+            .modelContainer(.preview)
+    }
 }
 
 #Preview("Manga 2") {
-    MangaDetailsView(viewModel: MangaDetailsViewModel(manga: Manga.manga2))
-        .modelContainer(.preview)
+    NavigationStack {
+        MangaDetailsView(viewModel: MangaDetailsViewModel(manga: Manga.manga2))
+            .modelContainer(.preview)
+    }
 }
