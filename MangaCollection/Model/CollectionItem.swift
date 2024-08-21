@@ -37,7 +37,7 @@ extension CollectionItem {
     
     var volumesOwnedDescription: String {
         guard !volumesOwned.isEmpty else { return "-" }
-        volumesOwned.map{ "\($0)" }.joined(separator: ",")
+        return volumesOwned.map{ "\($0)" }.joined(separator: ",")
     }
     
     var volumeReadingString: String {
