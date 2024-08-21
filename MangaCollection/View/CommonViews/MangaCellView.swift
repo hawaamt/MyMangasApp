@@ -26,29 +26,9 @@ struct MangaCellView: View {
         ZStack {
             HStack {
                 VStack {
-                    AsyncImage(url: URL(string: manga.mainPicture ?? "")) { phase in
-                        switch phase {
-                        case .empty:
-                            ZStack {
-                                Color(.bgGray)
-                                ProgressView()
-                            }
-                        case .success(let image):
-                            image
-                                .clipCenter(width: imageSize, height: imageSize)
-                        case .failure:
-                            ZStack {
-                                Color(.bgGray)
-                                Image(systemName: "photo")
-                                    .font(.system(size: 30))
-                            }
-                        @unknown default:
-                            EmptyView()
-                        }
-                    }
-                    
-                    .frame(width: imageSize, height: imageSize)
-                    .clipShape(.buttonBorder)
+                    AsyncImageView(url: manga.mainPicture)
+                        .frame(width: imageSize, height: imageSize)
+                        .clipShape(.buttonBorder)
                     
                     if let status = manga.status {
                         Text(status.value)

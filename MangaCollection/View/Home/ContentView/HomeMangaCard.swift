@@ -25,28 +25,8 @@ struct HomeMangaCard: View {
     var body: some View {
         VStack {
             ZStack {
-                AsyncImage(url: URL(string: manga.mainPicture ?? "")) { phase in
-                    switch phase {
-                    case .empty:
-                        ZStack {
-                            Color(.bgGray)
-                            ProgressView()
-                        }
-                    case .success(let image):
-                        image
-                            .resizable()
-                            .scaledToFill()
-                    case .failure:
-                        ZStack {
-                            Color(.bgGray)
-                            Image(systemName: "photo")
-                                .font(.system(size: 30))
-                        }
-                    @unknown default:
-                        EmptyView()
-                    }
-                }
-                .frame(width: cardWidth, height: imageCardHeight)
+                AsyncImageView(url: manga.mainPicture)
+                    .frame(width: cardWidth, height: imageCardHeight)
                 
                 VStack(alignment: .leading) {
                     

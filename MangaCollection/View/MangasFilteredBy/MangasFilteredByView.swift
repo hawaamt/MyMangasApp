@@ -46,10 +46,10 @@ struct MangasFilteredByView: View {
                     .listRowInsets(EdgeInsets())
                     .listStyle(.plain)
                 case .empty:
-                    Text("No hay datos que mostrar")
+                    Text("mangas_filtered_by_empty")
                 case .error:
-                    Text("Ha ocurrido un error")
-                    Button("Reintentar") {
+                    Text("mangas_filtered_by_error")
+                    Button("button_retry") {
                         Task {
                             await viewModel.loadData()
                         }

@@ -14,9 +14,10 @@ struct MangaDetailsView: View {
     @State var viewModel: MangaDetailsViewModel
         
     var body: some View {
-        VStack {
-            ScrollView(showsIndicators: false) {
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: 0) {
                 header
+                
                 HStack {
                     MangaInfoView(scoreInfo: viewModel.manga.scoreInfo,
                                   volumesInfo: viewModel.manga.volumesInfo,
@@ -24,22 +25,19 @@ struct MangaDetailsView: View {
                     status
                 }
                 .padding()
-                
-                HStack {
-                    if viewModel.isMangaInMyCollection {
-                        Button("details_remove_collection") {
-                            viewModel.removeFromMyCollection(in: context)
-                        }
-                        .buttonStyle(.borderedProminent)
-                    } else {
+                                
+                if let myManga = viewModel.myMangaCollection {
+                    myCollection(for: myManga)
+                } else {
+                    HStack {
                         Button("details_add_collection") {
                             viewModel.addToMyCollection(in: context)
                         }
                         .buttonStyle(.borderedProminent)
+                        .padding(.horizontal)
                     }
-                    Spacer()
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                .padding(.horizontal)
                 
                 VStack {
                     Text("details_synopsis")
@@ -61,24 +59,32 @@ struct MangaDetailsView: View {
                 }
                 .padding()
             }
-            .onAppear {
-                viewModel.checkManagaIsInMyCollection(in: context)
-            }
-            .edgesIgnoringSafeArea(.top)
-            .navigationBarBackButtonHidden()
-            .toolbarBackground(.hidden, for: .navigationBar)
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Image(systemName: "chevron.left")
-                    }
-                    .buttonStyle(.borderedProminent)
-                    .buttonBorderShape(.circle)
-                    .tint(.accentColor)
+        }
+        .onAppear {
+            viewModel.checkManagaIsInMyCollection(in: context)
+        }
+        .listRowInsets(.none)
+        .edgesIgnoringSafeArea(.top)
+        .navigationBarBackButtonHidden()
+        .toolbarBackground(.hidden, for: .navigationBar)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "chevron.left")
                 }
+                .buttonStyle(.borderedProminent)
+                .buttonBorderShape(.circle)
+                .tint(.accentColor)
             }
+        }
+        .sheet(isPresented: $viewModel.isEditingMyCollection) {
+            MyCollectionEditView(mangaTitle: viewModel.manga.title,
+                                 volumeReading: viewModel.myMangaCollection?.volumeReadingString ?? "",
+                                 volumesOwned: viewModel.myMangaCollection?.volumesOwned.map({ "\($0)" }) ?? [],
+                                 isEditingMyCollection: $viewModel.isEditingMyCollection,
+                                 onSave: viewModel.saveEditing)
         }
     }
 }
@@ -103,7 +109,6 @@ extension MangaDetailsView {
                         .fontWeight(.bold)
                         .leadingAlign()
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
                 .padding()
                 .background(
                     LinearGradient(gradient: Gradient(colors: [.clear, Color(.black)]), startPoint: .top, endPoint: .bottom)
@@ -157,6 +162,42 @@ extension MangaDetailsView {
                     EmptyView()
             }
         }
+    }
+    
+    func myCollection(for manga: CollectionItem) -> some View {
+        ZStack {
+            VStack(alignment: .leading) {
+                Text("details_volume_saved")
+                    .leadingAlign()
+                    .font(.body)
+                    .fontWeight(.bold)
+                Text("details_volume_reading \(manga.volumeReadingDescription)")
+                    .leadingAlign()
+                    .font(.callout)
+                    .fontWeight(.medium)
+                Text("details_volumes_acquired \(manga.volumesOwnedDescription)")
+                    .leadingAlign()
+                    .font(.callout)
+                    .fontWeight(.medium)
+                Button("details_remove_collection") {
+                    viewModel.removeFromMyCollection(in: context)
+                }
+                .buttonStyle(.borderedProminent)
+            }
+            VStack {
+                Button {
+                    viewModel.isEditingMyCollection.toggle()
+                } label: {
+                    Image(systemName: "square.and.pencil.circle.fill")
+                        .resizable()
+                        .frame(width: 32, height: 32)
+                }
+                Spacer()
+            }
+            .frame(maxWidth: .infinity, alignment: .trailing)
+        }
+        .padding()
+        .background(Color(.secondarySystemBackground))
     }
 }
 

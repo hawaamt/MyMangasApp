@@ -12,7 +12,8 @@ import SwiftData
 final class MangaDetailsViewModel: ObservableObject {
     
     var manga: Manga
-    var isMangaInMyCollection: Bool = false
+    var myMangaCollection: CollectionItem?
+    var isEditingMyCollection: Bool = false
     
     init(manga: Manga) {
         self.manga = manga
@@ -25,10 +26,10 @@ final class MangaDetailsViewModel: ObservableObject {
         let descriptor = FetchDescriptor(predicate: predicate)
         do {
             let data = try context.fetch(descriptor)
-            isMangaInMyCollection = !data.isEmpty
+            myMangaCollection = data.first
         } catch {
-            isMangaInMyCollection = false
-        }        
+            myMangaCollection = nil
+        }
     }
     
     func addToMyCollection(in context: ModelContext) {
@@ -48,5 +49,10 @@ final class MangaDetailsViewModel: ObservableObject {
             context.delete(data)
         } catch {}
         checkManagaIsInMyCollection(in: context)
+    }
+    
+    func saveEditing(reading: String, volumesOwned: [String]) {
+        myMangaCollection?.volumeReading = Int(reading)
+        myMangaCollection?.volumesOwned = volumesOwned.compactMap({ Int($0) })
     }
 }

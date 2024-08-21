@@ -16,11 +16,11 @@ struct ContentView: View {
                 .tabItem {
                     Label("tab_home", systemImage: "house")
                 }
-            MyCollectionView()
-            .tabItem {
-                Label("tab_myCollection", systemImage: "books.vertical")
-            }
-            
+            MyCollectionFactory()
+                .makeView()
+                .tabItem {
+                    Label("tab_myCollection", systemImage: "books.vertical")
+                }
             VStack {
                 Text("tab_myAccount")
             }
