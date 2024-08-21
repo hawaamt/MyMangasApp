@@ -51,7 +51,7 @@ struct ContentView: View {
                 }
             }
             .listStyle(.sidebar)
-            .navigationTitle("Manga App!")
+            .navigationTitle("home_navigationTitle")
         } detail: {
             if let screen {
                 screen.destination

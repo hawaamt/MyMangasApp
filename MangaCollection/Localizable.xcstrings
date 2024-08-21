@@ -115,6 +115,12 @@
     },
     "details_volumes_acquired %@" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Volumes adquired: %@"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -146,7 +152,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Top 10 mangas"
+            "value" : "Mangas Top 10"
           }
         },
         "es" : {
@@ -223,9 +229,6 @@
           }
         }
       }
-    },
-    "Manga App!" : {
-
     },
     "manga_by_author" : {
       "extractionState" : "manual",
@@ -551,9 +554,6 @@
           }
         }
       }
-    },
-    "Other" : {
-
     },
     "status_finished" : {
       "extractionState" : "manual",

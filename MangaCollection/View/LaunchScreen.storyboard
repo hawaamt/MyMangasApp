@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="iPad13_0rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="EHf-IW-A2E">
+            <objects>
+                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="abc-0F-lLx"/>
+                        <viewControllerLayoutGuide type="bottom" id="HlL-xx-ye7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                        <rect key="frame" x="0.0" y="0.0" width="1032" height="1376"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launchscreen" translatesAutoresizingMaskIntoConstraints="NO" id="DrE-I2-u8c">
+                                <rect key="frame" x="0.0" y="0.0" width="1032" height="1376"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o6d-4k-OON">
+                                <rect key="frame" x="0.0" y="1223" width="1032" height="90"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MyManga App!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aUY-FG-Pfj">
+                                        <rect key="frame" x="391.5" y="19.5" width="249" height="51"/>
+                                        <fontDescription key="fontDescription" name="Impact" family="Impact" pointSize="42"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.28858903733546676" green="0.18467978081985137" blue="0.81096924374801937" alpha="0.83986961922450332" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="90" id="9NO-5k-7hM"/>
+                                    <constraint firstItem="aUY-FG-Pfj" firstAttribute="centerX" secondItem="o6d-4k-OON" secondAttribute="centerX" id="kZV-ab-fYo"/>
+                                    <constraint firstItem="aUY-FG-Pfj" firstAttribute="centerY" secondItem="o6d-4k-OON" secondAttribute="centerY" id="rF4-hP-FcH"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="DrE-I2-u8c" firstAttribute="trailing" secondItem="Ze5-6b-2t3" secondAttribute="trailing" id="0o1-cd-QwW"/>
+                            <constraint firstItem="DrE-I2-u8c" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="AJZ-Bp-efk"/>
+                            <constraint firstItem="o6d-4k-OON" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="cbY-hu-f86"/>
+                            <constraint firstAttribute="bottom" secondItem="DrE-I2-u8c" secondAttribute="bottom" id="f3l-bE-L2C"/>
+                            <constraint firstItem="DrE-I2-u8c" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="sIn-iI-cyT"/>
+                            <constraint firstAttribute="trailing" secondItem="o6d-4k-OON" secondAttribute="trailing" id="x5Q-so-hPq"/>
+                            <constraint firstItem="HlL-xx-ye7" firstAttribute="top" secondItem="o6d-4k-OON" secondAttribute="bottom" constant="43" id="yf3-CD-NKm"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="52.671755725190835" y="374.64788732394368"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="launchscreen" width="436" height="564"/>
+    </resources>
+</document>
