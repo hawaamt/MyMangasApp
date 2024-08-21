@@ -27,6 +27,7 @@
 		2325F2032C3FB7E500A8A1FE /* AsyncImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2325F2022C3FB7E400A8A1FE /* AsyncImageView.swift */; };
 		2325F2052C45379000A8A1FE /* MyCollectionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2325F2042C45379000A8A1FE /* MyCollectionEditView.swift */; };
 		23494A282C75F80C00390A53 /* CustomAsyncImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23494A272C75F80C00390A53 /* CustomAsyncImageView.swift */; };
+		23494A2A2C760C8700390A53 /* AppScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23494A292C760C8700390A53 /* AppScreen.swift */; };
 		236340052C245FF4005D5A14 /* Shimmer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236340042C245FF4005D5A14 /* Shimmer.swift */; };
 		23E7C41B2C1C49C50096B742 /* AuthorsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E7C41A2C1C49C50096B742 /* AuthorsRequest.swift */; };
 		23E7C41F2C1C4AA20096B742 /* DemographicsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E7C41E2C1C4AA20096B742 /* DemographicsRequest.swift */; };
@@ -92,6 +93,7 @@
 		2325F2022C3FB7E400A8A1FE /* AsyncImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImageView.swift; sourceTree = "<group>"; };
 		2325F2042C45379000A8A1FE /* MyCollectionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionEditView.swift; sourceTree = "<group>"; };
 		23494A272C75F80C00390A53 /* CustomAsyncImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAsyncImageView.swift; sourceTree = "<group>"; };
+		23494A292C760C8700390A53 /* AppScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppScreen.swift; sourceTree = "<group>"; };
 		236340042C245FF4005D5A14 /* Shimmer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shimmer.swift; sourceTree = "<group>"; };
 		23E7C41A2C1C49C50096B742 /* AuthorsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorsRequest.swift; sourceTree = "<group>"; };
 		23E7C41E2C1C4AA20096B742 /* DemographicsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemographicsRequest.swift; sourceTree = "<group>"; };
@@ -286,6 +288,7 @@
 			isa = PBXGroup;
 			children = (
 				582618602C1222BD00B041A2 /* ViewState.swift */,
+				23494A292C760C8700390A53 /* AppScreen.swift */,
 				585C8BC32C10E374005FA187 /* ContentView.swift */,
 				5826185C2C12220F00B041A2 /* Home */,
 				2325F1F12C35634300A8A1FE /* MyCollection */,
@@ -468,6 +471,7 @@
 				2325F1F92C36AD4700A8A1FE /* MyCollectionFactory.swift in Sources */,
 				585C8BE22C10F231005FA187 /* Manga.swift in Sources */,
 				2322ADA02C2371840067D246 /* MangaInfoView.swift in Sources */,
+				23494A2A2C760C8700390A53 /* AppScreen.swift in Sources */,
 				585C8BDA2C10ED34005FA187 /* MangaDTO.swift in Sources */,
 				23E7C42D2C1C54740096B742 /* Theme+Mocks.swift in Sources */,
 				2325F1F32C35635E00A8A1FE /* MyCollectionView.swift in Sources */,

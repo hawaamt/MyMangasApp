@@ -224,6 +224,9 @@
         }
       }
     },
+    "Manga App!" : {
+
+    },
     "manga_by_author" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -549,6 +552,9 @@
         }
       }
     },
+    "Other" : {
+
+    },
     "status_finished" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -587,14 +593,14 @@
       "localizations" : {
         "en" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Home"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Home"
+            "value" : "Inicio"
           }
         }
       }
