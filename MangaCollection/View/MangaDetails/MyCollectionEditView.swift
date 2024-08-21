@@ -31,57 +31,8 @@ struct MyCollectionEditView: View {
     var body: some View {
         NavigationStack {
             List {
-                Section {
-                    VStack(spacing: itemsSpacing) {
-                        Text("my_collection_description")
-                            .leadingAlign()
-                            .foregroundColor(.text)
-                            .font(.body)
-                            .fontWeight(.medium)
-                        readingView
-                    }
-                } header: {
-                    Text("my_collection_edit_reading_title")
-                        .font(.headline)
-                        .fontWeight(.bold)
-                        .leadingAlign()
-                }
-                .headerProminence(.increased)
-                
-                Section {
-                    VStack(spacing: itemsSpacing) {
-                        Text("my_collection_description")
-                            .leadingAlign()
-                            .foregroundColor(.text)
-                            .font(.body)
-                            .fontWeight(.medium)
-                        
-                        volumeView
-                        
-                        Text("my_collection_volumes_saved")
-                            .leadingAlign()
-                            .foregroundColor(.text)
-                            .font(.body)
-                            .fontWeight(.medium)
-                    }
-                    ForEach(volumesOwned, id: \.self) {
-                        Text("my_collection_volume: \($0)")
-                            .leadingAlign()
-                            .foregroundColor(.textLight)
-                            .font(.callout)
-                            .fontWeight(.medium)
-                    }
-                    .onDelete(perform: { indexSet in
-                        self.volumesOwned.remove(atOffsets: indexSet)
-                    })
-                } header: {
-                    Text("my_collection_edit_add_volume_title")
-                        .font(.headline)
-                        .fontWeight(.bold)
-                        .leadingAlign()
-                }
-                .buttonStyle(.plain)
-                .headerProminence(.increased)
+                sectionReading
+                sectionVolumesOwned
             }
             .foregroundColor(Color.accentColor)
             .listStyle(.insetGrouped)
@@ -117,9 +68,27 @@ struct MyCollectionEditView: View {
             })
         }
     }
-    
-    func delete(at offsets: IndexSet) {
-        volumesOwned.remove(atOffsets: offsets)
+}
+
+// MARK: - Section Reading
+private extension MyCollectionEditView {
+    var sectionReading: some View {
+        Section {
+            VStack(spacing: itemsSpacing) {
+                Text("my_collection_description")
+                    .leadingAlign()
+                    .foregroundColor(.text)
+                    .font(.body)
+                    .fontWeight(.medium)
+                readingView
+            }
+        } header: {
+            Text("my_collection_edit_reading_title")
+                .font(.headline)
+                .fontWeight(.bold)
+                .leadingAlign()
+        }
+        .headerProminence(.increased)
     }
     
     var readingView: some View {
@@ -136,6 +105,46 @@ struct MyCollectionEditView: View {
                     .stroke(.accent)
             )
         }
+    }
+}
+
+// MARK: - Section Volumes owned
+private extension MyCollectionEditView {
+    var sectionVolumesOwned: some View {
+        Section {
+            VStack(spacing: itemsSpacing) {
+                Text("my_collection_description")
+                    .leadingAlign()
+                    .foregroundColor(.text)
+                    .font(.body)
+                    .fontWeight(.medium)
+                
+                volumeView
+                
+                Text("my_collection_volumes_saved")
+                    .leadingAlign()
+                    .foregroundColor(.text)
+                    .font(.body)
+                    .fontWeight(.medium)
+            }
+            ForEach(volumesOwned, id: \.self) {
+                Text("my_collection_volume: \($0)")
+                    .leadingAlign()
+                    .foregroundColor(.textLight)
+                    .font(.callout)
+                    .fontWeight(.medium)
+            }
+            .onDelete(perform: { indexSet in
+                self.volumesOwned.remove(atOffsets: indexSet)
+            })
+        } header: {
+            Text("my_collection_edit_add_volume_title")
+                .font(.headline)
+                .fontWeight(.bold)
+                .leadingAlign()
+        }
+        .buttonStyle(.plain)
+        .headerProminence(.increased)
     }
     
     var volumeView: some View {
@@ -186,8 +195,13 @@ struct MyCollectionEditView: View {
             }
         }
     }
+    
+    func delete(at offsets: IndexSet) {
+        volumesOwned.remove(atOffsets: offsets)
+    }
 }
 
+// MARK: - Preview
 #Preview {
     @State var isEditingMyCollection: Bool = true
     return MyCollectionEditView(mangaTitle: Manga.manga1.title,
