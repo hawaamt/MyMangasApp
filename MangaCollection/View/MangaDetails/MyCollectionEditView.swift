@@ -7,11 +7,6 @@
 
 import SwiftUI
 
-struct MyItem: Identifiable {
-    let id = UUID()
-    var name: String
-}
-
 struct MyCollectionEditView: View {
     
     var mangaTitle: String
@@ -137,6 +132,7 @@ private extension MyCollectionEditView {
             .onDelete(perform: { indexSet in
                 self.volumesOwned.remove(atOffsets: indexSet)
             })
+            
         } header: {
             Text("my_collection_edit_add_volume_title")
                 .font(.headline)

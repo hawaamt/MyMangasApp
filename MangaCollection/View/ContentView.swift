@@ -24,22 +24,18 @@ struct ContentView: View {
     
     private var tabView: some View {
         TabView {
-            HomeFactory
-                .makeView()
+            AppScreen.home.destination
                 .tabItem {
-                    Label("tab_home", systemImage: "house")
+                    AppScreen.home.label
                 }
-            MyCollectionFactory()
-                .makeView()
+            AppScreen.myCollection.destination
                 .tabItem {
-                    Label("tab_myCollection", systemImage: "books.vertical")
+                    AppScreen.myCollection.label
                 }
-            VStack {
-                Text("tab_myAccount")
-            }
-            .tabItem {
-                Label("tab_myAccount", systemImage: "person")
-            }
+            AppScreen.account.destination
+                .tabItem {
+                    AppScreen.account.label
+                }
         }
     }
     

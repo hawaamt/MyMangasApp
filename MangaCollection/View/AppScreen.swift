@@ -25,8 +25,7 @@ enum AppScreen: CaseIterable, Identifiable {
         switch self {
         case .home: HomeFactory.makeView()
         case .myCollection: MyCollectionFactory().makeView()
-        case .account:
-            Text("tab_myAccount")
+        case .account: Text("tab_myAccount")
         }
     }
 

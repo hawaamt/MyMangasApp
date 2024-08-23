@@ -88,7 +88,7 @@ extension Manga {
 }
 
 // MARK: - Author
-struct Author: Codable, Identifiable, Hashable {
+struct Author: Codable {
     let id: String
     let firstName: String?
     let role: AuthorRole?
@@ -116,7 +116,7 @@ struct Author: Codable, Identifiable, Hashable {
 }
 
 // MARK: - Demographic
-struct Demographic: Codable, Identifiable, Hashable {
+struct Demographic: Codable {
     let id: String
     let demographic: String
     
@@ -126,7 +126,7 @@ struct Demographic: Codable, Identifiable, Hashable {
 }
 
 // MARK: - Genre
-struct Genre: Codable, Identifiable, Hashable {
+struct Genre: Codable {
     let id: String
     let genre: String
     
@@ -136,7 +136,7 @@ struct Genre: Codable, Identifiable, Hashable {
 }
 
 // MARK: - Theme
-struct Theme: Codable, Identifiable, Hashable {
+struct Theme: Codable {
     let id: String
     let theme: String
     
@@ -155,7 +155,6 @@ enum MangaBy: Hashable {
     var title: String {
         switch self {
         case .genre(let genre):
-            
             return "\(String(localized: "manga_by_genre")) \(genre.genre)"
         case .theme(let theme):
             return "\(String(localized: "manga_by_theme")) \(theme.theme)"
