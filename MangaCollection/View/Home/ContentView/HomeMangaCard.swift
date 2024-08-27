@@ -81,6 +81,23 @@ struct HomeMangaCard: View {
     }
 }
 
+// MARK: - Placeholder
+extension HomeMangaCard {
+    @ViewBuilder
+    static var placeholder: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            LazyHStack {
+                ForEach(0...5, id: \.self) { _ in
+                    HomeMangaCard(manga: Manga.placeholder, action: {})
+                }
+            }
+            .padding(.leading)
+        }
+        .redacted(reason: .placeholder)
+        .shimmer()
+    }
+}
+
 #Preview {
     HomeMangaCard(manga: Manga.manga3, action: {})
         .modelContainer(.preview)

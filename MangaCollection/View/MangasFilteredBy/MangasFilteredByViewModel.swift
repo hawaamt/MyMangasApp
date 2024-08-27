@@ -53,4 +53,10 @@ class MangasFilteredByViewModel {
             state = .error
         }
     }
+    
+    @MainActor
+    func reloadData() async {
+        pagination = MangaPagination(page: 1, per: 100)
+        await loadData()
+    }
 }

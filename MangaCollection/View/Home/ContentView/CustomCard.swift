@@ -34,6 +34,24 @@ struct CustomCard: View {
     }
 }
 
+// MARK: - Placeholder
+extension CustomCard {
+    @ViewBuilder
+    static var placeholder: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            LazyHStack {
+                ForEach(0...5, id: \.self) { _ in
+                    CustomCard(image: Image(.mangaDefaultBackground),
+                               title: "Placeholder")
+                }
+            }
+            .padding(.leading)
+        }
+        .redacted(reason: .placeholder)
+        .shimmer()
+    }
+}
+
 #Preview {
     CustomCard(image: Genre.genre5.image, title: Genre.genre5.genre)
 }

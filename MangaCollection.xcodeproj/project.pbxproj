@@ -226,8 +226,8 @@
 			isa = PBXGroup;
 			children = (
 				23494A342C7613A400390A53 /* CustomFilterFactory.swift */,
-				23494A2E2C76137000390A53 /* CustomFilterView.swift */,
 				23494A302C76138A00390A53 /* CustomFilterViewModel.swift */,
+				23494A2E2C76137000390A53 /* CustomFilterView.swift */,
 				23494A362C76175B00390A53 /* Modal */,
 			);
 			path = CustomFilter;

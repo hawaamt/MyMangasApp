@@ -50,6 +50,12 @@ class CustomFilterViewModel {
         _ = await [mangas, authors, demographics, genres, themes]
     }
     
+    @MainActor
+    func reloadData() async {
+        self.pagination = MangaPagination(page: 1, per: 100)
+        await loadData()
+    }
+    
     func onAcceptFilter(_ filterBy: FilterBy?) {
         self.filterBy = filterBy
         Task {

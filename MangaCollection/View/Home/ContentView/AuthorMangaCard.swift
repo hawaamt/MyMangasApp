@@ -55,6 +55,23 @@ struct AuthorMangaCard: View {
     }
 }
 
+// MARK: - Placeholder
+extension AuthorMangaCard {
+    @ViewBuilder
+    static var placeholder: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            LazyHStack {
+                ForEach(0...5, id: \.self) { _ in
+                    AuthorMangaCard(author: Author.placeholder)
+                }
+            }
+            .padding(.leading)
+        }
+        .redacted(reason: .placeholder)
+        .shimmer()
+    }
+}
+
 #Preview(traits: .sizeThatFitsLayout) {
     AuthorMangaCard(author: .author1)
         .frame(width: 300, height: 100)

@@ -18,10 +18,7 @@ struct CustomFilterView: View {
             HStack {
                 switch viewModel.state {
                 case .idle, .loading:
-                    VStack {
-                        MangaCellView.placeholder
-                    }
-                    .padding()
+                    MangaCellView.placeholder
                 case .loaded:
                     List {
                         ForEach(viewModel.mangas) { manga in
@@ -41,6 +38,11 @@ struct CustomFilterView: View {
                                         await viewModel.loadData()
                                     }
                                 }
+                        }
+                    }
+                    .refreshable {
+                        Task {
+                            await viewModel.reloadData()
                         }
                     }
                     .listRowInsets(EdgeInsets())

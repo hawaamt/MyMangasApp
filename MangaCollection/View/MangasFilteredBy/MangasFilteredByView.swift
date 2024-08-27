@@ -18,10 +18,7 @@ struct MangasFilteredByView: View {
             HStack {
                 switch viewModel.state {
                 case .idle, .loading:
-                    VStack {
-                        MangaCellView.placeholder
-                    }
-                    .padding()
+                    MangaCellView.placeholder
                 case .loaded:
                     List {
                         ForEach(viewModel.mangas) { manga in
@@ -43,6 +40,11 @@ struct MangasFilteredByView: View {
                                 }
                         }
                     }
+                    .refreshable {
+                        Task {
+                            await viewModel.reloadData()
+                        }
+                    }
                     .listRowInsets(EdgeInsets())
                     .listStyle(.plain)
                 case .empty:
@@ -55,9 +57,6 @@ struct MangasFilteredByView: View {
                         }
                     }
                 }
-            }
-            .navigationDestination(for: Manga.self) {
-                MangaDetailsView(viewModel: MangaDetailsViewModel(manga: $0))
             }
             .navigationTitle(viewModel.mangaBy.title)
             .navigationBarBackButtonHidden()

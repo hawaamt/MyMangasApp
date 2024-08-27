@@ -45,9 +45,6 @@ struct MangaDetailsView: View {
                                                       onSave: viewModel.saveEditing)
             return MyCollectionEditView(viewModel: viewModel)
         }
-        .navigationDestination(for: Author.self) {
-            MangasFilteredByFactory(mangasBy: .author($0)).makeView()
-        }
     }
     
     var content: some View {

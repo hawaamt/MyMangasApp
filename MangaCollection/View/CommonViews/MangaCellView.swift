@@ -101,16 +101,6 @@ struct MangaCellView: View {
         }
     }
     
-    @ViewBuilder static var placeholder: some View {
-        VStack {
-            MangaCellView(manga: Manga.manga1)
-            MangaCellView(manga: Manga.manga2)
-            MangaCellView(manga: Manga.manga3)
-        }
-        .redacted(reason: .placeholder)
-        .shimmer()
-    }
-    
     private func isInMyCollection() {
         let predicate = #Predicate<CollectionItem> { item in
             item.manga.id == manga.id
@@ -122,6 +112,22 @@ struct MangaCellView: View {
         } catch {
             isMangaInMyCollection = false
         }
+    }
+}
+
+// MARK: - Placeholder
+extension MangaCellView {
+    @ViewBuilder 
+    static var placeholder: some View {
+        List {
+            MangaCellView(manga: Manga.manga1)
+            MangaCellView(manga: Manga.manga2)
+            MangaCellView(manga: Manga.manga3)
+        }
+        .listRowInsets(EdgeInsets())
+        .listStyle(.plain)
+        .redacted(reason: .placeholder)
+        .shimmer()
     }
 }
 

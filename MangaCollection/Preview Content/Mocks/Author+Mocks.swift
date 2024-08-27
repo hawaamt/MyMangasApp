@@ -8,6 +8,11 @@
 import Foundation
 
 extension Author {
+    static var placeholder = Author(id: "placeholder",
+                                    firstName: "Placeholder",
+                                    role: .art,
+                                    lastName: "Placeholder")
+    
     static var author1 = Author(id: "AE354A62-1A8C-496B-A816-1ED1E4ED34FA",
                                 firstName: "Natsuki",
                                 role: .story,

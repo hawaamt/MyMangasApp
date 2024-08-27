@@ -44,9 +44,9 @@ struct HomeView: View {
                         header(title: "home_themes")
                     }
                 }
-                .refreshable {
-                    await viewModel.loadData()
-                }
+            }
+            .refreshable {
+                await viewModel.loadData()
             }
             .navigationDestination(for: Manga.self) {
                 MangaDetailsView(viewModel: MangaDetailsViewModel(manga: $0))
@@ -72,8 +72,10 @@ extension HomeView {
     
     var top10: some View {
         VStack {
-            SkeletonView(type: .grid,
-                         isLoading: $viewModel.isLoadingMangas) {
+            switch viewModel.loadingMangasState {
+            case .idle, .loading:
+                HomeMangaCard.placeholder
+            case .loaded:
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
                         ForEach(viewModel.bestMangas) { manga in
@@ -85,14 +87,24 @@ extension HomeView {
                     }
                     .padding(.leading)
                 }
+            case .empty:
+                NoDataView()
+            case .error:
+                ErrorView {
+                    Task {
+                        await viewModel.loadBestMangas()
+                    }
+                }
             }
         }
     }
     
     var authores: some View {
         VStack {
-            SkeletonView(type: .grid,
-                         isLoading: $viewModel.isLoadingAuthors) {
+            switch viewModel.loadingAuthorsState {
+            case .idle, .loading:
+                AuthorMangaCard.placeholder
+            case .loaded:
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
                         ForEach(viewModel.authors) { author in
@@ -104,14 +116,24 @@ extension HomeView {
                     }
                     .padding(.leading)
                 }
+            case .empty:
+                NoDataView()
+            case .error:
+                ErrorView {
+                    Task {
+                        await viewModel.loadAuthors()
+                    }
+                }
             }
         }
     }
     
     var demographic: some View {
         VStack {
-            SkeletonView(type: .grid,
-                         isLoading: $viewModel.isLoadingDemographics) {
+            switch viewModel.loadingDemographicsState {
+            case .idle, .loading:
+                CustomCard.placeholder
+            case .loaded:
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
                         ForEach(viewModel.demographics) { demographic in
@@ -125,14 +147,24 @@ extension HomeView {
                     .padding(.top, 2)
                     .padding(.leading)
                 }
+            case .empty:
+                NoDataView()
+            case .error:
+                ErrorView {
+                    Task {
+                        await viewModel.loadDemographics()
+                    }
+                }
             }
         }
     }
     
     var genres: some View {
         VStack {
-            SkeletonView(type: .grid,
-                         isLoading: $viewModel.isLoadingGenres) {
+            switch viewModel.loadingGenresState {
+            case .idle, .loading:
+                CustomCard.placeholder
+            case .loaded:
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
                         ForEach(viewModel.genres) { genre in
@@ -146,14 +178,24 @@ extension HomeView {
                     .padding(.top, 2)
                     .padding(.leading)
                 }
+            case .empty:
+                NoDataView()
+            case .error:
+                ErrorView {
+                    Task {
+                        await viewModel.loadGenres()
+                    }
+                }
             }
         }
     }
     
     var themes: some View {
         VStack {
-            SkeletonView(type: .grid,
-                         isLoading: $viewModel.isLoadingThemes) {
+            switch viewModel.loadingThemesState {
+            case .idle, .loading:
+                CustomCard.placeholder
+            case .loaded:
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
                         ForEach(viewModel.themes) { theme in
@@ -166,6 +208,14 @@ extension HomeView {
                     }
                     .padding(.top, 2)
                     .padding(.leading)
+                }
+            case .empty:
+                NoDataView()
+            case .error:
+                ErrorView {
+                    Task {
+                        await viewModel.loadThemes()
+                    }
                 }
             }
         }

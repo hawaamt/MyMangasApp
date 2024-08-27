@@ -16,11 +16,11 @@ class HomeViewModel {
     var genres: [Genre] = []
     var themes: [Theme] = []
     
-    var isLoadingMangas: Bool = false
-    var isLoadingAuthors: Bool = false
-    var isLoadingDemographics: Bool = false
-    var isLoadingGenres: Bool = false
-    var isLoadingThemes: Bool = false
+    var loadingMangasState: ScreenState = .idle
+    var loadingAuthorsState: ScreenState = .idle
+    var loadingDemographicsState: ScreenState = .idle
+    var loadingGenresState: ScreenState = .idle
+    var loadingThemesState: ScreenState = .idle
 
     private let interactor: MangaInteractorGeneric
     
@@ -43,64 +43,59 @@ class HomeViewModel {
 }
 
 // MARK: - Load data
-private extension HomeViewModel {
+extension HomeViewModel {
     @MainActor
     func loadBestMangas() async {
         do {
-            isLoadingMangas = true
+            loadingMangasState = .loading
             bestMangas = try await interactor.getMangaBest()
-            isLoadingMangas = false
+            loadingMangasState = bestMangas.isEmpty ? .empty : .loaded
         } catch {
-            print(error)
-            isLoadingMangas = false
+            loadingMangasState = .error
         }
     }
     
     @MainActor
     func loadAuthors() async {
         do {
-            isLoadingAuthors = true
+            loadingAuthorsState = .loading
             authors = try await interactor.getAuthors()
-            isLoadingAuthors = false
+            loadingAuthorsState = authors.isEmpty ? .empty : .loaded
         } catch {
-            print(error)
-            isLoadingAuthors = false
+            loadingAuthorsState = .error
         }
     }
     
     @MainActor
     func loadDemographics() async {
         do {
-            isLoadingDemographics = true
+            loadingDemographicsState = .loading
             demographics = try await interactor.getDemographics()
-            isLoadingDemographics = false
+            loadingDemographicsState = demographics.isEmpty ? .empty : .loaded
         } catch {
-            print(error)
-            isLoadingDemographics = false
+            loadingDemographicsState = .error
         }
     }
     
     @MainActor
     func loadGenres() async {
         do {
-            isLoadingGenres = true
+            loadingGenresState = .loading
             genres = try await interactor.getGenres()
-            isLoadingGenres = false
+            loadingGenresState = genres.isEmpty ? .empty : .loaded
         } catch {
-            print(error)
-            isLoadingGenres = false
+            loadingGenresState = .error
         }
     }
     
     @MainActor
     func loadThemes() async {
         do {
-            isLoadingThemes = true
+            loadingThemesState = .loading
             themes = try await interactor.getThemes()
-            isLoadingThemes = false
+            loadingThemesState = themes.isEmpty ? .empty : .loaded
         } catch {
-            print(error)
-            isLoadingThemes = false
+            loadingThemesState = .error
         }
     }
 }

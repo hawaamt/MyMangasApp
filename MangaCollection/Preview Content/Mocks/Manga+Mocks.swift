@@ -9,6 +9,27 @@ import Foundation
 
 extension Manga {
     
+    static var placeholder = Manga(
+        id: 999,
+        title: "Placeholder",
+        volumes: 0,
+        chapters: 0,
+        url: "",
+        background: "",
+        score: 0,
+        startDate: Date(),
+        endDate: Date(),
+        genres: [],
+        authors: [],
+        demographics: [],
+        themes: [],
+        status: .inProgress,
+        sypnosis: "",
+        mainPicture: "",
+        titleJapanese: "",
+        titleEnglish: ""
+    )
+    
     static var manga1 = Manga(
         id: 1,
         title: "Berserk",
