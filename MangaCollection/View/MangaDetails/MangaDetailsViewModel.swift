@@ -51,8 +51,9 @@ final class MangaDetailsViewModel: ObservableObject {
         checkManagaIsInMyCollection(in: context)
     }
     
-    func saveEditing(reading: String, volumesOwned: [String]) {
+    func saveEditing(reading: String, volumesOwned: [String], isCompleted: Bool) {
         myMangaCollection?.volumeReading = Int(reading)
         myMangaCollection?.volumesOwned = volumesOwned.compactMap({ Int($0) })
+        myMangaCollection?.completeCollection = isCompleted
     }
 }

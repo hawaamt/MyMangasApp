@@ -38,11 +38,12 @@ struct MangaDetailsView: View {
             }
         }
         .sheet(isPresented: $viewModel.isEditingMyCollection) {
-            MyCollectionEditView(mangaTitle: viewModel.manga.title,
-                                 volumeReading: viewModel.myMangaCollection?.volumeReadingString ?? "",
-                                 volumesOwned: viewModel.myMangaCollection?.volumesOwned.map({ "\($0)" }) ?? [],
-                                 isEditingMyCollection: $viewModel.isEditingMyCollection,
-                                 onSave: viewModel.saveEditing)
+            let viewModel = MyCollectionEditViewModel(mangaTitle: viewModel.manga.title,
+                                                      volumeReading: viewModel.myMangaCollection?.volumeReadingString ?? "",
+                                                      volumesOwned: viewModel.myMangaCollection?.volumesOwned.map({ "\($0)" }) ?? [],
+                                                      isCompleted: viewModel.myMangaCollection?.completeCollection ?? false,
+                                                      onSave: viewModel.saveEditing)
+            return MyCollectionEditView(viewModel: viewModel)
         }
         .navigationDestination(for: Author.self) {
             MangasFilteredByFactory(mangasBy: .author($0)).makeView()
@@ -181,15 +182,25 @@ extension MangaDetailsView {
                     .leadingAlign()
                     .font(.callout)
                     .fontWeight(.medium)
-                Text("details_volumes_acquired \(manga.volumesOwnedDescription)")
-                    .leadingAlign()
-                    .font(.callout)
-                    .fontWeight(.medium)
+                if manga.completeCollection {
+                    Text("my_collection_complete")
+                        .font(.caption2)
+                        .padding(5)
+                        .background(Color(.success))
+                        .clipShape(.buttonBorder)
+                        .padding(.bottom, 3)
+                } else {
+                    Text("details_volumes_acquired \(manga.volumesOwnedDescription)")
+                        .leadingAlign()
+                        .font(.callout)
+                        .fontWeight(.medium)
+                }
                 Button("details_remove_collection") {
                     viewModel.removeFromMyCollection(in: context)
                 }
                 .buttonStyle(.borderedProminent)
             }
+            
             VStack {
                 Button {
                     viewModel.isEditingMyCollection.toggle()

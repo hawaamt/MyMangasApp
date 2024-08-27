@@ -8,15 +8,9 @@
 import SwiftUI
 
 struct MyCollectionEditView: View {
+    @Environment(\.dismiss) private var dismiss
     
-    var mangaTitle: String
-    @State var volumeReading: String
-    @State var volumesOwned: [String]
-    @Binding var isEditingMyCollection: Bool
-    var onSave: (String, [String]) -> Void
-    
-    @State var newVolume: String = ""
-    @State var error: String?
+    @State var viewModel: MyCollectionEditViewModel
     
     @FocusState private var newReadingFocused: Bool
     @FocusState private var newVolumeFocused: Bool
@@ -26,28 +20,36 @@ struct MyCollectionEditView: View {
     var body: some View {
         NavigationStack {
             List {
+                isCompleted
                 sectionReading
-                sectionVolumesOwned
+                if !viewModel.isCompleted {
+                    sectionVolumesOwned
+                }
             }
             .foregroundColor(Color.accentColor)
             .listStyle(.insetGrouped)
-            .navigationTitle(mangaTitle)
+            .navigationTitle(viewModel.mangaTitle)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button("my_collection_cancel") {
-                        isEditingMyCollection.toggle()
+                        dismiss()
                     }
                 }
                 
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("my_collection_accept") {
-                        onSave(volumeReading, volumesOwned)
-                        isEditingMyCollection.toggle()
+                        viewModel.saveData()
+                        dismiss()
                     }
                 }
             }
             .toolbar {
                 ToolbarItemGroup(placement: .keyboard) {
+                    Button("my_collection_cancel") {
+                        newReadingFocused = false
+                        newVolumeFocused = false
+                    }
+                    
                     Spacer()
 
                     Button("my_collection_accept") {
@@ -56,17 +58,29 @@ struct MyCollectionEditView: View {
                     }
                  }
             }
-            .onChange(of: newVolumeFocused, { _, newValue in
+            .onChange(of: newVolumeFocused) { _, newValue in
                 if newValue {
-                    error = nil
+                    viewModel.error = nil
                 }
-            })
+            }
         }
     }
 }
 
 // MARK: - Section Reading
 private extension MyCollectionEditView {
+    var isCompleted: some View {
+        Section {
+            Toggle(isOn: $viewModel.isCompleted) {
+                Text("my_collection_isCompleted")
+                    .leadingAlign()
+                    .foregroundColor(.text)
+                    .font(.body)
+                    .fontWeight(.medium)
+            }
+        }
+    }
+    
     var sectionReading: some View {
         Section {
             VStack(spacing: itemsSpacing) {
@@ -89,7 +103,7 @@ private extension MyCollectionEditView {
     var readingView: some View {
         VStack {
             HStack {
-                TextField("my_collection_edit_reading_placeholder", text: $volumeReading)
+                TextField("my_collection_edit_reading_placeholder", text: $viewModel.volumeReading)
                     .focused($newReadingFocused)
                     .keyboardType(.numberPad)
                     .submitLabel(.done)
@@ -122,7 +136,7 @@ private extension MyCollectionEditView {
                     .font(.body)
                     .fontWeight(.medium)
             }
-            ForEach(volumesOwned, id: \.self) {
+            ForEach(viewModel.volumesOwned, id: \.self) {
                 Text("my_collection_volume: \($0)")
                     .leadingAlign()
                     .foregroundColor(.textLight)
@@ -130,7 +144,7 @@ private extension MyCollectionEditView {
                     .fontWeight(.medium)
             }
             .onDelete(perform: { indexSet in
-                self.volumesOwned.remove(atOffsets: indexSet)
+                self.viewModel.volumesOwned.remove(atOffsets: indexSet)
             })
             
         } header: {
@@ -150,10 +164,10 @@ private extension MyCollectionEditView {
                     HStack {
                         HStack {
                             TextField("my_collection_edit_add_volume_placeholder",
-                                      text: $newVolume,
+                                      text: $viewModel.newVolume,
                                       onEditingChanged: { editingChanged in
                                 if editingChanged {
-                                    error = nil
+                                    viewModel.error = nil
                                 }
                             })
                             .focused($newReadingFocused)
@@ -165,21 +179,14 @@ private extension MyCollectionEditView {
                                 .stroke(.accent)
                         )
                         Button {
-                            guard !volumesOwned.contains(newVolume) else {
-                                error = String(localized: "my_collection_edit_add_volume_error")
-                                return
-                            }
-                            if !newVolume.isEmpty {
-                                volumesOwned.append(newVolume)
-                                newReadingFocused = false
-                            }
+                            viewModel.addVolume()
                         } label: {
                             Image(systemName: "plus.circle.fill")
                                 .resizable()
                                 .frame(width: 20, height: 20)
                         }
                     }
-                    if let error {
+                    if let error = viewModel.error {
                         Text(error)
                             .leadingAlign()
                             .foregroundColor(.error)
@@ -191,17 +198,12 @@ private extension MyCollectionEditView {
             }
         }
     }
-    
-    func delete(at offsets: IndexSet) {
-        volumesOwned.remove(atOffsets: offsets)
-    }
 }
 
 // MARK: - Preview
 #Preview {
-    @State var isEditingMyCollection: Bool = true
-    return MyCollectionEditView(mangaTitle: Manga.manga1.title,
-                                volumeReading: "1",
-                                volumesOwned: ["1", "2", "3"],
-                                isEditingMyCollection: $isEditingMyCollection) {_, _ in }
+    let viewModel = MyCollectionEditViewModel(mangaTitle: Manga.manga1.title,
+                                              volumeReading: "1",
+                                              volumesOwned: ["1", "2", "3"], isCompleted: false) {_, _, _ in }
+    return MyCollectionEditView(viewModel: viewModel)
 }

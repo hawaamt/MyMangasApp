@@ -30,7 +30,7 @@ struct MyCollectionView: View {
                                                    height: 100)
                                         .frame(width: 100)
                                         .clipShape(.buttonBorder)
-                                    if !item.completeCollection {
+                                    if item.completeCollection {
                                         VStack {
                                             Spacer()
                                             Text("my_collection_complete")

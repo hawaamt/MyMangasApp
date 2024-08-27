@@ -48,6 +48,7 @@
 		23494A572C7B8E9100390A53 /* MangaByIDRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23494A562C7B8E9100390A53 /* MangaByIDRequest.swift */; };
 		23494A592C7B949100390A53 /* MangaBeginsWithRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23494A582C7B949000390A53 /* MangaBeginsWithRequest.swift */; };
 		236340052C245FF4005D5A14 /* Shimmer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236340042C245FF4005D5A14 /* Shimmer.swift */; };
+		23A372392C7E1761003A4E91 /* MyCollectionEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A372382C7E1761003A4E91 /* MyCollectionEditViewModel.swift */; };
 		23E7C41B2C1C49C50096B742 /* AuthorsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E7C41A2C1C49C50096B742 /* AuthorsRequest.swift */; };
 		23E7C41F2C1C4AA20096B742 /* DemographicsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E7C41E2C1C4AA20096B742 /* DemographicsRequest.swift */; };
 		23E7C4212C1C4B720096B742 /* GenresRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E7C4202C1C4B720096B742 /* GenresRequest.swift */; };
@@ -133,6 +134,7 @@
 		23494A562C7B8E9100390A53 /* MangaByIDRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaByIDRequest.swift; sourceTree = "<group>"; };
 		23494A582C7B949000390A53 /* MangaBeginsWithRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaBeginsWithRequest.swift; sourceTree = "<group>"; };
 		236340042C245FF4005D5A14 /* Shimmer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shimmer.swift; sourceTree = "<group>"; };
+		23A372382C7E1761003A4E91 /* MyCollectionEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionEditViewModel.swift; sourceTree = "<group>"; };
 		23E7C41A2C1C49C50096B742 /* AuthorsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorsRequest.swift; sourceTree = "<group>"; };
 		23E7C41E2C1C4AA20096B742 /* DemographicsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemographicsRequest.swift; sourceTree = "<group>"; };
 		23E7C4202C1C4B720096B742 /* GenresRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresRequest.swift; sourceTree = "<group>"; };
@@ -265,6 +267,15 @@
 			path = Other;
 			sourceTree = "<group>";
 		};
+		23A372372C7E1738003A4E91 /* EditMyCollection */ = {
+			isa = PBXGroup;
+			children = (
+				23A372382C7E1761003A4E91 /* MyCollectionEditViewModel.swift */,
+				2325F2042C45379000A8A1FE /* MyCollectionEditView.swift */,
+			);
+			path = EditMyCollection;
+			sourceTree = "<group>";
+		};
 		5826185C2C12220F00B041A2 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -369,6 +380,7 @@
 				5826185C2C12220F00B041A2 /* Home */,
 				23494A2D2C76135500390A53 /* CustomFilter */,
 				2325F1F12C35634300A8A1FE /* MyCollection */,
+				23A372372C7E1738003A4E91 /* EditMyCollection */,
 				2322AD8B2C235A1A0067D246 /* MangasFilteredBy */,
 				58C04ED62C1319FD00F5966B /* MangaDetails */,
 				2322AD9A2C236D5A0067D246 /* CommonViews */,
@@ -455,7 +467,6 @@
 			children = (
 				2325F1EE2C35448700A8A1FE /* MangaDetailsViewModel.swift */,
 				58C04ED72C131A1100F5966B /* MangaDetailsView.swift */,
-				2325F2042C45379000A8A1FE /* MyCollectionEditView.swift */,
 			);
 			path = MangaDetails;
 			sourceTree = "<group>";
@@ -573,6 +584,7 @@
 				23E7C42B2C1C54250096B742 /* Genres+Mocks.swift in Sources */,
 				2325F1EF2C35448700A8A1FE /* MangaDetailsViewModel.swift in Sources */,
 				23494A4A2C7A4F7500390A53 /* CustomFilterModalView+Author.swift in Sources */,
+				23A372392C7E1761003A4E91 /* MyCollectionEditViewModel.swift in Sources */,
 				58C04EDA2C13212A00F5966B /* Image+clipCenter.swift in Sources */,
 				585C8BC42C10E374005FA187 /* ContentView.swift in Sources */,
 				23494A442C78AF4C00390A53 /* CustomFilterModalView+CustomFilter.swift in Sources */,
@@ -767,6 +779,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = hawaa.com.MangaCollection;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -799,6 +815,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = hawaa.com.MangaCollection;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

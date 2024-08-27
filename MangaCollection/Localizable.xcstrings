@@ -137,7 +137,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumes adquired: %@"
+            "value" : "Volumes acquired: %@"
           }
         },
         "es" : {
@@ -925,14 +925,14 @@
       "localizations" : {
         "en" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Completed"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Completo"
+            "value" : "Completa"
           }
         }
       }
@@ -1046,6 +1046,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Leyendo:"
+          }
+        }
+      }
+    },
+    "my_collection_isCompleted" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Collection completed"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Colección completada"
           }
         }
       }
