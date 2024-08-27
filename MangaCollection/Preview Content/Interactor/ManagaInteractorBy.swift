@@ -34,4 +34,40 @@ struct MangaInteractorFilteredByMock: MangaInteractorFilteredBy {
             throw NetworkError.status(404)
         }
     }
+    
+    func getMangaBeginsWith(_ filter: String) async throws -> [Manga] {
+        try await Task.sleep(nanoseconds: 3_000_000_000)
+        switch stateToTest {
+        case .idle, .loading, .empty:
+            return []
+        case .loaded:
+            return Manga.mockList
+        case .error:
+            throw NetworkError.status(404)
+        }
+    }
+    
+    func getMangaByID(_ mangaId: String) async throws -> Manga? {
+        try await Task.sleep(nanoseconds: 3_000_000_000)
+        switch stateToTest {
+        case .idle, .loading, .empty:
+            return nil
+        case .loaded:
+            return Manga.manga1
+        case .error:
+            throw NetworkError.status(404)
+        }
+    }
+    
+    func searchAuthor(with name: String) async throws -> [Author] {
+        try await Task.sleep(nanoseconds: 3_000_000_000)
+        switch stateToTest {
+        case .idle, .loading, .empty:
+            return []
+        case .loaded:
+            return Author.mockList
+        case .error:
+            throw NetworkError.status(404)
+        }
+    }
 }

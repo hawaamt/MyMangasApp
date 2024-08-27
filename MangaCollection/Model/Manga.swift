@@ -113,6 +113,17 @@ struct Author: Codable {
         }
         return "-"
     }
+    
+    var fullName: String {
+        var names = [String]()
+        if hasFirstName {
+            names.append(firstName!)
+        }
+        if hasLastName {
+            names.append(lastName!)
+        }
+        return names.isEmpty ? "-" : names.joined(separator: " ")
+    }
 }
 
 // MARK: - Demographic

@@ -24,18 +24,12 @@ struct ContentView: View {
     
     private var tabView: some View {
         TabView {
-            AppScreen.home.destination
-                .tabItem {
-                    AppScreen.home.label
-                }
-            AppScreen.myCollection.destination
-                .tabItem {
-                    AppScreen.myCollection.label
-                }
-            AppScreen.account.destination
-                .tabItem {
-                    AppScreen.account.label
-                }
+            ForEach(AppScreen.allCases) { screen in
+                screen.destination
+                    .tabItem {
+                        screen.label
+                    }
+            }
         }
     }
     

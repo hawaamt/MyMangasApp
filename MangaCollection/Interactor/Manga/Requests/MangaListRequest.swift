@@ -21,7 +21,7 @@ struct MangaListRequest: APIRequest {
         "/list/mangas"
     }
     
-    var body: Codable? = nil
+    var body: [String : Any] { [:] }
     
     var queryParameters: [String : Any] {
         pagination.dictionary

@@ -25,30 +25,30 @@ struct MangaFilteredRequest: APIRequest {
     var path: String {
         switch filterBy {
         case .genre(let value):
-            "list/mangaByGenre/\(value)"
+            guard let genre = value?.genre else { return "" }
+            return "list/mangaByGenre/\(genre)"
         case .theme(let value):
-            "list/mangaByTheme/\(value)"
+            guard let theme = value?.theme else { return "" }
+            return "list/mangaByTheme/\(theme)"
         case .demographic(let value):
-            "list/demographics/\(value)"
+            guard let demographic = value?.demographic else { return "" }
+            return "list/mangaByDemographic/\(demographic)"
         case .author(let value):
-            "list/mangaByAuthor/\(value)"
-        case .beginWith(let value):
-            "list/mangasBeginsWith/\(value)"
+            guard let author = value?.id else { return "" }
+            return "list/mangaByAuthor/\(author)"
         case .contains(let value):
-            "list/mangasContains/\(value)"
-        case .id(let value):
-            "search/manga/\(value)"
-        case .custom:
-            "search/manga"
+            return "search/mangasContains/\(value)"
+        default:
+            return "search/manga"
         }
     }
     
-    var body: Codable? {
+    var body: [String : Any] {
         switch filterBy {
         case .custom(let customFilterModel):
-            customFilterModel
+            customFilterModel.dictionary
         default:
-            nil
+            [:]
         }
     }
     

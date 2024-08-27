@@ -19,7 +19,7 @@ protocol APIRequest {
     var method: HTTPMethodType { get }
     var path: String { get }
     var queryParameters: [String: Any] { get }
-    var body: Codable? { get }
+    var body: [String: Any] { get }
 }
 
 extension APIRequest {
@@ -66,10 +66,7 @@ extension APIRequest {
     private func post(url: URL) -> URLRequest {
         var request = URLRequest(url: url)
         request.setValue("application/json; charset=utf8", forHTTPHeaderField: "Content-Type")
-        
-        if let body {
-            request.httpBody = try? JSONEncoder().encode(body)
-        }
+        request.httpBody = try? JSONSerialization.data(withJSONObject: body)
         
         return request
     }

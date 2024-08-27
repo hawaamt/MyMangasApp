@@ -9,7 +9,7 @@ import Foundation
 
 struct MyCollectionFactory {
     
-    func makeView() -> MyCollectionView {
+    static func makeView() -> MyCollectionView {
         let viewModel = MyCollectionViewModel()
         return MyCollectionView(viewModel: viewModel)
     }

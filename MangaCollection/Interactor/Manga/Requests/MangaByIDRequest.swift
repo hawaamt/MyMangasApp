@@ -1,22 +1,24 @@
 //
-//  GenresRequest.swift
+//  MangaByIDRequest.swift
 //  MangaCollection
 //
-//  Created by Eva Gonzalez Ferreira on 14/6/24.
+//  Created by Eva Gonzalez Ferreira on 25/8/24.
 //
 
 import Foundation
 
-struct GenresRequest: APIRequest {
+struct MangaByIDRequest: APIRequest {
 
-    typealias Response = [String]
+    typealias Response = MangaItemDTO?
+    
+    let mangaId: String
     
     var method: HTTPMethodType {
         .get
     }
     
     var path: String {
-        "/list/genres"
+        return "search/manga/\(mangaId)"
     }
     
     var body: [String : Any] { [:] }

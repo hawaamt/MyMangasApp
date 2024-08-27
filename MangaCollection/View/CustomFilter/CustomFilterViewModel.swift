@@ -16,24 +16,24 @@ class CustomFilterViewModel {
     var demographics: [Demographic] = []
     var mangas: [Manga] = []
     
-    var isShowingModal: Bool = false
+    var state: ScreenState = .idle
     var listIsFull: Bool = false
-    var isLoadingMangas: Bool = false
-    var isLoadingAuthors: Bool = false
-    var isLoadingDemographics: Bool = false
-    var isLoadingGenres: Bool = false
-    var isLoadingThemes: Bool = false
+    var isShowingModal: Bool = false
+    
+    var filterBy: FilterBy?
     
     private let interactorGeneric: MangaInteractorGeneric
     private let interactorFilter: MangaInteractorFilteredBy
     private var pagination: MangaPagination
-    private var filterBy: FilterBy?
     
     init(interactorGeneric: MangaInteractorGeneric,
          interactorFilter: MangaInteractorFilteredBy) {
         self.interactorGeneric = interactorGeneric
         self.interactorFilter = interactorFilter
         self.pagination = MangaPagination(page: 1, per: 100)
+        Task {
+            await loadData()
+        }
     }
     
     var isFiltering: Bool {
@@ -49,6 +49,15 @@ class CustomFilterViewModel {
         async let themes: Void = loadThemes()
         _ = await [mangas, authors, demographics, genres, themes]
     }
+    
+    func onAcceptFilter(_ filterBy: FilterBy?) {
+        self.filterBy = filterBy
+        Task {
+            self.mangas = []
+            self.pagination = MangaPagination(page: 1, per: 100)
+            await loadMangas()
+        }
+    }
 }
 
 // MARK: - Load data
@@ -56,65 +65,79 @@ private extension CustomFilterViewModel {
     @MainActor
     func loadMangas() async {
         do {
-            isLoadingMangas = true
-            let mangasPaginated = try await interactorGeneric.getMangaList(with: pagination)
-            mangas.append(contentsOf: mangasPaginated.items ?? [])
-            pagination = mangasPaginated.pagination
-            if mangas.count <= pagination.page * pagination.per && !listIsFull {
-                listIsFull = true
+            state = .loading
+            guard let filterBy else {
+                let mangaPaginated = try await interactorGeneric.getMangaList(with: pagination)
+                fillMangasList(mangaPaginated.items ?? [], with: mangaPaginated.pagination)
+                return
             }
-            isLoadingMangas = false
+            
+            switch filterBy {
+            case .id(let mangaId):
+                let manga = try await interactorFilter.getMangaByID(mangaId)
+                guard let manga else {
+                    fillMangasList([])
+                    return
+                }
+                fillMangasList([manga])
+            case .beginWith(let filter):
+                let mangas = try await interactorFilter.getMangaBeginsWith(filter)
+                fillMangasList(mangas)
+            default:
+                let mangaPaginated = try await interactorFilter.getMangaBy(filterBy, with: pagination)
+                fillMangasList(mangaPaginated.items ?? [], with: mangaPaginated.pagination)
+            }
         } catch {
-            print(error)
-            isLoadingMangas = false
+            print("ERROR: \(error)")
+            state = .error
+        }
+    }
+    
+    private func fillMangasList(_ mangas: [Manga], with pagination: MangaPagination? = nil) {
+        self.mangas.append(contentsOf: mangas)
+        state = mangas.isEmpty ? .empty : .loaded
+        
+        guard let pagination else { return }
+        self.pagination = pagination
+        if self.mangas.count <= pagination.page * pagination.per,
+           !listIsFull {
+            listIsFull = true
         }
     }
     
     @MainActor
     func loadAuthors() async {
         do {
-            isLoadingAuthors = true
             authors = try await interactorGeneric.getAuthors()
-            isLoadingAuthors = false
         } catch {
             print(error)
-            isLoadingAuthors = false
         }
     }
     
     @MainActor
     func loadDemographics() async {
         do {
-            isLoadingDemographics = true
             demographics = try await interactorGeneric.getDemographics()
-            isLoadingDemographics = false
         } catch {
             print(error)
-            isLoadingDemographics = false
         }
     }
     
     @MainActor
     func loadGenres() async {
         do {
-            isLoadingGenres = true
             genres = try await interactorGeneric.getGenres()
-            isLoadingGenres = false
         } catch {
             print(error)
-            isLoadingGenres = false
         }
     }
     
     @MainActor
     func loadThemes() async {
         do {
-            isLoadingThemes = true
             themes = try await interactorGeneric.getThemes()
-            isLoadingThemes = false
         } catch {
             print(error)
-            isLoadingThemes = false
         }
     }
 }

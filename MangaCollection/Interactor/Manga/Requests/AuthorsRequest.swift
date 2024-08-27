@@ -19,7 +19,7 @@ struct AuthorsRequest: APIRequest {
         "/list/authors"
     }
     
-    var body: Codable? = nil
+    var body: [String : Any] { [:] }
     
     var queryParameters: [String : Any] {
         [:]

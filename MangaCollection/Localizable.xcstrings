@@ -20,11 +20,21 @@
         }
       }
     },
-    "Custom filter" : {
-
-    },
-    "Custom filter view" : {
-
+    "custom_filter_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Filter by"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filtrar por"
+          }
+        }
+      }
     },
     "details_add_collection" : {
       "localizations" : {
@@ -194,13 +204,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Filter by title"
+            "value" : "Filter by 'title contains...'"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Filtrar por título"
+            "value" : "Filtrar por 'título contiene...'"
           }
         }
       }
@@ -221,19 +231,69 @@
         }
       }
     },
+    "filterBy_author_error" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The author's name must be added"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hay que añadir el nombre del autor"
+          }
+        }
+      }
+    },
+    "filterBy_author_placeholder" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Insert author name"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buscar autor con nombre..."
+          }
+        }
+      }
+    },
+    "filterBy_author_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search by author name"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buscar por nombre de autor"
+          }
+        }
+      }
+    },
     "filterBy_begins_with_placeholder" : {
       "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Filter by mangas that start with"
+            "value" : "Search manga that begins with..."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Filtrar por mangas que empiecen por"
+            "value" : "Buscar manga que empiece por..."
           }
         }
       }
@@ -242,7 +302,7 @@
       "localizations" : {
         "en" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Starts with"
           }
         },
@@ -250,6 +310,39 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Empieza por"
+          }
+        }
+      }
+    },
+    "filterBy_beginWith_error" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You need to add some filter that starts with"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hay que añadir algún filtro de empieza por"
+          }
+        }
+      }
+    },
+    "filterBy_beginWith_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filter by 'Begins with'"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filtrar por 'Empieza por'"
           }
         }
       }
@@ -286,19 +379,52 @@
         }
       }
     },
+    "filterBy_contains_error" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You need to add some contains filter"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hay que añadir algún filtro de contiene"
+          }
+        }
+      }
+    },
     "filterBy_contains_placeholder" : {
       "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Filter by mangas that contain"
+            "value" : "Search manga that contains..."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Filtrar por mangas que contengan"
+            "value" : "Buscar manga que contenga..."
+          }
+        }
+      }
+    },
+    "filterBy_contains_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filter by 'Contains'"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filtrar por 'Contiene'"
           }
         }
       }
@@ -335,6 +461,22 @@
         }
       }
     },
+    "filterBy_description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select the type of filtering you want to apply. Depending on the type of filter, you will be able to filter by different categories or manga values."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selecciona el tipo de filtrado que se quiere aplicar. En función del tipo de filtro se permitirán filtrar por diferentes categorías o valores del manga."
+          }
+        }
+      }
+    },
     "filterBy_genre" : {
       "localizations" : {
         "en" : {
@@ -367,19 +509,52 @@
         }
       }
     },
+    "filterBy_id_error" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Some id needs to be added"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hay que añadir algún id"
+          }
+        }
+      }
+    },
     "filterBy_id_placeholder" : {
       "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Filter by mangas with ID"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Filtrar por mangas con ID"
+            "value" : "Buscar manga con ID..."
+          }
+        }
+      }
+    },
+    "filterBy_id_title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filter by 'ID'"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filtrar por 'ID'"
           }
         }
       }
@@ -464,12 +639,35 @@
         }
       }
     },
-    "filterBy_title_placeholder" : {
+    "filterBy_title" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filter type"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Introduce título del manga"
+            "value" : "Tipo de filtrado"
+          }
+        }
+      }
+    },
+    "filterBy_title_placeholder" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search in manga title"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buscar en el título del manga"
           }
         }
       }
@@ -663,14 +861,30 @@
       "localizations" : {
         "en" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "An error has occurred"
+            "state" : "needs_review",
+            "value" : "An error has occurred. "
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ha ocurrido un error"
+            "value" : "Ha ocurrido un error. \nPrueba a intentarlo más tarde."
+          }
+        }
+      }
+    },
+    "mangas_filtered_by_no_data" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No data available"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No hay datos disponibles"
           }
         }
       }
@@ -900,9 +1114,6 @@
         }
       }
     },
-    "Selecciona el tipo de filtrado que se quiere aplicar. En función del tipo de filtro se permitirán filtrar por diferentes categorías o valores del manga." : {
-
-    },
     "status_finished" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -933,6 +1144,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "En curso"
+          }
+        }
+      }
+    },
+    "tab_filter" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filter"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filtrado"
           }
         }
       }
@@ -984,9 +1211,6 @@
           }
         }
       }
-    },
-    "Tipo de filtrado" : {
-
     }
   },
   "version" : "1.0"

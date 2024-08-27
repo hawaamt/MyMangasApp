@@ -19,7 +19,7 @@ struct ThemesRequest: APIRequest {
         "/list/themes"
     }
     
-    var body: Codable? = nil
+    var body: [String : Any] { [:] }
     
     var queryParameters: [String : Any] {
         [:]

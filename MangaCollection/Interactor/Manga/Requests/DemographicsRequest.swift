@@ -19,8 +19,8 @@ struct DemographicsRequest: APIRequest {
         "/list/demographics"
     }
     
-    var body: Codable? = nil
-    
+    var body: [String : Any] { [:] }
+
     var queryParameters: [String : Any] {
         [:]
     }

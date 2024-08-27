@@ -7,88 +7,48 @@
 
 import SwiftUI
 
-enum FilterBy: CaseIterable, Identifiable, Hashable {
-    
-    case genre(Genre?)
-    case theme(Theme?)
-    case demographic(Demographic?)
-    case author(Author?)
-    case beginWith(String)
-    case contains(String)
-    case id(String)
-    case custom(CustomFilterModel?)
-    
-    var title: LocalizedStringKey {
-        switch self {
-        case .genre: LocalizedStringKey("filterBy_genre")
-        case .theme: LocalizedStringKey("filterBy_theme")
-        case .demographic: LocalizedStringKey("filterBy_demographic")
-        case .author: LocalizedStringKey("filterBy_author")
-        case .beginWith: LocalizedStringKey("filterBy_beginWith")
-        case .contains: LocalizedStringKey("filterBy_contains")
-        case .id: LocalizedStringKey("filterBy_id")
-        case .custom: LocalizedStringKey("filterBy_custom")
-        }
-    }
-    
-    var id: String {
-        switch self {
-        case .genre: "genre"
-        case .theme: "theme"
-        case .demographic: "demographic"
-        case .author: "author"
-        case .beginWith: "beginWith"
-        case .contains: "contains"
-        case .id: "id"
-        case .custom: "custom"
-        }
-    }
-    
-    static func == (lhs: FilterBy, rhs: FilterBy) -> Bool {
-        lhs.id == rhs.id
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        return hasher.combine(id)
-    }
-    
-    static var allCases: [FilterBy] {
-        return [.genre(nil), .theme(nil), .demographic(nil), .author(nil), .beginWith(""), .contains(""), .id(""), .custom(CustomFilterModel.default)]
-    }
-}
-
 struct CustomFilterModel: Codable {
     var searchTitle: String
-    var searchDemographics: [Demographic]
-    var searchGenres: [Genre]
-    var searchThemes: [Theme]
+    var searchDemographics: [String]
+    var searchGenres: [String]
+    var searchThemes: [String]
+    var searchContains: Bool = true
     
     static var `default` = CustomFilterModel(searchTitle: "",
                                              searchDemographics: [],
                                              searchGenres: [],
-                                             searchThemes: [])
+                                             searchThemes: [],
+                                             searchContains: true)
 }
 
 @Observable
 class CustomFilterModalViewModel {
-    
-    var authors: [Author]
+    // PICKERS DATA
+    var authors: [Author] = []
     var genres: [Genre]
     var themes: [Theme]
     var demographics: [Demographic]
     
-    var filterBy: FilterBy? = .custom(nil)
+    // FILTER TYPE
+    var filterBy: FilterBy?
     
+    // FILTER - PICKERS
     var genreSelected: Genre?
-    var authorSelected: Author?
     var themeSelected: Theme?
     var demographicSelected: Demographic?
     
+    // FILTER - AUTHOR
+    var authorSelected: Author?
+    var authorTitleSearch: String = ""
+    var isSearchingAuthors: Bool = false
+    
+    // FILTER - TEXT
     var beginWithSelected: String = ""
     var containsSelected: String = ""
     var idSelected: String = ""
     
-    var customFilterSelected: CustomFilterModel?
+    // FILTER - CUSTOM
+    var titleSelected: String = ""
     var customGenreSelected: Genre?
     var customDemographicSelected: Demographic?
     var customThemeSelected: Theme?
@@ -96,25 +56,82 @@ class CustomFilterModalViewModel {
     var customThemes: [Theme] = []
     var customDemographics: [Demographic] = []
     
-    init(authors: [Author],
-         genres: [Genre],
+    // TOAST
+    var errorToast: LocalizedStringKey = ""
+    var showErrorToast: Bool = false
+    
+    private let interactorFilter: MangaInteractorFilteredBy
+    var onAccept: (FilterBy?) -> Void
+    
+    init(genres: [Genre],
          themes: [Theme],
-         demographics: [Demographic]) {
-        self.authors = authors
+         demographics: [Demographic],
+         filterBy: FilterBy?,
+         interactorFilter: MangaInteractorFilteredBy = MangaInteractor(),
+         onAccept: @escaping (FilterBy?) -> Void) {
         self.genres = genres
         self.themes = themes
         self.demographics = demographics
+        self.onAccept = onAccept
+        self.interactorFilter = interactorFilter
+        self.filterBy = filterBy ?? .genre(genres.first)
+        fillData()
+    }
+    
+    func fillData() {
+        guard let filterBy else { return }
+        
+        genreSelected = genres.first
+        themeSelected = themes.first
+        demographicSelected = demographics.first
+        customGenreSelected = genres.first
+        customThemeSelected = themes.first
+        customDemographicSelected = demographics.first
+        
+        switch filterBy {
+        case .genre(let genre):
+            genreSelected = genre ?? genres.first
+        case .theme(let theme):
+            themeSelected = theme ?? themes.first
+        case .demographic(let demographic):
+            demographicSelected = demographic ?? demographics.first
+        case .author(let author):
+            authorSelected = author
+            authorTitleSearch = author?.fullName ?? ""
+        case .beginWith(let beginWith):
+            beginWithSelected = beginWith
+        case .contains(let contains):
+            containsSelected = contains
+        case .id(let id):
+            idSelected = id
+        case .custom(let customFilterModel):
+            customGenres = genres.filter({ customFilterModel?.searchGenres.contains($0.title) ?? false })
+            customThemes = themes.filter({ customFilterModel?.searchThemes.contains($0.title) ?? false })
+            customDemographics = demographics.filter({ customFilterModel?.searchDemographics.contains($0.title) ?? false })
+        }
+    }
+    
+    func submitSearchAuthors() {
+        Task {
+            await searchAuthors()
+        }
+    }
+    
+    @MainActor
+    func searchAuthors() async {
+        do {
+            isSearchingAuthors = true
+            authors = try await interactorFilter.searchAuthor(with: authorTitleSearch)
+            isSearchingAuthors = false
+        } catch {
+            print(error)
+            isSearchingAuthors = false
+            authors = []
+        }
     }
     
     func cleanFilters() {
-        filterBy = .genre(nil)
-        genreSelected = nil
-        authorSelected = nil
-        themeSelected = nil
-        demographicSelected = nil
-        beginWithSelected = ""
-        containsSelected = ""
-        idSelected = ""
+        onAccept(nil)
     }
     
     func addGenreSelected() {
@@ -184,5 +201,68 @@ class CustomFilterModalViewModel {
     
     func deleteDemographic(in indexSet: IndexSet) {
         customDemographics.remove(atOffsets: indexSet)
+    }
+    
+    func acceptFilter() {
+        guard let filterBy else {
+            onAccept(nil)
+            return
+        }
+        
+        switch filterBy {
+        case .genre:
+            onAccept(.genre(genreSelected))
+        case .theme:
+            onAccept(.theme(themeSelected))
+        case .demographic:
+            onAccept(.demographic(demographicSelected))
+        case .author:
+            onAccept(.author(authorSelected))
+        case .beginWith:
+            onAccept(.beginWith(beginWithSelected))
+        case .contains:
+            onAccept(.contains(containsSelected))
+        case .id:
+            onAccept(.id(idSelected))
+        case .custom:
+            let customFilterModel = CustomFilterModel(searchTitle: titleSelected,
+                                                      searchDemographics: customDemographics.map { $0.demographic },
+                                                      searchGenres: customGenres.map { $0.genre },
+                                                      searchThemes: customThemes.map { $0.theme })
+            onAccept(.custom(customFilterModel))
+        }
+    }
+    
+    var isAcceptDisabled: Bool {
+        guard let filterBy else {
+            return true
+        }
+        
+        switch filterBy {
+        case .author:
+            guard authorSelected != nil else {
+                return true
+            }
+        case .beginWith:
+            guard !beginWithSelected.isEmpty else {
+                return true
+            }
+        case .contains:
+            guard !containsSelected.isEmpty else {
+                return true
+            }
+        case .id:
+            guard !idSelected.isEmpty else {
+                return true
+            }
+        default:
+            return false
+        }
+        return false
+    }
+    
+    private func showError(_ error: String) {
+        errorToast = LocalizedStringKey(error)
+        showErrorToast = true
     }
 }

@@ -80,7 +80,7 @@ struct MyCollectionView: View {
 
 #Preview {
     NavigationStack {
-        MyCollectionFactory()
+        MyCollectionFactory
             .makeView()
             .modelContainer(.preview)
     }

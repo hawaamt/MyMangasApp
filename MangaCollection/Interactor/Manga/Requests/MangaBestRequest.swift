@@ -19,7 +19,7 @@ struct MangaBestRequest: APIRequest {
         "/list/bestMangas"
     }
     
-    var body: Codable? = nil
+    var body: [String : Any] { [:] }
     
     var queryParameters: [String : Any] {
         [:]
