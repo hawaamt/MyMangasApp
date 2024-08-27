@@ -46,7 +46,9 @@ struct HomeView: View {
                 }
             }
             .refreshable {
-                await viewModel.loadData()
+                Task {
+                    await viewModel.loadData()
+                }
             }
             .navigationDestination(for: Manga.self) {
                 MangaDetailsView(viewModel: MangaDetailsViewModel(manga: $0))

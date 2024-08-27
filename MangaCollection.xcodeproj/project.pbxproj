@@ -267,6 +267,16 @@
 			path = Other;
 			sourceTree = "<group>";
 		};
+		234A94482C7E384F00A95F9E /* Tabs */ = {
+			isa = PBXGroup;
+			children = (
+				5826185C2C12220F00B041A2 /* Home */,
+				23494A2D2C76135500390A53 /* CustomFilter */,
+				2325F1F12C35634300A8A1FE /* MyCollection */,
+			);
+			path = Tabs;
+			sourceTree = "<group>";
+		};
 		23A372372C7E1738003A4E91 /* EditMyCollection */ = {
 			isa = PBXGroup;
 			children = (
@@ -377,9 +387,7 @@
 				582618602C1222BD00B041A2 /* ViewState.swift */,
 				23494A292C760C8700390A53 /* AppScreen.swift */,
 				585C8BC32C10E374005FA187 /* ContentView.swift */,
-				5826185C2C12220F00B041A2 /* Home */,
-				23494A2D2C76135500390A53 /* CustomFilter */,
-				2325F1F12C35634300A8A1FE /* MyCollection */,
+				234A94482C7E384F00A95F9E /* Tabs */,
 				23A372372C7E1738003A4E91 /* EditMyCollection */,
 				2322AD8B2C235A1A0067D246 /* MangasFilteredBy */,
 				58C04ED62C1319FD00F5966B /* MangaDetails */,

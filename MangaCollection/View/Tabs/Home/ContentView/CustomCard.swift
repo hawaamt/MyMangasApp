@@ -43,6 +43,7 @@ extension CustomCard {
                 ForEach(0...5, id: \.self) { _ in
                     CustomCard(image: Image(.mangaDefaultBackground),
                                title: "Placeholder")
+                    .listRowSeparator(.hidden)
                 }
             }
             .padding(.leading)

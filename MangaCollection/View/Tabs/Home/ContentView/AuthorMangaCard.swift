@@ -63,6 +63,7 @@ extension AuthorMangaCard {
             LazyHStack {
                 ForEach(0...5, id: \.self) { _ in
                     AuthorMangaCard(author: Author.placeholder)
+                        .listRowSeparator(.hidden)
                 }
             }
             .padding(.leading)

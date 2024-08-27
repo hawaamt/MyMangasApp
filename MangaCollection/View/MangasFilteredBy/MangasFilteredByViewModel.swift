@@ -50,13 +50,16 @@ class MangasFilteredByViewModel {
                 listIsFull = true
             }
         } catch {
+            print(error)
             state = .error
         }
     }
     
     @MainActor
     func reloadData() async {
+        listIsFull = false
         pagination = MangaPagination(page: 1, per: 100)
+        mangas = []
         await loadData()
     }
 }

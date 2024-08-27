@@ -19,6 +19,7 @@ struct CustomFilterView: View {
                 switch viewModel.state {
                 case .idle, .loading:
                     MangaCellView.placeholder
+                        .modelContext(context)
                 case .loaded:
                     List {
                         ForEach(viewModel.mangas) { manga in

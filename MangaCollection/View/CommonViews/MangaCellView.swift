@@ -120,9 +120,10 @@ extension MangaCellView {
     @ViewBuilder 
     static var placeholder: some View {
         List {
-            MangaCellView(manga: Manga.manga1)
-            MangaCellView(manga: Manga.manga2)
-            MangaCellView(manga: Manga.manga3)
+            ForEach(0...5, id: \.self) { _ in
+                MangaCellView(manga: Manga.placeholder)
+                    .listRowSeparator(.hidden)
+            }
         }
         .listRowInsets(EdgeInsets())
         .listStyle(.plain)
