@@ -17,9 +17,11 @@ protocol NetworkServiceDelegate: AnyObject {
     func exitUser()
 }
 
-struct NetworkService {
+class NetworkService {
     
     static var shared = NetworkService()
+    
+    private var isRenewingToken: Bool = false
     
     weak var delegate: NetworkServiceDelegate?
     
@@ -42,16 +44,23 @@ struct NetworkService {
             throw NetworkError.invalidReponseFormat
         }
         
-        if response.statusCode == 401 {
-            do {
-                let token = try await renewToken()
-                _ = KeychainManager.shared.save(item: .token, token)
-                urlRequest.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-                let (data, response) = try await URLSession.shared.data(for: urlRequest)
+        if KeychainManager.shared.isUserLogged {
+            if response.statusCode == 401 && !isRenewingToken {
+                isRenewingToken.toggle()
+                do {
+                    let token = try await renewToken()
+                    print("TOKEN: \(token)")
+                    urlRequest.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+                    let (data, response) = try await URLSession.shared.data(for: urlRequest)
+                    isRenewingToken.toggle()
+                    return try manageResponse(data: data, response: response, responseType: Request.Response.self)
+                } catch {
+                    isRenewingToken.toggle()
+                    throw NetworkError.unauthorized
+                    delegate?.exitUser()
+                }
+            } else {
                 return try manageResponse(data: data, response: response, responseType: Request.Response.self)
-            } catch {
-                throw NetworkError.unauthorized
-                delegate?.exitUser()
             }
         } else {
             return try manageResponse(data: data, response: response, responseType: Request.Response.self)

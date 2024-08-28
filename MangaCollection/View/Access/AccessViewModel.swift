@@ -60,27 +60,11 @@ class AccessViewModel {
         AccessType(rawValue: segmentSelected) ?? .login
     }
     
-    func register() {
-        guard validateEmpty() else { return }
-        guard validateTextfield() else { return }
-        
-        let model = UserModel(email: email, password: password)
-        Task {
-            do {
-                isLoading = true
-                _ = try await interactor.register(with: model)
-                login()
-            } catch {
-                isLoading = false
-                showAccessError = true
-                accessError = "access_error"
-            }
-        }
-    }
-    
     func login() {
-        guard validateEmpty() else { return }
-        guard validateTextfield() else { return }
+        let isEmailValid = validateEmail()
+        let isPasswordValid = validatePassword()
+        guard isEmailValid,
+              isPasswordValid else { return }
         
         let model = UserModel(email: email, password: password)
         Task {
@@ -97,33 +81,61 @@ class AccessViewModel {
         }
     }
     
-    func validateEmpty() -> Bool {
-        errorEmail = email.isEmpty ? "required_error" : nil
-        errorPassword = email.isEmpty ? "required_error" : nil
-        switch accessTypeSelected {
-        case .login:
-            return !email.isEmpty && !password.isEmpty
-        case .register:
-            errorConfirmPassword = confirmPassword.isEmpty ? "required_error" : nil
-            return !email.isEmpty && !password.isEmpty && !confirmPassword.isEmpty
+    func register() {
+        let isEmailValid = validateEmail()
+        let isPasswordValid = validatePassword()
+        let isConfirmPasswordValid = validateConfirmPassword()
+        guard isEmailValid,
+              isPasswordValid,
+              isConfirmPasswordValid else { return }
+        
+        let model = UserModel(email: email, password: password)
+        Task {
+            do {
+                isLoading = true
+                _ = try await interactor.register(with: model)
+                login()
+            } catch {
+                isLoading = false
+                showAccessError = true
+                accessError = "access_error"
+            }
         }
     }
-    
-    func validateTextfield() -> Bool {
-        let isEmailValidated = isValidEmail(email)
-        errorEmail = !isEmailValidated ? "email_format_error" : nil
         
-        let isPasswordValidated = password.count > 7
-        errorPassword = !isPasswordValidated ? "password_length_error" : nil
-        
-        switch accessTypeSelected {
-        case .login:
-            return isEmailValidated && isPasswordValidated
-        case .register:
-            let passwordsEquals = password == confirmPassword
-            errorConfirmPassword = !passwordsEquals ? "passwords_distinct_error" : nil
-            return isEmailValidated && isPasswordValidated && passwordsEquals
+    func validateEmail() -> Bool {
+        if email.isEmpty {
+            errorEmail = "required_error"
+            return false
         }
+        let isEmailValidated = isValidEmail(email)
+        if !isEmailValidated {
+            errorEmail = "email_format_error"
+            return false
+        }
+        return true
+    }
+    
+    func validatePassword() -> Bool {
+        if password.isEmpty {
+            errorPassword = "required_error"
+            return false
+        }
+        let isPasswordValidated = password.count > 7
+        if !isPasswordValidated {
+            errorPassword = "password_length_error"
+            return false
+        }
+        return true
+    }
+    
+    func validateConfirmPassword() -> Bool {
+        let passwordsEquals = password == confirmPassword && !password.isEmpty
+        if !passwordsEquals {
+            errorConfirmPassword = "passwords_distinct_error"
+            return false
+        }
+        return true
     }
     
     func isValidEmail(_ email: String) -> Bool {

@@ -28,6 +28,10 @@ extension APIRequest {
         URL(string: "https://mymanga-acacademy-5607149ebe3d.herokuapp.com")!
     }
     
+    private var appToken: String {
+        "sLGH38NhEJ0_anlIWwhsz1-LarClEohiAHQqayF0FY"
+    }
+    
     var urlRequest: URLRequest {
         let fullURL = baseUrl.appending(path: self.path)
                 
@@ -44,6 +48,7 @@ extension APIRequest {
         
         request.httpMethod = method.rawValue
         request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue(appToken, forHTTPHeaderField: "App-Token")
         
         return request
     }
