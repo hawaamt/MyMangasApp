@@ -11,17 +11,12 @@ extension CustomFilterModalView {
     @ViewBuilder
     var authorSection: some View {
         Section {
-            VStack {
-                Text("filterBy_author_title")
-                    .foregroundColor(.text)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                getTextfield(title: "filterBy_author_placeholder",
-                             selected: $viewModel.authorTitleSearch)
-                .submitLabel(.search)
-                .autocorrectionDisabled()
-                .onSubmit {
-                    viewModel.submitSearchAuthors()
-                }
+            InputView(title: "filterBy_author_title",
+                      placeholder: "filterBy_author_placeholder",
+                      text: $viewModel.idSelected,
+                      submitLabel: .search,
+                      error: nil) {
+                viewModel.submitSearchAuthors()
             }
             
             authorList

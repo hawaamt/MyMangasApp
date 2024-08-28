@@ -26,19 +26,20 @@ class HomeViewModel {
     
     init(interactor: MangaInteractorGeneric = MangaInteractor()) {
         self.interactor = interactor
-        Task {
-            await self.loadData()
+        if KeychainManager.shared.isUserLogged {
+            loadData()
         }
     }
     
-    @MainActor
-    func loadData() async {
-        async let bestMangas: Void = loadBestMangas()
-        async let authors: Void = loadAuthors()
-        async let demographics: Void = loadDemographics()
-        async let genres: Void = loadGenres()
-        async let themes: Void = loadThemes()
-        _ = await [bestMangas, authors, demographics, genres, themes]
+    func loadData() {
+        Task {
+            async let bestMangas: Void = loadBestMangas()
+            async let authors: Void = loadAuthors()
+            async let demographics: Void = loadDemographics()
+            async let genres: Void = loadGenres()
+            async let themes: Void = loadThemes()
+            _ = await [bestMangas, authors, demographics, genres, themes]
+        }
     }
 }
 

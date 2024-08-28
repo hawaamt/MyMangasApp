@@ -101,19 +101,10 @@ private extension MyCollectionEditView {
     }
     
     var readingView: some View {
-        VStack {
-            HStack {
-                TextField("my_collection_edit_reading_placeholder", text: $viewModel.volumeReading)
-                    .focused($newReadingFocused)
-                    .keyboardType(.numberPad)
-                    .submitLabel(.done)
-            }
-            .padding()
-            .overlay(
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(.accent)
-            )
-        }
+        InputView(title: "my_collection_edit_reading_title",
+                  placeholder: "my_collection_edit_reading_placeholder",
+                  text: $viewModel.volumeReading,
+                  keyboardType: .numberPad)
     }
 }
 

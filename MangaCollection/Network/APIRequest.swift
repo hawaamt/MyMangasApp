@@ -49,24 +49,34 @@ extension APIRequest {
     }
     
     private func get(url: URL) -> URLRequest {
+        var request: URLRequest
         guard var components = URLComponents(url: url,
                                           resolvingAgainstBaseURL: false) else {
-            return URLRequest(url: url)
+            request = URLRequest(url: url)
+            return request
         }
-        
         components.queryItems = queryParameters.map { URLQueryItem(name: $0, value: "\($1)") }
         
         guard let finalUrl = components.url else {
             return URLRequest(url: url)
         }
+        request = URLRequest(url: finalUrl)
+
+        if let token = KeychainManager.shared.read(.token) {
+            request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
         
-        return URLRequest(url: finalUrl)
+        return request
     }
     
     private func post(url: URL) -> URLRequest {
         var request = URLRequest(url: url)
         request.setValue("application/json; charset=utf8", forHTTPHeaderField: "Content-Type")
         request.httpBody = try? JSONSerialization.data(withJSONObject: body)
+        
+        if let token = KeychainManager.shared.read(.token) {
+            request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
         
         return request
     }

@@ -143,20 +143,6 @@ extension CustomFilterModalView {
         }
         .pickerStyle(.menu)
     }
-    
-    func getTextfield(title: String,
-                      selected: Binding<String>) -> some View {
-        HStack {
-            TextField(LocalizedStringKey(title), text: selected)
-                .submitLabel(.done)
-                .foregroundColor(.text)
-        }
-        .padding()
-        .overlay(
-            RoundedRectangle(cornerRadius: 10)
-                .stroke(.accent)
-        )
-    }
 }
 
 private extension FilterBy {

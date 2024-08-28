@@ -11,37 +11,28 @@ extension CustomFilterModalView {
     
     var beginWithSection: some View {
         Section {
-            VStack {
-                Text("filterBy_beginWith_title")
-                    .foregroundColor(.text)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                getTextfield(title: "filterBy_begins_with_placeholder",
-                             selected: $viewModel.beginWithSelected)
-            }
+            InputView(title: "filterBy_beginWith_title",
+                      placeholder: "filterBy_begins_with_placeholder",
+                      text: $viewModel.beginWithSelected,
+                      error: nil)
         }
     }
     
     var containsSection: some View {
         Section {
-            VStack {
-                Text("filterBy_contains_title")
-                    .foregroundColor(.text)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                getTextfield(title: "filterBy_contains_placeholder",
-                             selected: $viewModel.containsSelected)
-            }
+            InputView(title: "filterBy_contains_title",
+                      placeholder: "filterBy_contains_placeholder",
+                      text: $viewModel.containsSelected,
+                      error: nil)
         }
     }
     
     var idSection: some View {
         Section {
-            VStack {
-                Text("filterBy_id_title")
-                    .foregroundColor(.text)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                getTextfield(title: "filterBy_id_placeholder",
-                             selected: $viewModel.idSelected)
-            }
+            InputView(title: "filterBy_id_title",
+                      placeholder: "filterBy_id_placeholder",
+                      text: $viewModel.idSelected,
+                      error: nil)
         }
     }
 }

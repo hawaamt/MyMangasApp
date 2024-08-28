@@ -31,7 +31,7 @@ enum ToastPosition {
 
 struct ToastView: View {
     
-    let text: LocalizedStringKey
+    let text: String
     let type: ToastType
     let position: ToastPosition
     @Binding var show: Bool
@@ -42,7 +42,7 @@ struct ToastView: View {
                 Spacer()
             }
             HStack {
-                Text(text)
+                Text(LocalizedStringKey(text))
                     .font(.subheadline)
             }
             .font(.headline)
@@ -56,6 +56,7 @@ struct ToastView: View {
             }
         }
         .frame(width: UIScreen.main.bounds.width / 1.25)
+        .padding()
         .transition(AnyTransition.move(edge: .bottom).combined(with: .opacity))
         .onTapGesture {
             withAnimation {

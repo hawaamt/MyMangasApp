@@ -12,13 +12,9 @@ extension CustomFilterModalView {
     @ViewBuilder
     var customFilter: some View {
         Section {
-            VStack {
-                Text("filterBy_add_title_filters")
-                    .foregroundColor(.text)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                getTextfield(title: "filterBy_title_placeholder",
-                             selected: $viewModel.titleSelected)
-            }
+            InputView(title: "filterBy_add_title_filters",
+                      placeholder: "filterBy_title_placeholder",
+                      text: $viewModel.titleSelected)
         }
         .buttonStyle(.plain)
         

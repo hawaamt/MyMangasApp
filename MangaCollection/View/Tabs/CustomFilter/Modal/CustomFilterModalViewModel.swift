@@ -57,7 +57,7 @@ class CustomFilterModalViewModel {
     var customDemographics: [Demographic] = []
     
     // TOAST
-    var errorToast: LocalizedStringKey = ""
+    var errorToast: String = ""
     var showErrorToast: Bool = false
     
     private let interactorFilter: MangaInteractorFilteredBy
@@ -262,7 +262,7 @@ class CustomFilterModalViewModel {
     }
     
     private func showError(_ error: String) {
-        errorToast = LocalizedStringKey(error)
+        errorToast = error
         showErrorToast = true
     }
 }
