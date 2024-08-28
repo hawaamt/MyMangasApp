@@ -12,12 +12,14 @@ struct ErrorView: View {
     
     var body: some View {
         VStack {
-            Image(systemName: "xmark.icloud.fill")
-                .font(.system(size: 100))
+            Image(.error)
+                .resizable()
+                .scaledToFit()
                 .padding()
             Text("mangas_filtered_by_error")
+                .foregroundColor(Color(.black))
                 .multilineTextAlignment(.center)
-                .font(.subheadline)
+                .font(.headline)
             Button {
                 retry?()
             } label: {
@@ -31,7 +33,7 @@ struct ErrorView: View {
         .padding()
         .background(
             RoundedRectangle(cornerRadius: 10)
-                .fill(Color(.secondarySystemBackground))
+                .fill(Color(.white))
         )
     }
 }

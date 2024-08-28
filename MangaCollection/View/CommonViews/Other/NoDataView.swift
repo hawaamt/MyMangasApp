@@ -10,18 +10,19 @@ import SwiftUI
 struct NoDataView: View {
     var body: some View {
         VStack {
-            Image(systemName: "circle.slash")
-                .font(.system(size: 100))
-                .foregroundColor(.accent)
+            Image(.noData)
+                .resizable()
+                .scaledToFit()
                 .padding()
             Text("mangas_filtered_by_no_data")
+                .foregroundColor(Color(.black))
                 .multilineTextAlignment(.center)
-                .font(.subheadline)
+                .font(.headline)
         }
         .padding()
         .background(
             RoundedRectangle(cornerRadius: 10)
-                .fill(Color(.secondarySystemBackground))
+                .fill(Color(.white))
         )
     }
 }
