@@ -15,7 +15,7 @@ class CollectionItem: Identifiable {
     var readingVolume: Int?
     var volumesOwned: [Int]
     var completeCollection: Bool
-    
+        
     init(id: String, 
          manga: Manga,
          readingVolume: Int? = nil,

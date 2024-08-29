@@ -10,14 +10,13 @@ import SwiftData
 
 struct MyCollectionView: View {
     @Environment(\.modelContext) private var context
-    @Query(sort: \CollectionItem.manga.title) private var collection: [CollectionItem]
     
     @State var viewModel: MyCollectionViewModel
     
     var body: some View {
         NavigationStack {
             VStack {
-                if collection.isEmpty {
+                if viewModel.collection.isEmpty {
                     Spacer()
                     NoDataView()
                     Spacer()
@@ -40,7 +39,7 @@ struct MyCollectionView: View {
                        GridItem(.flexible())]
         ScrollView {
             LazyVGrid(columns: columns) {
-                ForEach(collection) { item in
+                ForEach(viewModel.collection) { item in
                     NavigationLink(value: item) {
                         VStack {
                             ZStack {

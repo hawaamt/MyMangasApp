@@ -11,24 +11,24 @@ import SwiftData
 @Observable
 final class MyCollectionViewModel {
     
+    var collection: [CollectionItem]
+    
     private let interactor: MangaInteractorGeneric
     
     init(interactor: MangaInteractorGeneric = MangaInteractor()) {
         self.interactor = interactor
+        self.collection = []
     }
     
     @MainActor
     func updateCollection(in context: ModelContext) {
+        fetchLocalCollection(in: context)
         Task {
             do {
                 let items: [CollectionItem] = try await interactor.getMangas()
-                print(items)
+                deleteAllData(in: context)
                 items.forEach { item in
-                    if mangaIsInMyCollection(item, in: context) {
-                        context.insert(item)
-                    } else {
-                        updateMangaItemCollection(item, in: context)
-                    }
+                    context.insert(item)
                 }
             } catch {
                 print(error)
@@ -38,33 +38,24 @@ final class MyCollectionViewModel {
 }
 
 private extension MyCollectionViewModel {
-    func mangaIsInMyCollection(_ collectionItem: CollectionItem, in context: ModelContext) -> Bool {
-        let collectionId = collectionItem.id
-        let predicate = #Predicate<CollectionItem> { item in
-            item.id == collectionId
-        }
-        let descriptor = FetchDescriptor(predicate: predicate)
+    
+    func fetchLocalCollection(in context: ModelContext) {
+        let fetchDescriptor = FetchDescriptor<CollectionItem>()
         do {
-            let _ = try context.fetch(descriptor)
-            return true
+            let data = try context.fetch(fetchDescriptor)
+            collection = data
         } catch {
             print(error)
-            return false
         }
     }
     
-    func updateMangaItemCollection(_ collectionItem: CollectionItem, in context: ModelContext) {
-        let collectionId = collectionItem.id
-        let predicate = #Predicate<CollectionItem> { item in
-            item.id == collectionId
-        }
-        let descriptor = FetchDescriptor(predicate: predicate)
+    func deleteAllData(in context: ModelContext) {
+        let fetchDescriptor = FetchDescriptor<CollectionItem>()
         do {
-            let data = try context.fetch(descriptor)
-            guard let myCollectionItem = data.first else { return }
-            myCollectionItem.readingVolume = collectionItem.readingVolume
-            myCollectionItem.volumesOwned = collectionItem.volumesOwned
-            myCollectionItem.completeCollection = collectionItem.completeCollection
+            let data = try context.fetch(fetchDescriptor)
+            data.forEach { item in
+                context.delete(item)
+            }
         } catch {
             print(error)
         }

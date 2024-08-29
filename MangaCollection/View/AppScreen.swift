@@ -25,10 +25,18 @@ enum AppScreen: CaseIterable, Identifiable {
     @ViewBuilder
     var destination: some View {
         switch self {
-        case .home: HomeFactory.makeView()
-        case .filter: CustomFilterFactory.makeView()
-        case .myCollection: MyCollectionFactory.makeView()
-        case .account: MyAccountView()
+        case .home: 
+            HomeFactory.makeView()
+                .tag(self.id)
+        case .filter: 
+            CustomFilterFactory.makeView()
+                .tag(self.id)
+        case .myCollection: 
+            MyCollectionFactory.makeView()
+                .tag(self.id)
+        case .account: 
+            MyAccountView()
+                .tag(self.id)
         }
     }
 

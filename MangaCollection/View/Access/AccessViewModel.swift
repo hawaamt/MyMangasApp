@@ -72,7 +72,7 @@ class AccessViewModel {
         guard isEmailValid,
               isPasswordValid else { return }
         
-        let model = UserModel(email: email, password: password)
+        let model = UserModel(email: email.lowercased(), password: password)
         Task {
             do {
                 isLoading = true

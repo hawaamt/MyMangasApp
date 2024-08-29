@@ -44,19 +44,9 @@ class NetworkService {
         
         if KeychainManager.shared.isUserLogged {
             if response.statusCode == 401 && !isRenewingToken {
-                isRenewingToken = true
-                do {
-                    let token = try await renewToken()
-                    _ = KeychainManager.shared.save(item: .token, token)
-                    print("TOKEN: \(token)")
-                    urlRequest.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-                    let (data, response) = try await URLSession.shared.data(for: urlRequest)
-                    return try manageResponse(data: data, response: response, responseType: Request.Response.self)
-                } catch {
-                    isRenewingToken = false
-                    throw NetworkError.unauthorized
-                    NotificationCenter.default.post(name: .logout, object: nil)
-                }
+                isRenewingToken = false
+                NotificationCenter.default.post(name: .logout, object: nil)
+                throw NetworkError.unauthorized
             } else {
                 return try manageResponse(data: data, response: response, responseType: Request.Response.self)
             }
@@ -100,8 +90,8 @@ class NetworkService {
         
         if response.statusCode == 401 {
             isRenewingToken = false
-            throw NetworkError.unauthorized
             NotificationCenter.default.post(name: .logout, object: nil)
+            throw NetworkError.unauthorized
         }
 
         return result

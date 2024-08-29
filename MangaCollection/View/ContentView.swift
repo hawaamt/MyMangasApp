@@ -14,6 +14,8 @@ struct ContentView: View {
     @State var homeViewModel: HomeViewModel = HomeViewModel()
     @State private var screen: AppScreen? = .home
     
+    @State var tabSelected: AppScreen = .home
+    
     private var isCompact: Bool { horizontalSize == .compact }
     
     var body: some View {
@@ -24,6 +26,12 @@ struct ContentView: View {
             } content: {
                 AccessView()
                     .environment(accessViewModel)
+            }
+            .onChange(of: accessViewModel.isNotLogged) { _, newValue in
+                if !newValue {
+                    tabSelected = .home
+                    screen = .home
+                }
             }
     }
     
@@ -38,7 +46,7 @@ struct ContentView: View {
     
     @ViewBuilder
     private var tabView: some View {
-        TabView {
+        TabView(selection: $tabSelected) {
             ForEach(AppScreen.allCases) { screen in
                 switch screen {
                 case .home:
