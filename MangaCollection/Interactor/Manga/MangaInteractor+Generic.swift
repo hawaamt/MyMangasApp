@@ -14,6 +14,10 @@ protocol MangaInteractorGeneric {
     func getDemographics() async throws -> [Demographic]
     func getGenres() async throws -> [Genre]
     func getThemes() async throws -> [Theme]
+    func addManga(_ manga: MangaParams) async throws -> String
+    func getMangas() async throws -> [CollectionItem]
+    func getManga(by mangaId: Int) async throws -> CollectionItem
+    func deleteManga(_ mangaId: Int) async throws -> String
 }
 
 extension MangaInteractor: MangaInteractorGeneric {
@@ -52,6 +56,30 @@ extension MangaInteractor: MangaInteractorGeneric {
         let request = ThemesRequest()
         let response = try await networkService.perform(from: request)
         return response.compactMap { $0.theme }
+    }
+    
+    func addManga(_ manga: MangaParams) async throws -> String {
+        let request = AddMangaToMyCollectionRequest(manga: manga)
+        let response = try await networkService.perform(from: request)
+        return response
+    }
+    
+    func getMangas() async throws -> [CollectionItem] {
+        let request = MyMangaCollectionRequest()
+        let response = try await networkService.perform(from: request)
+        return response.compactMap { $0.collectionItem }
+    }
+    
+    func getManga(by mangaId: Int) async throws -> CollectionItem {
+        let request = MyMangaCollectionItemRequest(mangaId: mangaId)
+        let response = try await networkService.perform(from: request)
+        return response.collectionItem
+    }
+    
+    func deleteManga(_ mangaId: Int) async throws -> String {
+        let request = DeleteMyMangaCollectionRequest(mangaId: mangaId)
+        let response = try await networkService.perform(from: request)
+        return response
     }
 }
 

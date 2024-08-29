@@ -18,7 +18,7 @@ struct MangaBeginsWithRequest: APIRequest {
     }
     
     var path: String {
-        return "search/mangasBeginsWith/\(filter)"
+        return "/search/mangasBeginsWith/\(filter)"
     }
     
     var body: [String : Any] { [:] }

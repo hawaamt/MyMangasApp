@@ -13,8 +13,8 @@ enum NetworkError: Error {
     case status(Int)
 }
 
-protocol NetworkServiceDelegate: AnyObject {
-    func exitUser()
+extension Notification.Name {
+    static let logout = Notification.Name("logout")
 }
 
 class NetworkService {
@@ -22,10 +22,8 @@ class NetworkService {
     static var shared = NetworkService()
     
     private var isRenewingToken: Bool = false
-    
-    weak var delegate: NetworkServiceDelegate?
-    
-    func perform<Request: APIRequest>(from apiRequest: Request, 
+        
+    func perform<Request: APIRequest>(from apiRequest: Request,
                                       with request: URLRequest? = nil) async throws -> Request.Response {
         
         var urlRequest: URLRequest
@@ -46,18 +44,18 @@ class NetworkService {
         
         if KeychainManager.shared.isUserLogged {
             if response.statusCode == 401 && !isRenewingToken {
-                isRenewingToken.toggle()
+                isRenewingToken = true
                 do {
                     let token = try await renewToken()
+                    _ = KeychainManager.shared.save(item: .token, token)
                     print("TOKEN: \(token)")
                     urlRequest.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
                     let (data, response) = try await URLSession.shared.data(for: urlRequest)
-                    isRenewingToken.toggle()
                     return try manageResponse(data: data, response: response, responseType: Request.Response.self)
                 } catch {
-                    isRenewingToken.toggle()
+                    isRenewingToken = false
                     throw NetworkError.unauthorized
-                    delegate?.exitUser()
+                    NotificationCenter.default.post(name: .logout, object: nil)
                 }
             } else {
                 return try manageResponse(data: data, response: response, responseType: Request.Response.self)
@@ -89,8 +87,23 @@ class NetworkService {
     }
     
     func renewToken() async throws -> String {
-        let request = UserRenewTokenRequest()
-        let response = try await perform(from: request)
-        return response
+        var request = UserRenewTokenRequest().urlRequest
+        if let token = KeychainManager.shared.read(.token) {
+            request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        let (data, response) = try await URLSession.shared.data(for: request)
+       
+        guard let response = response as? HTTPURLResponse,
+              let result = String(data: data, encoding: .utf8) else {
+            throw NetworkError.invalidReponseFormat
+        }
+        
+        if response.statusCode == 401 {
+            isRenewingToken = false
+            throw NetworkError.unauthorized
+            NotificationCenter.default.post(name: .logout, object: nil)
+        }
+
+        return result
     }
 }

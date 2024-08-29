@@ -26,20 +26,20 @@ struct MangaFilteredRequest: APIRequest {
         switch filterBy {
         case .genre(let value):
             guard let genre = value?.genre else { return "" }
-            return "list/mangaByGenre/\(genre)"
+            return "/list/mangaByGenre/\(genre)"
         case .theme(let value):
             guard let theme = value?.theme else { return "" }
-            return "list/mangaByTheme/\(theme)"
+            return "/list/mangaByTheme/\(theme)"
         case .demographic(let value):
             guard let demographic = value?.demographic else { return "" }
-            return "list/mangaByDemographic/\(demographic)"
+            return "/list/mangaByDemographic/\(demographic)"
         case .author(let value):
             guard let author = value?.id else { return "" }
-            return "list/mangaByAuthor/\(author)"
+            return "/list/mangaByAuthor/\(author)"
         case .contains(let value):
-            return "search/mangasContains/\(value)"
+            return "/search/mangasContains/\(value)"
         default:
-            return "search/manga"
+            return "/search/manga"
         }
     }
     

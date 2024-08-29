@@ -7,19 +7,12 @@
 
 import Foundation
 
-protocol LogoutDelegate: AnyObject {
-    func logout()
-}
-
 class UserInteractor {
     
     private var networkService: NetworkService
-    
-    weak var delegate: LogoutDelegate?
-    
+        
     init(networkService: NetworkService = NetworkService.shared) {
         self.networkService = networkService
-        self.networkService.delegate = self
     }
     
     func login(with model: UserModel) async throws -> String {
@@ -47,11 +40,5 @@ class UserInteractor {
     
     func logout() {
         _ = KeychainManager.shared.delete(.token)
-    }
-}
-
-extension UserInteractor: NetworkServiceDelegate {
-    func exitUser() {
-        delegate?.logout()
     }
 }

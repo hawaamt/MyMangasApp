@@ -18,7 +18,7 @@ struct MangaByIDRequest: APIRequest {
     }
     
     var path: String {
-        return "search/manga/\(mangaId)"
+        return "/search/manga/\(mangaId)"
     }
     
     var body: [String : Any] { [:] }

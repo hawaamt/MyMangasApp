@@ -12,18 +12,18 @@ import SwiftData
 class CollectionItem: Identifiable {
     @Attribute(.unique) let id: String
     let manga: Manga
-    var volumeReading: Int?
+    var readingVolume: Int?
     var volumesOwned: [Int]
     var completeCollection: Bool
     
     init(id: String, 
          manga: Manga,
-         volumeReading: Int? = nil,
+         readingVolume: Int? = nil,
          volumesOwned: [Int] = [],
          completeCollection: Bool = false) {
         self.id = id
         self.manga = manga
-        self.volumeReading = volumeReading
+        self.readingVolume = readingVolume
         self.volumesOwned = volumesOwned
         self.completeCollection = completeCollection
     }
@@ -31,8 +31,8 @@ class CollectionItem: Identifiable {
 
 extension CollectionItem {
     var volumeReadingDescription: String {
-        guard let volumeReading else { return "-" }
-        return "\(volumeReading)"
+        guard let readingVolume else { return "-" }
+        return "\(readingVolume)"
     }
     
     var volumesOwnedDescription: String {
@@ -41,7 +41,7 @@ extension CollectionItem {
     }
     
     var volumeReadingString: String {
-        guard let volumeReading else { return "" }
-        return "\(volumeReading)"
+        guard let readingVolume else { return "" }
+        return "\(readingVolume)"
     }
 }

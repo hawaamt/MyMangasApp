@@ -9,17 +9,25 @@ import Foundation
 import SwiftData
 
 @Observable
-final class MangaDetailsViewModel: ObservableObject {
+final class MangaDetailsViewModel {
     
     var manga: Manga
     var myMangaCollection: CollectionItem?
     var isEditingMyCollection: Bool = false
     
-    init(manga: Manga) {
+    var isEditing: Bool = false
+    var showErrorToast: Bool = false
+    var errorToast: String = "my_collection_error"
+    
+    private let interactor: MangaInteractorGeneric
+    
+    init(manga: Manga,
+         interactor: MangaInteractorGeneric = MangaInteractor()) {
         self.manga = manga
+        self.interactor = interactor
     }
     
-    func checkManagaIsInMyCollection(in context: ModelContext) {
+    func checkMangaIsInMyCollection(in context: ModelContext) {
         let predicate = #Predicate<CollectionItem> { item in
             item.manga.id == manga.id
         }
@@ -32,14 +40,69 @@ final class MangaDetailsViewModel: ObservableObject {
         }
     }
     
+    @MainActor
     func addToMyCollection(in context: ModelContext) {
-        let newCollection = CollectionItem(id: UUID().uuidString,
-                                           manga: manga)
-        context.insert(newCollection)
-        checkManagaIsInMyCollection(in: context)
+        Task {
+            do {
+                isEditing = true
+                let mangaParams = MangaParams(manga: self.manga.id,
+                                              completeCollection: false,
+                                              volumesOwned: [],
+                                              readingVolume: nil)
+                let _ = try await interactor.addManga(mangaParams)
+                let collectionItem = try await interactor.getManga(by: self.manga.id)
+                context.insert(collectionItem)
+                checkMangaIsInMyCollection(in: context)
+                isEditing = false
+            } catch {
+                print(error)
+                isEditing = false
+                showErrorToast = true
+            }
+        }
     }
     
-    func removeFromMyCollection(in context: ModelContext) {
+    @MainActor
+    func deleteMyCollectionManga(in context: ModelContext) {
+        Task {
+            do {
+                isEditing = true
+                let _ = try await interactor.deleteManga(manga.id)
+                removeFromMyCollection(in: context)
+                isEditing = false
+            } catch {
+                print(error)
+                isEditing = false
+                showErrorToast = true
+            }
+        }
+    }
+    
+    @MainActor
+    func saveEditing(reading: String, volumesOwned: [String], isCompleted: Bool) {
+        guard let myMangaCollection else { return }
+        Task {
+            do {
+                isEditing = true
+                let mangaParams = MangaParams(manga: myMangaCollection.manga.id,
+                                              completeCollection: isCompleted,
+                                              volumesOwned: volumesOwned.compactMap({ Int($0) }),
+                                              readingVolume: Int(reading))
+                let _ = try await interactor.addManga(mangaParams)
+                self.myMangaCollection?.readingVolume = Int(reading)
+                self.myMangaCollection?.volumesOwned = volumesOwned.compactMap({ Int($0) })
+                self.myMangaCollection?.completeCollection = isCompleted
+                isEditing = false
+            } catch {
+                print(error)
+                isEditing = false
+                showErrorToast = true
+            }
+        }
+    }
+    
+    @MainActor
+    private func removeFromMyCollection(in context: ModelContext) {
         let predicate = #Predicate<CollectionItem> { item in
             item.manga.id == manga.id
         }
@@ -48,12 +111,6 @@ final class MangaDetailsViewModel: ObservableObject {
             guard let data = try context.fetch(descriptor).first else { return }
             context.delete(data)
         } catch {}
-        checkManagaIsInMyCollection(in: context)
-    }
-    
-    func saveEditing(reading: String, volumesOwned: [String], isCompleted: Bool) {
-        myMangaCollection?.volumeReading = Int(reading)
-        myMangaCollection?.volumesOwned = volumesOwned.compactMap({ Int($0) })
-        myMangaCollection?.completeCollection = isCompleted
+        checkMangaIsInMyCollection(in: context)
     }
 }

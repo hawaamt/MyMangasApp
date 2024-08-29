@@ -25,6 +25,9 @@ struct MyCollectionView: View {
                     content
                 }
             }
+            .task {
+                viewModel.updateCollection(in: context)
+            }
             .navigationDestination(for: CollectionItem.self) { collection in
                 MangaDetailsView(viewModel: MangaDetailsViewModel(manga: collection.manga))
             }

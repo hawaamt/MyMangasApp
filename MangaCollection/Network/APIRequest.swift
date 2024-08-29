@@ -42,8 +42,8 @@ extension APIRequest {
                 request = get(url: fullURL)
             case .post:
                 request = post(url: fullURL)
-            default:
-                request = URLRequest(url: fullURL)
+            case .delete:
+                request = delete(url: fullURL)
         }
         
         request.httpMethod = method.rawValue
@@ -75,6 +75,18 @@ extension APIRequest {
     }
     
     private func post(url: URL) -> URLRequest {
+        var request = URLRequest(url: url)
+        request.setValue("application/json; charset=utf8", forHTTPHeaderField: "Content-Type")
+        request.httpBody = try? JSONSerialization.data(withJSONObject: body)
+        
+        if let token = KeychainManager.shared.read(.token) {
+            request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+        return request
+    }
+    
+    private func delete(url: URL) -> URLRequest {
         var request = URLRequest(url: url)
         request.setValue("application/json; charset=utf8", forHTTPHeaderField: "Content-Type")
         request.httpBody = try? JSONSerialization.data(withJSONObject: body)

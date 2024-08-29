@@ -8,7 +8,7 @@
 import Foundation
 
 struct MangaInteractorGenericMock: MangaInteractorGeneric {
-
+    
     func getMangaList(with pagination: MangaPagination) async throws -> MangaPaginated {
         try await Task.sleep(nanoseconds: 3_000_000_000)
         return MangaPaginated(pagination: MangaPagination(page: 1, per: 10), items: Manga.mockList)
@@ -37,6 +37,26 @@ struct MangaInteractorGenericMock: MangaInteractorGeneric {
     func getThemes() async throws -> [Theme] {
         try await Task.sleep(nanoseconds: 1_500_000_000)
         return Theme.mockList
+    }
+    
+    func addManga(_ manga: MangaParams) async throws -> String {
+        try await Task.sleep(nanoseconds: 1_500_000_000)
+        return ""
+    }
+    
+    func getMangas() async throws -> [CollectionItem] {
+        try await Task.sleep(nanoseconds: 1_500_000_000)
+        return CollectionItem.mockList
+    }
+    
+    func getManga(by mangaId: Int) async throws -> CollectionItem {
+        try await Task.sleep(nanoseconds: 1_500_000_000)
+        return CollectionItem.collectionItem1
+    }
+    
+    func deleteManga(_ mangaId: Int) async throws -> String {
+        try await Task.sleep(nanoseconds: 1_500_000_000)
+        return ""
     }
 }
 

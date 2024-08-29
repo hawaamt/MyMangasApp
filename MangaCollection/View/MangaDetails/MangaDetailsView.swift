@@ -19,7 +19,7 @@ struct MangaDetailsView: View {
             content
         }
         .onAppear {
-            viewModel.checkManagaIsInMyCollection(in: context)
+            viewModel.checkMangaIsInMyCollection(in: context)
         }
         .listRowInsets(.none)
         .edgesIgnoringSafeArea(.top)
@@ -37,6 +37,8 @@ struct MangaDetailsView: View {
                 .tint(.accentColor)
             }
         }
+        .toast(toastView: ToastView(text: viewModel.errorToast, type: .error, position: .bottom, show: $viewModel.showErrorToast),
+               show: $viewModel.showErrorToast)
         .sheet(isPresented: $viewModel.isEditingMyCollection) {
             let viewModel = MyCollectionEditViewModel(mangaTitle: viewModel.manga.title,
                                                       volumeReading: viewModel.myMangaCollection?.volumeReadingString ?? "",
@@ -57,17 +59,26 @@ struct MangaDetailsView: View {
             }
             .padding()
                             
-            if let myManga = viewModel.myMangaCollection {
-                myCollection(for: myManga)
-            } else {
-                HStack {
-                    Button("details_add_collection") {
-                        viewModel.addToMyCollection(in: context)
+            ZStack {
+                if let myManga = viewModel.myMangaCollection {
+                    myCollection(for: myManga)
+                } else {
+                    HStack {
+                        Button("details_add_collection") {
+                            Task { @MainActor in
+                                viewModel.addToMyCollection(in: context)
+                            }
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .padding(.horizontal)
                     }
-                    .buttonStyle(.borderedProminent)
-                    .padding(.horizontal)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
+                
+                if viewModel.isEditing {
+                    ProgressView()
+                        .progressViewStyle(.circular)
+                }
             }
             
             VStack {
@@ -193,7 +204,9 @@ extension MangaDetailsView {
                         .fontWeight(.medium)
                 }
                 Button("details_remove_collection") {
-                    viewModel.removeFromMyCollection(in: context)
+                    Task { @MainActor in
+                        viewModel.deleteMyCollectionManga(in: context)
+                    }
                 }
                 .buttonStyle(.borderedProminent)
             }

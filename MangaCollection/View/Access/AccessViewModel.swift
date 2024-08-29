@@ -48,12 +48,18 @@ class AccessViewModel {
     
     var isNotLogged: Bool
     
+    private var task: Task<Void, Never>?
+    
     var interactor: UserInteractor
     
     init(interactor: UserInteractor = UserInteractor()) {
         self.interactor = interactor
         isNotLogged = !KeychainManager.shared.isUserLogged
-        self.interactor.delegate = self
+        task = Task {
+            for await _ in NotificationCenter.default.notifications(named: .logout, object: nil) {
+                logout()
+            }
+        }
     }
     
     var accessTypeSelected: AccessType {
@@ -156,7 +162,7 @@ class AccessViewModel {
 }
 
 // MARK: - Close session
-extension AccessViewModel: LogoutDelegate {
+extension AccessViewModel {
     
     func logout() {
         interactor.logout()

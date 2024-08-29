@@ -1272,6 +1272,23 @@
         }
       }
     },
+    "my_collection_error" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not save changes to the collection"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se han podido guardar los cambios en la colección"
+          }
+        }
+      }
+    },
     "my_collection_isCompleted" : {
       "localizations" : {
         "en" : {

@@ -10,7 +10,7 @@ import Foundation
 struct MangaInteractor {
     
     let networkService: NetworkService
-    
+        
     init(networkService: NetworkService = NetworkService.shared) {
         self.networkService = networkService
     }

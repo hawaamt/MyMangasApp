@@ -21,13 +21,13 @@ struct MangaByRequest: APIRequest {
     var path: String {
         switch mangaBy {
         case .genre(let genre): 
-            return "list/mangaByGenre/\(genre.genre)"
+            return "/list/mangaByGenre/\(genre.genre)"
         case .theme(let theme):
-            return "list/mangaByTheme/\(theme.theme)"
+            return "/list/mangaByTheme/\(theme.theme)"
         case .demographic(let demographic):
-            return "list/mangaByDemographic/\(demographic.demographic)"
+            return "/list/mangaByDemographic/\(demographic.demographic)"
         case .author(let author):
-            return "list/mangaByAuthor/\(author.id)"
+            return "/list/mangaByAuthor/\(author.id)"
         }
     }
     
