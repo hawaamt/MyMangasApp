@@ -362,6 +362,14 @@
 			path = SwiftData;
 			sourceTree = "<group>";
 		};
+		23DD3AFD2C825A020024BB4E /* LocalStorage */ = {
+			isa = PBXGroup;
+			children = (
+				23DD3AEF2C81CE2E0024BB4E /* LocalDataManager.swift */,
+			);
+			path = LocalStorage;
+			sourceTree = "<group>";
+		};
 		5826185C2C12220F00B041A2 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -425,6 +433,7 @@
 			isa = PBXGroup;
 			children = (
 				585C8BC12C10E374005FA187 /* MangaCollectionApp.swift */,
+				23DD3AFD2C825A020024BB4E /* LocalStorage */,
 				585C8BD82C10EC8D005FA187 /* Model */,
 				585C8BD02C10E3B4005FA187 /* View */,
 				585C8BCF2C10E3AC005FA187 /* Interactor */,
@@ -470,7 +479,6 @@
 				2322AD8B2C235A1A0067D246 /* MangasFilteredBy */,
 				58C04ED62C1319FD00F5966B /* MangaDetails */,
 				2322AD9A2C236D5A0067D246 /* CommonViews */,
-				23DD3AEF2C81CE2E0024BB4E /* LocalDataManager.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
