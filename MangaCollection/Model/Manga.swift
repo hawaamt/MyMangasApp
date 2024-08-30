@@ -19,6 +19,10 @@ struct MangaPagination: Codable {
     let per: Int
 }
 
+extension MangaPagination {
+    static var `default` =  MangaPagination(page: 1, per: 100)
+}
+
 // MARK: - Manga Paginated
 struct MangaPaginated: Codable {
     let pagination: MangaPagination

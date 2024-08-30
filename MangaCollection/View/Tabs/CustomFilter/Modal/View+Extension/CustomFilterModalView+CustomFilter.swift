@@ -14,14 +14,14 @@ extension CustomFilterModalView {
         Section {
             InputView(title: "filterBy_add_title_filters",
                       placeholder: "filterBy_title_placeholder",
-                      text: $viewModel.titleSelected)
+                      text: $viewModel.model.titleSelected)
         }
         .buttonStyle(.plain)
         
         Section {
             addGenre
-            if !viewModel.customGenres.isEmpty {
-                ForEach(viewModel.customGenres) {
+            if !viewModel.model.customGenres.isEmpty {
+                ForEach(viewModel.model.customGenres) {
                     Text($0.genre)
                         .leadingAlign()
                         .foregroundColor(.text)
@@ -35,8 +35,8 @@ extension CustomFilterModalView {
         
         Section {
             addTheme
-            if !viewModel.customThemes.isEmpty {
-                ForEach(viewModel.customThemes) {
+            if !viewModel.model.customThemes.isEmpty {
+                ForEach(viewModel.model.customThemes) {
                     Text($0.theme)
                         .leadingAlign()
                         .foregroundColor(.text)
@@ -50,8 +50,8 @@ extension CustomFilterModalView {
         
         Section {
             addDemographic
-            if !viewModel.customDemographics.isEmpty {
-                ForEach(viewModel.customDemographics) {
+            if !viewModel.model.customDemographics.isEmpty {
+                ForEach(viewModel.model.customDemographics) {
                     Text($0.demographic)
                         .leadingAlign()
                         .foregroundColor(.text)
@@ -69,8 +69,8 @@ extension CustomFilterModalView {
     var addGenre: some View {
         HStack {
             getListPicker(title: "filterBy_add_genre_filters",
-                          for: viewModel.genres,
-                          selected: $viewModel.customGenreSelected)
+                          for: viewModel.model.genres,
+                          selected: $viewModel.model.customGenreSelected)
             .padding(.trailing)
             Button {
                 viewModel.addGenreSelected()
@@ -86,7 +86,9 @@ extension CustomFilterModalView {
     
     var addTheme: some View {
         HStack {
-            getListPicker(title: "filterBy_add_theme_filters", for: viewModel.themes, selected: $viewModel.customThemeSelected)
+            getListPicker(title: "filterBy_add_theme_filters",
+                          for: viewModel.model.themes,
+                          selected: $viewModel.model.customThemeSelected)
                 .padding(.trailing)
             Button {
                 viewModel.addThemeSelected()
@@ -102,7 +104,9 @@ extension CustomFilterModalView {
     
     var addDemographic: some View {
         HStack {
-            getListPicker(title: "filterBy_add_demographic_filters", for: viewModel.demographics, selected: $viewModel.customDemographicSelected)
+            getListPicker(title: "filterBy_add_demographic_filters",
+                          for: viewModel.model.demographics,
+                          selected: $viewModel.model.customDemographicSelected)
                 .padding(.trailing)
             Button {
                 viewModel.addDemographicSelected()

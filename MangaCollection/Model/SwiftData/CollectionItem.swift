@@ -9,9 +9,9 @@ import Foundation
 import SwiftData
 
 @Model
-class CollectionItem: Identifiable {
-    @Attribute(.unique) let id: String
-    let manga: Manga
+class CollectionItem: Identifiable, Equatable {
+    @Attribute(.unique) var id: String
+    var manga: Manga
     var readingVolume: Int?
     var volumesOwned: [Int]
     var completeCollection: Bool

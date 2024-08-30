@@ -8,18 +8,26 @@
 import SwiftUI
 
 struct ErrorView: View {
+    enum Size {
+        case small
+        case normal
+    }
+    var size: ErrorView.Size = .small
     var retry: (() -> Void)?
     
     var body: some View {
-        VStack {
+        VStack(spacing: size.verticalPadding) {
             Image(.error)
                 .resizable()
                 .scaledToFit()
-                .padding()
+                .frame(height: size.height)
+            
             Text("mangas_filtered_by_error")
                 .foregroundColor(Color(.black))
                 .multilineTextAlignment(.center)
-                .font(.headline)
+                .font(size.font)
+                .fontWeight(.semibold)
+            
             Button {
                 retry?()
             } label: {
@@ -27,7 +35,6 @@ struct ErrorView: View {
                     .foregroundColor(.white)
                     .fontWeight(.medium)
             }
-            .padding()
             .buttonStyle(.borderedProminent)
         }
         .padding()
@@ -35,6 +42,36 @@ struct ErrorView: View {
             RoundedRectangle(cornerRadius: 10)
                 .fill(Color(.white))
         )
+    }
+}
+
+extension ErrorView.Size {
+    
+    var height: CGFloat {
+        switch self {
+        case .small:
+            120
+        case .normal:
+            250
+        }
+    }
+    
+    var font: Font {
+        switch self {
+        case .small:
+            .caption
+        case .normal:
+            .headline
+        }
+    }
+    
+    var verticalPadding: CGFloat {
+        switch self {
+        case .small:
+            8
+        case .normal:
+            16
+        }
     }
 }
 

@@ -13,7 +13,7 @@ extension CustomFilterModalView {
         Section {
             InputView(title: "filterBy_beginWith_title",
                       placeholder: "filterBy_begins_with_placeholder",
-                      text: $viewModel.beginWithSelected,
+                      text: $viewModel.model.beginWithSelected,
                       error: nil)
         }
     }
@@ -22,7 +22,7 @@ extension CustomFilterModalView {
         Section {
             InputView(title: "filterBy_contains_title",
                       placeholder: "filterBy_contains_placeholder",
-                      text: $viewModel.containsSelected,
+                      text: $viewModel.model.containsSelected,
                       error: nil)
         }
     }
@@ -31,7 +31,7 @@ extension CustomFilterModalView {
         Section {
             InputView(title: "filterBy_id_title",
                       placeholder: "filterBy_id_placeholder",
-                      text: $viewModel.idSelected,
+                      text: $viewModel.model.idSelected,
                       error: nil)
         }
     }

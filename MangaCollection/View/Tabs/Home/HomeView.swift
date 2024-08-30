@@ -8,60 +8,36 @@
 import SwiftUI
 
 struct HomeView: View {
+    @Environment(\.modelContext) private var context
     @State var viewModel: HomeViewModel
     
     var body: some View {
         NavigationStack {
             ScrollView {
-                LazyVStack(spacing: 20, pinnedViews: [.sectionHeaders]) {
-                    Section {
-                        top10
-                    } header: {
-                        header(title: "home_best_title")
-                    }
-                    
-                    Section {
-                        authores
-                    } header: {
-                        header(title: "home_authors")
-                    }
-                    
-                    Section {
-                        demographic
-                    } header: {
-                        header(title: "home_demographic")
-                    }
-                    
-                    Section {
-                        genres
-                    } header: {
-                        header(title: "home_genres")
-                    }
-                    
-                    Section {
-                        themes
-                    } header: {
-                        header(title: "home_themes")
-                    }
-                }
+                content
             }
             .refreshable {
                 viewModel.loadData()
             }
             .navigationDestination(for: Manga.self) {
                 MangaDetailsView(viewModel: MangaDetailsViewModel(manga: $0))
+                    .modelContext(context)
             }
             .navigationDestination(for: Author.self) {
                 MangasFilteredByFactory(mangasBy: .author($0)).makeView()
+                    .modelContext(context)
             }
             .navigationDestination(for: Demographic.self) {
                 MangasFilteredByFactory(mangasBy: .demographic($0)).makeView()
+                    .modelContext(context)
             }
             .navigationDestination(for: Genre.self) {
                 MangasFilteredByFactory(mangasBy: .genre($0)).makeView()
+                    .modelContext(context)
             }
             .navigationDestination(for: Theme.self) {
                 MangasFilteredByFactory(mangasBy: .theme($0)).makeView()
+                    .modelContext(context)
             }
             .navigationTitle("home_navigationTitle")
         }
@@ -69,6 +45,40 @@ struct HomeView: View {
 }
 
 extension HomeView {
+    
+    var content: some View {
+        LazyVStack(spacing: 20, pinnedViews: [.sectionHeaders]) {
+            Section {
+                top10
+            } header: {
+                header(title: "home_best_title")
+            }
+            
+            Section {
+                authores
+            } header: {
+                header(title: "home_authors")
+            }
+            
+            Section {
+                demographic
+            } header: {
+                header(title: "home_demographic")
+            }
+            
+            Section {
+                genres
+            } header: {
+                header(title: "home_genres")
+            }
+            
+            Section {
+                themes
+            } header: {
+                header(title: "home_themes")
+            }
+        }
+    }
     
     var top10: some View {
         VStack {
@@ -81,6 +91,7 @@ extension HomeView {
                         ForEach(viewModel.bestMangas) { manga in
                             NavigationLink(value: manga) {
                                 HomeMangaCard(manga: manga) {}
+                                    .modelContext(context)
                             }
                             .buttonStyle(.plain)
                         }
@@ -90,7 +101,7 @@ extension HomeView {
             case .empty:
                 NoDataView()
             case .error:
-                ErrorView {
+                ErrorView(size: .small) {
                     Task {
                         await viewModel.loadBestMangas()
                     }
@@ -110,6 +121,7 @@ extension HomeView {
                         ForEach(viewModel.authors) { author in
                             NavigationLink(value: author) {
                                 AuthorMangaCard(author: author)
+                                    .modelContext(context)
                             }
                             .buttonStyle(.plain)
                         }
@@ -119,7 +131,7 @@ extension HomeView {
             case .empty:
                 NoDataView()
             case .error:
-                ErrorView {
+                ErrorView(size: .small) {
                     Task {
                         await viewModel.loadAuthors()
                     }
@@ -140,6 +152,7 @@ extension HomeView {
                             NavigationLink(value: demographic) {
                                 CustomCard(image: demographic.image,
                                            title: demographic.demographic)
+                                .modelContext(context)
                             }
                             .buttonStyle(.plain)
                         }
@@ -150,7 +163,7 @@ extension HomeView {
             case .empty:
                 NoDataView()
             case .error:
-                ErrorView {
+                ErrorView(size: .small) {
                     Task {
                         await viewModel.loadDemographics()
                     }
@@ -171,6 +184,7 @@ extension HomeView {
                             NavigationLink(value: genre) {
                                 CustomCard(image: genre.image,
                                            title: genre.genre)
+                                .modelContext(context)
                             }
                             .buttonStyle(.plain)
                         }
@@ -181,7 +195,7 @@ extension HomeView {
             case .empty:
                 NoDataView()
             case .error:
-                ErrorView {
+                ErrorView(size: .small) {
                     Task {
                         await viewModel.loadGenres()
                     }
@@ -202,6 +216,7 @@ extension HomeView {
                             NavigationLink(value: theme) {
                                 CustomCard(image: theme.image,
                                            title: theme.theme)
+                                .modelContext(context)
                             }
                             .buttonStyle(.plain)
                         }
@@ -212,7 +227,7 @@ extension HomeView {
             case .empty:
                 NoDataView()
             case .error:
-                ErrorView {
+                ErrorView(size: .small) {
                     Task {
                         await viewModel.loadThemes()
                     }

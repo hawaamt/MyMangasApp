@@ -19,35 +19,8 @@ struct MangasFilteredByView: View {
                 switch viewModel.state {
                 case .idle, .loading:
                     MangaCellView.placeholder
-                        .modelContext(context)
                 case .loaded:
-                    List {
-                        ForEach(viewModel.mangas) { manga in
-                            NavigationLink(value: manga) {
-                                MangaCellView(manga: manga)
-                                    .modelContext(context)
-                            }
-                            .buttonStyle(.plain)
-                            .listRowBackground(Color(.background))
-                            .listRowSeparator(.hidden)
-                        }
-                        if !viewModel.listIsFull {
-                            ProgressView()
-                                .progressViewStyle(.circular)
-                                .onAppear {
-                                    Task {
-                                        await viewModel.loadData()
-                                    }
-                                }
-                        }
-                    }
-                    .refreshable {
-                        Task {
-                            await viewModel.reloadData()
-                        }
-                    }
-                    .listRowInsets(EdgeInsets())
-                    .listStyle(.plain)
+                    content
                 case .empty:
                     Text("mangas_filtered_by_empty")
                 case .error:
@@ -75,7 +48,38 @@ struct MangasFilteredByView: View {
             }
         }
     }
+}
 
+private extension MangasFilteredByView {
+    var content: some View {
+        List {
+            ForEach(viewModel.mangas) { manga in
+                NavigationLink(value: manga) {
+                    MangaCellView(manga: manga)
+                        .modelContext(context)
+                }
+                .buttonStyle(.plain)
+                .listRowBackground(Color(.background))
+                .listRowSeparator(.hidden)
+            }
+            if !viewModel.listIsFull {
+                ProgressView()
+                    .progressViewStyle(.circular)
+                    .onAppear {
+                        Task {
+                            await viewModel.loadData()
+                        }
+                    }
+            }
+        }
+        .refreshable {
+            Task {
+                await viewModel.reloadData()
+            }
+        }
+        .listRowInsets(EdgeInsets())
+        .listStyle(.plain)
+    }
 }
 
 #Preview("Empty") {

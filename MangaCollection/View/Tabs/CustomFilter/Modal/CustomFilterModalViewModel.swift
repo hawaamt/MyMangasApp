@@ -7,30 +7,16 @@
 
 import SwiftUI
 
-struct CustomFilterModel: Codable {
-    var searchTitle: String
-    var searchDemographics: [String]
-    var searchGenres: [String]
-    var searchThemes: [String]
-    var searchContains: Bool = true
+struct FilterModalModel {
     
-    static var `default` = CustomFilterModel(searchTitle: "",
-                                             searchDemographics: [],
-                                             searchGenres: [],
-                                             searchThemes: [],
-                                             searchContains: true)
-}
-
-@Observable
-class CustomFilterModalViewModel {
+    // FILTER TYPE
+    var filterBy: FilterByModel?
+    
     // PICKERS DATA
     var authors: [Author] = []
     var genres: [Genre]
     var themes: [Theme]
     var demographics: [Demographic]
-    
-    // FILTER TYPE
-    var filterBy: FilterBy?
     
     // FILTER - PICKERS
     var genreSelected: Genre?
@@ -55,59 +41,63 @@ class CustomFilterModalViewModel {
     var customGenres: [Genre] = []
     var customThemes: [Theme] = []
     var customDemographics: [Demographic] = []
+}
+
+@Observable
+class CustomFilterModalViewModel {
     
-    // TOAST
+    var model: FilterModalModel
     var errorToast: String = ""
     var showErrorToast: Bool = false
     
     private let interactorFilter: MangaInteractorFilteredBy
-    var onAccept: (FilterBy?) -> Void
+    var onAccept: (FilterByModel?) -> Void
     
     init(genres: [Genre],
          themes: [Theme],
          demographics: [Demographic],
-         filterBy: FilterBy?,
+         filterBy: FilterByModel?,
          interactorFilter: MangaInteractorFilteredBy = MangaInteractor(),
-         onAccept: @escaping (FilterBy?) -> Void) {
-        self.genres = genres
-        self.themes = themes
-        self.demographics = demographics
+         onAccept: @escaping (FilterByModel?) -> Void) {
+        self.model = FilterModalModel(genres: genres,
+                                      themes: themes,
+                                      demographics: demographics)
         self.onAccept = onAccept
         self.interactorFilter = interactorFilter
-        self.filterBy = filterBy ?? .genre(genres.first)
+        self.model.filterBy = filterBy ?? .genre(genres.first)
         fillData()
     }
     
     func fillData() {
-        guard let filterBy else { return }
+        guard let filterBy = model.filterBy else { return }
         
-        genreSelected = genres.first
-        themeSelected = themes.first
-        demographicSelected = demographics.first
-        customGenreSelected = genres.first
-        customThemeSelected = themes.first
-        customDemographicSelected = demographics.first
+        model.genreSelected = model.genres.first
+        model.themeSelected = model.themes.first
+        model.demographicSelected = model.demographics.first
+        model.customGenreSelected = model.genres.first
+        model.customThemeSelected = model.themes.first
+        model.customDemographicSelected = model.demographics.first
         
         switch filterBy {
         case .genre(let genre):
-            genreSelected = genre ?? genres.first
+            model.genreSelected = genre ?? model.genres.first
         case .theme(let theme):
-            themeSelected = theme ?? themes.first
+            model.themeSelected = theme ?? model.themes.first
         case .demographic(let demographic):
-            demographicSelected = demographic ?? demographics.first
+            model.demographicSelected = demographic ?? model.demographics.first
         case .author(let author):
-            authorSelected = author
-            authorTitleSearch = author?.fullName ?? ""
+            model.authorSelected = author
+            model.authorTitleSearch = author?.fullName ?? ""
         case .beginWith(let beginWith):
-            beginWithSelected = beginWith
+            model.beginWithSelected = beginWith
         case .contains(let contains):
-            containsSelected = contains
+            model.containsSelected = contains
         case .id(let id):
-            idSelected = id
+            model.idSelected = id
         case .custom(let customFilterModel):
-            customGenres = genres.filter({ customFilterModel?.searchGenres.contains($0.title) ?? false })
-            customThemes = themes.filter({ customFilterModel?.searchThemes.contains($0.title) ?? false })
-            customDemographics = demographics.filter({ customFilterModel?.searchDemographics.contains($0.title) ?? false })
+            model.customGenres = model.genres.filter({ customFilterModel?.searchGenres.contains($0.title) ?? false })
+            model.customThemes = model.themes.filter({ customFilterModel?.searchThemes.contains($0.title) ?? false })
+            model.customDemographics = model.demographics.filter({ customFilterModel?.searchDemographics.contains($0.title) ?? false })
         }
     }
     
@@ -120,13 +110,13 @@ class CustomFilterModalViewModel {
     @MainActor
     func searchAuthors() async {
         do {
-            isSearchingAuthors = true
-            authors = try await interactorFilter.searchAuthor(with: authorTitleSearch)
-            isSearchingAuthors = false
+            model.isSearchingAuthors = true
+            model.authors = try await interactorFilter.searchAuthor(with: model.authorTitleSearch)
+            model.isSearchingAuthors = false
         } catch {
             print(error)
-            isSearchingAuthors = false
-            authors = []
+            model.isSearchingAuthors = false
+            model.authors = []
         }
     }
     
@@ -135,124 +125,124 @@ class CustomFilterModalViewModel {
     }
     
     func addGenreSelected() {
-        guard let firstGenre = genres.first else { return }
-        customGenres.append(customGenreSelected ?? firstGenre)
+        guard let firstGenre = model.genres.first else { return }
+        model.customGenres.append(model.customGenreSelected ?? firstGenre)
     }
     
     func addThemeSelected() {
-        guard let firstTheme = themes.first else { return }
-        customThemes.append(customThemeSelected ?? firstTheme)
+        guard let firstTheme = model.themes.first else { return }
+        model.customThemes.append(model.customThemeSelected ?? firstTheme)
     }
     
     func addDemographicSelected() {
-        guard let firstDemographic = demographics.first else { return }
-        customDemographics.append(customDemographicSelected ?? firstDemographic)
+        guard let firstDemographic = model.demographics.first else { return }
+        model.customDemographics.append(model.customDemographicSelected ?? firstDemographic)
     }
     
     var isAddGenreButtonDisabled: Bool {
-        guard !genres.isEmpty else { return true }
+        guard !model.genres.isEmpty else { return true }
         
-        if let customGenreSelected {
-            return customGenres.contains(customGenreSelected)
+        if let customGenreSelected = model.customGenreSelected {
+            return model.customGenres.contains(customGenreSelected)
         }
         
-        if let first = genres.first {
-            return customGenres.contains(first)
+        if let first = model.genres.first {
+            return model.customGenres.contains(first)
         }
         
         return false
     }
     
     var isAddThemeButtonDisabled: Bool {
-        guard !themes.isEmpty else { return true }
+        guard !model.themes.isEmpty else { return true }
         
-        if let customThemeSelected {
-            return customThemes.contains(customThemeSelected)
+        if let customThemeSelected = model.customThemeSelected {
+            return model.customThemes.contains(customThemeSelected)
         }
         
-        if let first = themes.first {
-            return customThemes.contains(first)
+        if let first = model.themes.first {
+            return model.customThemes.contains(first)
         }
         
         return false
     }
     
     var isAddDemographicButtonDisabled: Bool {
-        guard !demographics.isEmpty else { return true }
+        guard !model.demographics.isEmpty else { return true }
         
-        if let customDemographicSelected {
-            return customDemographics.contains(customDemographicSelected)
+        if let customDemographicSelected = model.customDemographicSelected {
+            return model.customDemographics.contains(customDemographicSelected)
         }
         
-        if let first = demographics.first {
-            return customDemographics.contains(first)
+        if let first = model.demographics.first {
+            return model.customDemographics.contains(first)
         }
         
         return true
     }
     
     func deleteGenre(in indexSet: IndexSet) {
-        customGenres.remove(atOffsets: indexSet)
+        model.customGenres.remove(atOffsets: indexSet)
     }
     
     func deleteTheme(in indexSet: IndexSet) {
-        customThemes.remove(atOffsets: indexSet)
+        model.customThemes.remove(atOffsets: indexSet)
     }
     
     func deleteDemographic(in indexSet: IndexSet) {
-        customDemographics.remove(atOffsets: indexSet)
+        model.customDemographics.remove(atOffsets: indexSet)
     }
     
     func acceptFilter() {
-        guard let filterBy else {
+        guard let filterBy = model.filterBy else {
             onAccept(nil)
             return
         }
         
         switch filterBy {
         case .genre:
-            onAccept(.genre(genreSelected))
+            onAccept(.genre(model.genreSelected))
         case .theme:
-            onAccept(.theme(themeSelected))
+            onAccept(.theme(model.themeSelected))
         case .demographic:
-            onAccept(.demographic(demographicSelected))
+            onAccept(.demographic(model.demographicSelected))
         case .author:
-            onAccept(.author(authorSelected))
+            onAccept(.author(model.authorSelected))
         case .beginWith:
-            onAccept(.beginWith(beginWithSelected))
+            onAccept(.beginWith(model.beginWithSelected))
         case .contains:
-            onAccept(.contains(containsSelected))
+            onAccept(.contains(model.containsSelected))
         case .id:
-            onAccept(.id(idSelected))
+            onAccept(.id(model.idSelected))
         case .custom:
-            let customFilterModel = CustomFilterModel(searchTitle: titleSelected,
-                                                      searchDemographics: customDemographics.map { $0.demographic },
-                                                      searchGenres: customGenres.map { $0.genre },
-                                                      searchThemes: customThemes.map { $0.theme })
+            let customFilterModel = CustomFilterModel(searchTitle: model.titleSelected,
+                                                      searchDemographics: model.customDemographics.map { $0.demographic },
+                                                      searchGenres: model.customGenres.map { $0.genre },
+                                                      searchThemes: model.customThemes.map { $0.theme })
             onAccept(.custom(customFilterModel))
         }
     }
     
     var isAcceptDisabled: Bool {
-        guard let filterBy else {
+        guard let filterBy = model.filterBy else {
             return true
         }
         
         switch filterBy {
         case .author:
-            guard authorSelected != nil else {
+            guard model.authorSelected != nil else {
                 return true
             }
         case .beginWith:
-            guard !beginWithSelected.isEmpty else {
+            guard !model.beginWithSelected.isEmpty else {
                 return true
             }
         case .contains:
-            guard !containsSelected.isEmpty else {
+            guard !model.containsSelected.isEmpty else {
                 return true
             }
         case .id:
-            guard !idSelected.isEmpty else {
+            guard !model.idSelected.isEmpty else {
                 return true
             }
         default:

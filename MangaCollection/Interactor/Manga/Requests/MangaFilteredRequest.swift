@@ -11,7 +11,7 @@ struct MangaFilteredRequest: APIRequest {
 
     typealias Response = MangaListDTO
     
-    let filterBy: FilterBy
+    let filterBy: FilterByModel
     let pagination: MangaPagination
     
     var method: HTTPMethodType {

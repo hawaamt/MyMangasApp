@@ -40,80 +40,18 @@ struct MangaDetailsView: View {
         .toast(toastView: ToastView(text: viewModel.errorToast, type: .error, position: .bottom, show: $viewModel.showErrorToast),
                show: $viewModel.showErrorToast)
         .sheet(isPresented: $viewModel.isEditingMyCollection) {
-            let viewModel = MyCollectionEditViewModel(mangaTitle: viewModel.manga.title,
-                                                      volumeReading: viewModel.myMangaCollection?.volumeReadingString ?? "",
-                                                      volumesOwned: viewModel.myMangaCollection?.volumesOwned.map({ "\($0)" }) ?? [],
-                                                      isCompleted: viewModel.myMangaCollection?.completeCollection ?? false,
-                                                      onSave: viewModel.saveEditing)
+            let viewModel = MyCollectionEditViewModel(
+                mangaTitle: viewModel.manga.title,
+                volumeReading: viewModel.myMangaCollection?.volumeReadingString ?? "",
+                volumesOwned: viewModel.myMangaCollection?.volumesOwned.map({ "\($0)" }) ?? [],
+                isCompleted: viewModel.myMangaCollection?.completeCollection ?? false,
+                onSave: viewModel.saveEditing
+            )
             return MyCollectionEditView(viewModel: viewModel)
         }
     }
     
-    var content: some View {
-        VStack(spacing: 0) {
-            HStack {
-                MangaInfoView(scoreInfo: viewModel.manga.scoreInfo,
-                              volumesInfo: viewModel.manga.volumesInfo,
-                              year: viewModel.manga.year)
-                status
-            }
-            .padding()
-                            
-            ZStack {
-                if let myManga = viewModel.myMangaCollection {
-                    myCollection(for: myManga)
-                } else {
-                    HStack {
-                        Button("details_add_collection") {
-                            Task { @MainActor in
-                                viewModel.addToMyCollection(in: context)
-                            }
-                        }
-                        .buttonStyle(.borderedProminent)
-                        .padding(.horizontal)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                }
-                
-                if viewModel.isEditing {
-                    ProgressView()
-                        .progressViewStyle(.circular)
-                }
-            }
-            
-            VStack {
-                Text("details_synopsis")
-                    .leadingAlign()
-                    .font(.title3)
-                    .fontWeight(.bold)
-                
-                Text(viewModel.manga.sypnosis ?? "")
-                    .leadingAlign()
-                    .font(.body)
-            }
-            .padding()
-            
-            VStack {
-                Text("details_cast")
-                    .leadingAlign()
-                    .font(.title3)
-                    .fontWeight(.bold)
-                    .padding()
-                
-                ScrollView(.horizontal, showsIndicators: false) {
-                    LazyHStack {
-                        ForEach(viewModel.manga.authors) { author in
-                            NavigationLink(value: author) {
-                                AuthorMangaCard(author: author)
-                            }
-                            .buttonStyle(.plain)
-                        }
-                    }
-                    .padding(.leading)
-                }
-            }
-        }
-    }
+    
 }
 
 // MARK: - Content
@@ -144,6 +82,28 @@ extension MangaDetailsView {
         }
     }
     
+    var content: some View {
+        VStack(spacing: 0) {
+            mangaInfo
+            mangaInMyCollectionInfo
+            synopsis
+            authors
+        }
+    }
+}
+
+// MARK: - Content views
+extension MangaDetailsView {
+    var mangaInfo: some View {
+        HStack {
+            MangaInfoView(scoreInfo: viewModel.manga.scoreInfo,
+                          volumesInfo: viewModel.manga.volumesInfo,
+                          year: viewModel.manga.year)
+            status
+        }
+        .padding()
+    }
+    
     @ViewBuilder
     var status: some View {
         if let status = viewModel.manga.status {
@@ -162,23 +122,71 @@ extension MangaDetailsView {
             }
         }
     }
-}
-
-// MARK: - Components
-extension MangaDetailsView {
-    var imageBg: some View {
-        GeometryReader { reader in
+    
+    var mangaInMyCollectionInfo: some View {
+        ZStack {
+            if let myManga = viewModel.myMangaCollection {
+                myCollection(for: myManga)
+            } else {
+                HStack {
+                    Button("details_add_collection") {
+                        Task { @MainActor in
+                            viewModel.addToMyCollection(in: context)
+                        }
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .padding(.horizontal)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+            }
             
-            let offset = reader.frame(in: .global).minY
-            let height = 350 + (offset > 0 ? offset : 0)
-            let offsetY = offset > 0 ? -offset : 0
-            AsyncImageView(url: viewModel.manga.mainPicture,
-                           height: height,
-                           offsetY: offsetY)
+            if viewModel.isEditing {
+                ProgressView()
+                    .progressViewStyle(.circular)
+            }
         }
-        .frame(minHeight: 350)
     }
     
+    var synopsis: some View {
+        VStack {
+            Text("details_synopsis")
+                .leadingAlign()
+                .font(.title3)
+                .fontWeight(.bold)
+            
+            Text(viewModel.manga.sypnosis ?? "")
+                .leadingAlign()
+                .font(.body)
+        }
+        .padding()
+    }
+    
+    var authors: some View {
+        VStack {
+            Text("details_cast")
+                .leadingAlign()
+                .font(.title3)
+                .fontWeight(.bold)
+                .padding()
+            
+            ScrollView(.horizontal, showsIndicators: false) {
+                LazyHStack {
+                    ForEach(viewModel.manga.authors) { author in
+                        NavigationLink(value: author) {
+                            AuthorMangaCard(author: author)
+                                .modelContext(context)
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
+                .padding(.leading)
+            }
+        }
+    }
+}
+
+// MARK: - My collection view
+extension MangaDetailsView {
     func myCollection(for manga: CollectionItem) -> some View {
         ZStack {
             VStack(alignment: .leading) {
@@ -225,6 +233,22 @@ extension MangaDetailsView {
         }
         .padding()
         .background(Color(.secondarySystemBackground))
+    }
+}
+
+// MARK: - Aux
+extension MangaDetailsView {
+    var imageBg: some View {
+        GeometryReader { reader in
+            
+            let offset = reader.frame(in: .global).minY
+            let height = 350 + (offset > 0 ? offset : 0)
+            let offsetY = offset > 0 ? -offset : 0
+            AsyncImageView(url: viewModel.manga.mainPicture,
+                           height: height,
+                           offsetY: offsetY)
+        }
+        .frame(minHeight: 350)
     }
 }
 

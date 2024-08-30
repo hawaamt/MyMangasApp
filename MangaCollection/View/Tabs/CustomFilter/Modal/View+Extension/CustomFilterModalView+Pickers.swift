@@ -12,19 +12,19 @@ extension CustomFilterModalView {
         Section {
             HStack {
                 VStack {
-                    switch viewModel.filterBy {
+                    switch viewModel.model.filterBy {
                     case .genre:
                         getListPicker(title: "filterBy_add_genre_filters",
-                                      for: viewModel.genres,
-                                      selected: $viewModel.genreSelected)
+                                      for: viewModel.model.genres,
+                                      selected: $viewModel.model.genreSelected)
                     case .theme:
                         getListPicker(title: "filterBy_add_theme_filters",
-                                      for: viewModel.themes,
-                                      selected: $viewModel.themeSelected)
+                                      for: viewModel.model.themes,
+                                      selected: $viewModel.model.themeSelected)
                     case .demographic:
                         getListPicker(title: "filterBy_add_demographic_filters",
-                                      for: viewModel.demographics,
-                                      selected: $viewModel.demographicSelected)
+                                      for: viewModel.model.demographics,
+                                      selected: $viewModel.model.demographicSelected)
                     default: EmptyView()
                     }
                 }

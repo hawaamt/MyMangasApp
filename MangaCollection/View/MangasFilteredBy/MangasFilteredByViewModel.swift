@@ -32,7 +32,7 @@ class MangasFilteredByViewModel {
          interactor: MangaInteractorFilteredBy = MangaInteractor()) {
         self.mangaBy = mangaBy
         self.interactor = interactor
-        self.pagination = MangaPagination(page: 1, per: 100)
+        self.pagination = MangaPagination.default
         Task {
             await loadData()
         }
@@ -58,7 +58,7 @@ class MangasFilteredByViewModel {
     @MainActor
     func reloadData() async {
         listIsFull = false
-        pagination = MangaPagination(page: 1, per: 100)
+        pagination = MangaPagination.default
         mangas = []
         await loadData()
     }

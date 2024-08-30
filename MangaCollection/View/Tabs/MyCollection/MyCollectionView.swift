@@ -10,13 +10,12 @@ import SwiftData
 
 struct MyCollectionView: View {
     @Environment(\.modelContext) private var context
-    
-    @State var viewModel: MyCollectionViewModel
+    @Query private var collection: [CollectionItem]
     
     var body: some View {
         NavigationStack {
             VStack {
-                if viewModel.collection.isEmpty {
+                if collection.isEmpty {
                     Spacer()
                     NoDataView()
                     Spacer()
@@ -24,11 +23,10 @@ struct MyCollectionView: View {
                     content
                 }
             }
-            .task {
-                viewModel.updateCollection(in: context)
-            }
+            .navigationTitle("tab_myCollection")
             .navigationDestination(for: CollectionItem.self) { collection in
                 MangaDetailsView(viewModel: MangaDetailsViewModel(manga: collection.manga))
+                    .modelContext(context)
             }
         }
     }
@@ -39,7 +37,7 @@ struct MyCollectionView: View {
                        GridItem(.flexible())]
         ScrollView {
             LazyVGrid(columns: columns) {
-                ForEach(viewModel.collection) { item in
+                ForEach(collection) { item in
                     NavigationLink(value: item) {
                         VStack {
                             ZStack {
@@ -82,6 +80,7 @@ struct MyCollectionView: View {
                         .padding()
                         .background(Color(.secondarySystemBackground))
                         .clipShape(.buttonBorder)
+                        .modelContext(context)
                     }
                     .buttonStyle(.plain)
                 }
@@ -93,8 +92,7 @@ struct MyCollectionView: View {
 
 #Preview {
     NavigationStack {
-        MyCollectionFactory
-            .makeView()
+        MyCollectionView()
             .modelContainer(.preview)
     }
 }

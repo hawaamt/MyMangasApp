@@ -19,7 +19,7 @@ struct CustomFilterModalView: View {
             ZStack {
                 List {
                     filterHeader
-                    switch viewModel.filterBy {
+                    switch viewModel.model.filterBy {
                     case .genre, .theme, .demographic:
                         comboFilterBy
                     case .author:
@@ -70,46 +70,8 @@ struct CustomFilterModalView: View {
     }
 }
 
-// MARK: - Components
+// MARK: - Other components
 private extension CustomFilterModalView {
-    
-    var filterHeader: some View {
-        Section {
-            VStack {
-                Text("filterBy_title")
-                    .leadingAlign()
-                    .foregroundColor(.text)
-                    .font(.title3)
-                    .fontWeight(.medium)
-                Text("filterBy_description")
-                    .leadingAlign()
-                    .foregroundColor(.gray)
-                    .font(.callout)
-                    .padding(.bottom)
-                HStack {
-                    VStack {
-                        Picker("", selection: $viewModel.filterBy) {
-                            ForEach(FilterBy.allCases, id: \.self) {
-                                Text($0.title)
-                                    .tag($0 as FilterBy?)
-                            }
-                        }
-                        .labelsHidden()
-                        .pickerStyle(.menu)
-                        .accentColor(.white)
-                    }
-                    .padding(.trailing)
-                    .background(
-                        RoundedRectangle(cornerRadius: 10)
-                            .fill(.accent)
-                    )
-                    Spacer()
-                }
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-        }
-    }
-    
     var cleanFilters: some View {
         Button {
             viewModel.cleanFilters()
@@ -145,7 +107,7 @@ extension CustomFilterModalView {
     }
 }
 
-private extension FilterBy {
+private extension FilterByModel {
     var comboTitle: LocalizedStringKey {
         switch self {
         case .genre: LocalizedStringKey("filterBy_select_genre")
@@ -158,10 +120,14 @@ private extension FilterBy {
 }
 
 #Preview {
-    CustomFilterModalView(viewModel: CustomFilterModalViewModel(genres: Genre.mockList,
-                                                                themes: Theme.mockList,
-                                                                demographics: Demographic.mockList,
-                                                                filterBy: nil, 
-                                                                onAccept: { _ in }),
-                          isShowingModal: .constant(true))
+    CustomFilterModalView(
+        viewModel: CustomFilterModalViewModel(
+            genres: Genre.mockList,
+            themes: Theme.mockList,
+            demographics: Demographic.mockList,
+            filterBy: nil, 
+            onAccept: { _ in }
+        ),
+        isShowingModal: .constant(true)
+    )
 }

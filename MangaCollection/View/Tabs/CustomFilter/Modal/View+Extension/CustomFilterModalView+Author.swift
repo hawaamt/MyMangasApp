@@ -13,7 +13,7 @@ extension CustomFilterModalView {
         Section {
             InputView(title: "filterBy_author_title",
                       placeholder: "filterBy_author_placeholder",
-                      text: $viewModel.idSelected,
+                      text: $viewModel.model.idSelected,
                       submitLabel: .search,
                       error: nil) {
                 viewModel.submitSearchAuthors()
@@ -25,19 +25,19 @@ extension CustomFilterModalView {
     
     @ViewBuilder
     var authorList: some View {
-        if viewModel.isSearchingAuthors {
+        if viewModel.model.isSearchingAuthors {
             ProgressView()
                 .progressViewStyle(.circular)
         } else {
-            if !viewModel.authors.isEmpty {
-                ForEach(viewModel.authors) { author in
+            if !viewModel.model.authors.isEmpty {
+                ForEach(viewModel.model.authors) { author in
                     Button {
-                        viewModel.authorSelected = author
+                        viewModel.model.authorSelected = author
                     } label: {
                         HStack {
                             Image(systemName: "checkmark")
                                 .foregroundStyle(.text)
-                                .opacity(viewModel.authorSelected == author ? 1 : 0)
+                                .opacity(viewModel.model.authorSelected == author ? 1 : 0)
                             Text(author.fullName)
                                 .foregroundStyle(.text)
                         }

@@ -32,7 +32,7 @@ enum AppScreen: CaseIterable, Identifiable {
             CustomFilterFactory.makeView()
                 .tag(self.id)
         case .myCollection: 
-            MyCollectionFactory.makeView()
+            MyCollectionView()
                 .tag(self.id)
         case .account: 
             MyAccountView()

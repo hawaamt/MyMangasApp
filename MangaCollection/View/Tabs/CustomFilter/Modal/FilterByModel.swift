@@ -1,5 +1,5 @@
 //
-//  FilterBy.swift
+//  FilterByModel.swift
 //  MangaCollection
 //
 //  Created by Eva Gonzalez Ferreira on 23/8/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum FilterBy: CaseIterable, Identifiable, Hashable {
+enum FilterByModel: CaseIterable, Identifiable, Hashable {
     
     case genre(Genre?)
     case theme(Theme?)
@@ -44,7 +44,7 @@ enum FilterBy: CaseIterable, Identifiable, Hashable {
         }
     }
     
-    static func == (lhs: FilterBy, rhs: FilterBy) -> Bool {
+    static func == (lhs: FilterByModel, rhs: FilterByModel) -> Bool {
         lhs.id == rhs.id
     }
     
@@ -52,7 +52,7 @@ enum FilterBy: CaseIterable, Identifiable, Hashable {
         return hasher.combine(id)
     }
     
-    static var allCases: [FilterBy] {
+    static var allCases: [FilterByModel] {
         return [.genre(nil), .theme(nil), .demographic(nil), .author(nil), .beginWith(""), .contains(""), .id(""), .custom(CustomFilterModel.default)]
     }
 }

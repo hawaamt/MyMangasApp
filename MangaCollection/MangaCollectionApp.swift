@@ -10,7 +10,6 @@ import SwiftData
 
 @main
 struct MangaCollectionApp: App {
-    private var network = NetworkService.shared
     @State private var accessViewModel = AccessViewModel()
     
     var body: some Scene {

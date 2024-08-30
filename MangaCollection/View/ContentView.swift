@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Environment(\.modelContext) private var context
     @Environment(AccessViewModel.self) private var accessViewModel
     @Environment(\.horizontalSizeClass) private var horizontalSize
     
@@ -16,11 +17,18 @@ struct ContentView: View {
     
     @State var tabSelected: AppScreen = .home
     
+    private var localDataManager = LocalDataManager.shared
+
     private var isCompact: Bool { horizontalSize == .compact }
-    
+
     var body: some View {
         @Bindable var accessViewModel = accessViewModel
         content
+            .task {
+                if !accessViewModel.isNotLogged {
+                    localDataManager.syncLocalWithRemote(context: context)
+                }
+            }
             .fullScreenCover(isPresented: $accessViewModel.isNotLogged) {
                 homeViewModel.loadData()
             } content: {

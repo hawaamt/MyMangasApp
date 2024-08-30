@@ -20,7 +20,7 @@ class CustomFilterViewModel {
     var listIsFull: Bool = false
     var isShowingModal: Bool = false
     
-    var filterBy: FilterBy?
+    var filterBy: FilterByModel?
     
     private let interactorGeneric: MangaInteractorGeneric
     private let interactorFilter: MangaInteractorFilteredBy
@@ -30,7 +30,7 @@ class CustomFilterViewModel {
          interactorFilter: MangaInteractorFilteredBy) {
         self.interactorGeneric = interactorGeneric
         self.interactorFilter = interactorFilter
-        self.pagination = MangaPagination(page: 1, per: 100)
+        self.pagination = MangaPagination.default
         Task {
             await loadData()
         }
@@ -40,7 +40,6 @@ class CustomFilterViewModel {
         filterBy != nil
     }
     
-    @MainActor
     func loadData() async {
         async let mangas: Void = loadMangas()
         async let authors: Void = loadAuthors()
@@ -52,16 +51,14 @@ class CustomFilterViewModel {
     
     @MainActor
     func reloadData() async {
-        self.pagination = MangaPagination(page: 1, per: 100)
+        self.pagination = MangaPagination.default
         await loadData()
     }
     
-    func onAcceptFilter(_ filterBy: FilterBy?) {
+    func onAcceptFilter(_ filterBy: FilterByModel?) {
         self.filterBy = filterBy
         Task {
-            self.mangas = []
-            self.pagination = MangaPagination(page: 1, per: 100)
-            await loadMangas()
+            await reloadData()
         }
     }
 }

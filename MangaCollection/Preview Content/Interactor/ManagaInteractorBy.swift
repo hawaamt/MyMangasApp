@@ -23,7 +23,7 @@ struct MangaInteractorFilteredByMock: MangaInteractorFilteredBy {
         }
     }
     
-    func getMangaBy(_ filter: FilterBy, with pagination: MangaPagination) async throws -> MangaPaginated {
+    func getMangaBy(_ filter: FilterByModel, with pagination: MangaPagination) async throws -> MangaPaginated {
         try await Task.sleep(nanoseconds: 3_000_000_000)
         switch stateToTest {
         case .idle, .loading, .empty:

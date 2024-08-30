@@ -19,35 +19,8 @@ struct CustomFilterView: View {
                 switch viewModel.state {
                 case .idle, .loading:
                     MangaCellView.placeholder
-                        .modelContext(context)
                 case .loaded:
-                    List {
-                        ForEach(viewModel.mangas) { manga in
-                            NavigationLink(value: manga) {
-                                MangaCellView(manga: manga)
-                                    .modelContext(context)
-                            }
-                            .buttonStyle(.plain)
-                            .listRowBackground(Color(.background))
-                            .listRowSeparator(.hidden)
-                        }
-                        if !viewModel.listIsFull {
-                            ProgressView()
-                                .progressViewStyle(.circular)
-                                .onAppear {
-                                    Task {
-                                        await viewModel.loadData()
-                                    }
-                                }
-                        }
-                    }
-                    .refreshable {
-                        Task {
-                            await viewModel.reloadData()
-                        }
-                    }
-                    .listRowInsets(EdgeInsets())
-                    .listStyle(.plain)
+                    content
                 case .empty:
                     NoDataView()
                 case .error:
@@ -75,19 +48,23 @@ struct CustomFilterView: View {
                 }
             }
             .sheet(isPresented: $viewModel.isShowingModal) {
-                CustomFilterModalView(viewModel: CustomFilterModalViewModel(genres: viewModel.genres,
-                                                                            themes: viewModel.themes,
-                                                                            demographics: viewModel.demographics, 
-                                                                            filterBy: viewModel.filterBy, 
-                                                                            onAccept: { viewModel.onAcceptFilter($0) }),
-                                      isShowingModal: $viewModel.isShowingModal)
+                CustomFilterModalView(
+                    viewModel: CustomFilterModalViewModel(
+                        genres: viewModel.genres,
+                        themes: viewModel.themes,
+                        demographics: viewModel.demographics,
+                        filterBy: viewModel.filterBy,
+                        onAccept: { viewModel.onAcceptFilter($0) }
+                    ),
+                    isShowingModal: $viewModel.isShowingModal
+                )
             }
         }
     }
 }
 
 private extension CustomFilterView {
-    var mangas: some View {
+    var content: some View {
         List {
             ForEach(viewModel.mangas) { manga in
                 NavigationLink(value: manga) {
@@ -106,6 +83,11 @@ private extension CustomFilterView {
                             await viewModel.loadData()
                         }
                     }
+            }
+        }
+        .refreshable {
+            Task {
+                await viewModel.reloadData()
             }
         }
         .listRowInsets(EdgeInsets())

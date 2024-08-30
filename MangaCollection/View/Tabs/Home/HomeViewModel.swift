@@ -45,6 +45,7 @@ class HomeViewModel {
 
 // MARK: - Load data
 extension HomeViewModel {
+    
     @MainActor
     func loadBestMangas() async {
         do {
