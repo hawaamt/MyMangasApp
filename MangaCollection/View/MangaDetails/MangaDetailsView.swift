@@ -19,7 +19,7 @@ struct MangaDetailsView: View {
             content
         }
         .onAppear {
-            viewModel.checkMangaIsInMyCollection(in: context)
+            viewModel.getLocalCollection(in: context)
         }
         .listRowInsets(.none)
         .edgesIgnoringSafeArea(.top)
@@ -35,6 +35,7 @@ struct MangaDetailsView: View {
                 .buttonStyle(.borderedProminent)
                 .buttonBorderShape(.circle)
                 .tint(.accentColor)
+                .disabled(viewModel.isEditing)
             }
         }
         .toast(toastView: ToastView(text: viewModel.errorToast, type: .error, position: .bottom, show: $viewModel.showErrorToast),

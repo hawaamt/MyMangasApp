@@ -27,7 +27,8 @@ final class MangaDetailsViewModel {
         self.interactor = interactor
     }
     
-    func checkMangaIsInMyCollection(in context: ModelContext) {
+    @MainActor
+    func getLocalCollection(in context: ModelContext) {
         let predicate = #Predicate<CollectionItem> { item in
             item.manga.id == manga.id
         }
@@ -52,13 +53,27 @@ final class MangaDetailsViewModel {
                 let _ = try await interactor.addManga(mangaParams)
                 let collectionItem = try await interactor.getManga(by: self.manga.id)
                 context.insert(collectionItem)
-                checkMangaIsInMyCollection(in: context)
+                addMangaToMyCollection(in: context)
                 isEditing = false
             } catch {
-                print(error)
+                print("addToMyCollection \(error)")
                 isEditing = false
                 showErrorToast = true
             }
+        }
+    }
+    
+    @MainActor
+    private func addMangaToMyCollection(in context: ModelContext) {
+        let predicate = #Predicate<CollectionItem> { item in
+            item.manga.id == manga.id
+        }
+        let descriptor = FetchDescriptor(predicate: predicate)
+        do {
+            let data = try context.fetch(descriptor)
+            myMangaCollection = data.first
+        } catch {
+            print("addMangaToMyCollection \(error)")
         }
     }
     
@@ -71,7 +86,7 @@ final class MangaDetailsViewModel {
                 removeFromMyCollection(in: context)
                 isEditing = false
             } catch {
-                print(error)
+                print("deleteMyCollectionManga \(error)")
                 isEditing = false
                 showErrorToast = true
             }
@@ -94,7 +109,7 @@ final class MangaDetailsViewModel {
                 self.myMangaCollection?.completeCollection = isCompleted
                 isEditing = false
             } catch {
-                print(error)
+                print("saveEditing \(error)")
                 isEditing = false
                 showErrorToast = true
             }
@@ -109,8 +124,10 @@ final class MangaDetailsViewModel {
         let descriptor = FetchDescriptor(predicate: predicate)
         do {
             guard let data = try context.fetch(descriptor).first else { return }
+            self.myMangaCollection = nil
             context.delete(data)
-        } catch {}
-        checkMangaIsInMyCollection(in: context)
+        } catch {
+            print("removeFromMyCollection \(error)")
+        }
     }
 }
