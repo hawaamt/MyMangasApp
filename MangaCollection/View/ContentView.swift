@@ -13,22 +13,17 @@ struct ContentView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSize
     
     @State var homeViewModel: HomeViewModel = HomeViewModel()
+    @State var splashViewModel: SplashScreenViewModel = SplashScreenViewModel()
+    
     @State private var screen: AppScreen? = .home
     
     @State var tabSelected: AppScreen = .home
-    
-    private var localDataManager = LocalDataManager.shared
 
     private var isCompact: Bool { horizontalSize == .compact }
 
     var body: some View {
         @Bindable var accessViewModel = accessViewModel
         content
-            .task {
-                if !accessViewModel.isNotLogged {
-                    localDataManager.syncLocalWithRemote(context: context)
-                }
-            }
             .fullScreenCover(isPresented: $accessViewModel.isNotLogged) {
                 homeViewModel.loadData()
             } content: {
@@ -45,10 +40,15 @@ struct ContentView: View {
     
     @ViewBuilder
     private var content: some View {
-        if isCompact {
-            tabView
+        @Bindable var splashViewModel = splashViewModel
+        if splashViewModel.refreshabled {
+            if isCompact {
+                tabView
+            } else {
+                sidebarView
+            }
         } else {
-            sidebarView
+            SplashScreenView(viewModel: splashViewModel)
         }
     }
     

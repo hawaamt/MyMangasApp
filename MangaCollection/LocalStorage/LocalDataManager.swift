@@ -19,14 +19,12 @@ class LocalDataManager {
     }
     
     @MainActor
-    func syncLocalWithRemote(context: ModelContext) {
-        Task {
-            do {
-                let remoteItems = try await interactor.getMangas()
-                syncData(remoteItems: remoteItems, context: context)
-            } catch {
-                print(error)
-            }
+    func syncLocalWithRemote(context: ModelContext) async {
+        do {
+            let remoteItems = try await interactor.getMangas()
+            syncData(remoteItems: remoteItems, context: context)
+        } catch {
+            print(error)
         }
     }
 
@@ -64,17 +62,7 @@ class LocalDataManager {
                     localItem.readingVolume = item.readingVolume
                     localItem.volumesOwned = item.volumesOwned
                     localItem.completeCollection = item.completeCollection
-                    do {
-                        try context.save()
-                    } catch {
-                        print("Error on update \(error)")
-                    }
                 }
-            }
-            do {
-                try context.save()
-            } catch {
-                print("Error on save \(error)")
             }
         } catch {
             print("Error on get local items \(error)")
