@@ -17,6 +17,7 @@ struct SplashScreenView: View {
         ZStack {
             Image(.launchscreen)
                 .resizable()
+                .aspectRatio(contentMode: .fill)
             ProgressView()
                 .progressViewStyle(.circular)
         }
@@ -24,7 +25,7 @@ struct SplashScreenView: View {
             viewModel.syncLocalWithRemote(in: context)
         }
         .ignoresSafeArea()
-    }    
+    }
 }
 
 #Preview {
